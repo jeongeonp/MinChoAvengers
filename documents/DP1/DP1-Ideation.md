@@ -1,5 +1,5 @@
 # DP1 - Ideation
-Final Team name: **MinCho Avengers** <br>
+Final Team name: <span style="color:#3eb489;">**MinCho Avengers**</span> <br>
 Team members: Mina Huh, Juhoon Lee, Hyunchang Oh, Jeongeon Park
 
 -----
@@ -11,7 +11,7 @@ In online lectures/meetings, being late or losing track of the content **heavily
 
 
 ## Motivation
-
+In remote settings, it is especially difficult for participants to ask for clarification or summarization as the social pressure is often against disrupting the flow of the session. Though many automated models for online lecture/meeting summarization already exist [deepTalk], they mostly rely on voice transcription or text recognition and have very limited performance, especially with difficult words, jargons, proper nouns, and accents, which are all prevalent in lectures. Most importantly, they lack the flow and context that is beneficial to content comprehension in a limited time setting. Expert help is also inefficient due to the large responsibility given onto one person and varying quality based on the individual. Social computing is highly suitable for increasing efficiency during real-time lectures where time is crucial. It reduces the individual burden and bolsters summary quality through consistent cross-validation.
 
 -----
 
@@ -49,9 +49,9 @@ In online lectures/meetings, being late or losing track of the content **heavily
 
 ## Solution ideas
 ### Top 3 solution ideas
-1. Create a **premade structure for the summary** that participants simply fill with content
-2. Instead of watching the real-time lecture and the previous slides that were missed at the same time, latecomers can **quickly catch up the progress** after **looking at highlights** shown in fast speed
-3. Lecturers and presenters can **manage questions at a glance** in reference to the lecture summary, and may also **view how well people are following the content**
+* Create a **premade structure for the summary** that participants simply fill with content
+* Instead of watching the real-time lecture and the previous slides that were missed at the same time, latecomers can **quickly catch up the progress** after **looking at highlights** shown in fast speed
+* Lecturers and presenters can **manage questions at a glance** in reference to the lecture summary, and may also **view how well people are following the content**
 
 ### How we chose the solution ideas
 * After all members rated the HMW questions on a scale of 0-3, the solutions with highest sums were analyzed and discussed.
@@ -97,11 +97,12 @@ In online lectures/meetings, being late or losing track of the content **heavily
 ## Storyboards
 ### Solution 1
 > Create a **premade structure for the summary** that participants simply fill with content.
-<img src="https://github.com/jeongeon-park/MinChoAvengers/tree/master/documents/DP1/Storyboard_1.JPG?raw=true"/>
+<img src="https://github.com/jeongeon-park/MinChoAvengers/blob/master/documents/DP1/Storyboard_1.JPG"/>
 
 ### Solution 2
 > Instead of watching the real-time lecture and the previous slides that were missed at the same time, latecomers can **quickly catch up the progress** after **looking at highlights** shown in fast speed.
-
+<img src="https://github.com/jeongeon-park/MinChoAvengers/blob/master/documents/DP1/Storyboard_2.jpg"/>
 
 ### Solution 3
 > Lecturers and presenters can **manage questions at a glance** in reference to the lecture summary, and may also **view how well people are following the content**.
+
