@@ -15,12 +15,13 @@ In online lectures/meetings, being late or losing track of the content **heavily
 
 -----
 
-## Top 3 HMW questions
+## HMW questions
+### Top 3 HMW questions
 * HMW incentivize users to participate in 'summary-crowdsourcing'?
 * HMW keep the resultant supplementary material at an adequate level of factual detail?
 * HMW ensure that participating in the task does not deter from listening to and understanding the ongoing content?
 
-## How we chose the HMW questions
+### How we chose the HMW questions
 * After individually rating all the HMW questions on a scale of 0-3, those with highest sums (>=5) were picked.
 * We then organized them into categories, resulting in following groups - Motivation, Quality, Structure, Communication, User/Prevention/Ease of use.
 * Among these criterias, we selected three HMW questions from the following groups after discussing their importance - Motivation, Quality, and User/Prevention/Ease of use.
@@ -46,17 +47,18 @@ In online lectures/meetings, being late or losing track of the content **heavily
 
 -----
 
-## Top 3 solution ideas
+## Solution ideas
+### Top 3 solution ideas
 1. Create a **premade structure for the summary** that participants simply fill with content
 2. Instead of watching the real-time lecture and the previous slides that were missed at the same time, latecomers can **quickly catch up the progress** after **looking at highlights** shown in fast speed
 3. Lecturers and presenters can **manage questions at a glance** in reference to the lecture summary, and may also **view how well people are following the content**
 
-## How we chose the solution ideas
+### How we chose the solution ideas
 * After all members rated the HMW questions on a scale of 0-3, the solutions with highest sums were analyzed and discussed.
 * We aimed to choose solutions that are not too broad nor not too narrow.
 * Feasibility was also taken into account for the selection.
 
-## Other Solution ideas
+### Other Solution ideas
 #### Solution ideas to *HMW incentivize users to participate in 'summary-crowdsourcing'?*
 * On demand summary - if HELP sign blinks, students answer
 * Participation score
