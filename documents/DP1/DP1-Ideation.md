@@ -1,5 +1,5 @@
 # DP1 - Ideation
-Final Team name: **MinCho Avengers** \ 
+Final Team name: **MinCho Avengers** <br>
 Team members: Mina Huh, Juhoon Lee, Hyunchang Oh, Jeongeon Park
 
 -----
