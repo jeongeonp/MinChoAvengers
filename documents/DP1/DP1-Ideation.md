@@ -57,7 +57,7 @@ In online lectures/meetings, being late or losing track of the content **heavily
 * Feasibility was also taken into account for the selection.
 
 ## Other Solution ideas
-### Solution ideas to *HMW incentivize users to participate in 'summary-crowdsourcing'?*
+#### Solution ideas to *HMW incentivize users to participate in 'summary-crowdsourcing'?*
 * On demand summary - if HELP sign blinks, students answer
 * Participation score
 * Upvotes/downvotes
@@ -69,7 +69,7 @@ In online lectures/meetings, being late or losing track of the content **heavily
 * Simplified tasks
 * Advertise correlation between participation and higher scores in courses
 
-### Solution ideas to *HMW keep the resultant supplementary material at an adequate level of factual detail?*
+#### Solution ideas to *HMW keep the resultant supplementary material at an adequate level of factual detail?*
 * Put a character/sentence limit on each point
 * Put a time limit on how much each person can contribute
 * Paraphrase function
@@ -81,7 +81,7 @@ In online lectures/meetings, being late or losing track of the content **heavily
 * Build a search system
 * Credits for removing incorrect/inappropriate
 
-### Solution ideas to *HMW ensure that participating in the task does not deter from understanding the real-time content?*
+#### Solution ideas to *HMW ensure that participating in the task does not deter from understanding the real-time content?*
 * Split screen or keep a modal so that students can write the summary while listening to the lecture
 * Rewind and changing play speed feature
 * Pop-up screen to quickly record the contents professor mentioned in a given time
