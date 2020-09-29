@@ -1,5 +1,5 @@
 # DP1 - Ideation
-Final Team name: MinCho Avengers 
+Final Team name: **MinCho Avengers**\ 
 Team members: Mina Huh, Juhoon Lee, Hyunchang Oh, Jeongeon Park
 
 -----
@@ -46,7 +46,7 @@ During online lectures/meetings, once you get distracted from the lectures/meeti
 -----
 
 ## Solution ideas for the HMW questions
-### Solution ideas to **HMW incentivize users to participate in ‘summary-crowdsourcing’?**
+### Solution ideas to *HMW incentivize users to participate in ‘summary-crowdsourcing’?*
 * Not a solution but a question to ask first: do we need incentives to make people answer? Will they not do it voluntarily?
 * On demand summary providing..? If HELP sign blinks, I would want to help by answering.
 * Participation score - If the lecturer wants to, they can give extra credit?
@@ -59,7 +59,7 @@ During online lectures/meetings, once you get distracted from the lectures/meeti
 * If we make the task simple enough, at least some people will participate? Is my guess? - Random thought, but I think we should keep this simple so that only the crowd can collaboratively come up with the solution without having a moderator of some sort..
 * People that participated actively in making the document got higher scores! (advertise) / more like people that will get high scores will have participated actively
 
-### Solution ideas to **HMW keep the resultant supplementary material in adequate level of factual details?**
+### Solution ideas to *HMW keep the resultant supplementary material in adequate level of factual details?*
 * Put a character limit on each point (or sentence limit!)
 * Put a time limit on how much each person can contribute → also could be a solution to the third HMW
 * Paraphrase function
@@ -73,7 +73,7 @@ During online lectures/meetings, once you get distracted from the lectures/meeti
 * Build a search system on the summary.
 * Credits for Removing Contents!
 
-### Solution ideas to **HMW ensure that participating in the task does not deter from understanding the real-time content?**
+### Solution ideas to *HMW ensure that participating in the task does not deter from understanding the real-time content?*
 * Split screen/modal
 * Rewind feature / 배속 feature
 * Maybe we don’t have to make users do multitasking - instead of parallelizing, we can give summary first and control speed(fast) until one reaches the current timestamp 
