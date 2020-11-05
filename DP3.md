@@ -13,12 +13,12 @@ In real-time online lectures, being late or losing track of the content **heavil
 
 ## Tasks
 
- 1. **Use the flag buttons** to generate the lecture timeline, twice.
+ 1. **Use the flag button** to generate the lecture timeline, twice.
  2. **Post a question** using the “Notice” flag, and check your answer later and resolve it.
  3. **Answer the question** in the “Chapter” flag and questions assigned to you via MinChat.
 
 ## Prototype
-[Go to the Prototype](https://www.figma.com/proto/JHYZayKschscpM5sQty0GX/CS473-DP3-Low-fi?node-id=133%3A643&scaling=min-zoom)
+Prototype Link: [Go to the Prototype](https://www.figma.com/proto/JHYZayKschscpM5sQty0GX/CS473-DP3-Low-fi?node-id=133%3A643&scaling=min-zoom)
 
 ### Prototyping Tool: **Figma**
 
