@@ -1,8 +1,8 @@
 # DP3 - Low-Fi Prototype
 
-Team Name: MinCho Avengers <br> Team Members: Mina Huh, Juhoon Lee, Hyunchang Oh, Jeongeon Park
-
-2020 Fall, CS473 Intro to Social Computing KAIST
+Team Name: MinCho Avengers 
+<br> Team Members: Mina Huh, Juhoon Lee, Hyunchang Oh, Jeongeon Park
+<br> 2020 Fall, CS473 Intro to Social Computing KAIST
 
 -----
 ## Problem Statement
@@ -80,55 +80,55 @@ For the “answer the questions assigned to you via MinChat” part in task 3, p
  <br> *Solution*: Full implementation of thumbnails-on-hover will help the user know which content each flag leads to.
 
  2.  **Worried that as time passes, the flags will clump together and be hard to distinguish (P1)**
-    *Overall Criticality*: High
-    *Solution*: Color-code the flags to make it more easily distinguishable by content
+    <br> *Overall Criticality*: High
+    <br> *Solution*: Color-code the flags to make it more easily distinguishable by content
 
  3.  **Was unable to distinguish between the chatroom and the Catch Up Mode (P4, P5)**
-    *Overall Criticality*: Medium
-    *Solution*: Have separate sections for the two chats or have tabs to switch between the two modes.
+    <br> *Overall Criticality*: Medium
+    <br> *Solution*: Have separate sections for the two chats or have tabs to switch between the two modes.
 
  4.  **Did not like how the mic/camera/flag buttons were covering parts of the screen (P4)**
-    *Overall Criticality*: Low
-    *Solution*: Move the taskbar below or above the video to not cover the screen
+    <br> *Overall Criticality*: Low
+    <br> *Solution*: Move the taskbar below or above the video to not cover the screen
 
  5.  **Thought flags would be draggable and be able to be placed anywhere on the timeline (P3)**
-    *Overall Criticality*: Low
-    *Solution*: Make the flags look more like clickable buttons and make sure they don’t look draggable to the timeline.
+    <br> *Overall Criticality*: Low
+    <br> *Solution*: Make the flags look more like clickable buttons and make sure they don’t look draggable to the timeline.
 
  6.  **Was confused whether dragging on the lecture timeline shows the video clip or the screenshot of the lecture material (P4)**
-    *Overall Criticality*: Low
-    *Solution*: On actual lecture, the screen will only show the lecture material (shown by screen-share in Zoom).
+    <br> *Overall Criticality*: Low
+    <br> *Solution*: On actual lecture, the screen will only show the lecture material (shown by screen-share in Zoom).
     
 #### Unclear System Operations
 
  7.  **Did not understand how assigned question works (P1)**
-    *Overall Criticality*: Medium
-    *Solution:* Add additional explanations on the question. For example, “Someone in the class has asked, ‘what was the notice about?’” Also, provide an information button that says “Why do I see this?” on hover, and shows how the assignment works on click.
+    <br> *Overall Criticality*: Medium
+    <br> *Solution:* Add additional explanations on the question. For example, “Someone in the class has asked, ‘what was the notice about?’” Also, provide an information button that says “Why do I see this?” on hover, and shows how the assignment works on click.
 
  8.  **Did not understand how the flags were going to get aggregated (P3)**
-    *Overall Criticality*: Medium
-    *Solution*: Explain briefly on how aggregation works and show examples.
+    <br> *Overall Criticality*: Medium
+    <br> *Solution*: Explain briefly on how aggregation works and show examples.
 
  9.  **Did not understand the function of Upvote/Downvote (P4)**
-    *Overall Criticality*: Low
-    Solution: Explain how upvote works as a sign of agreement. Remove the downvote function to simplify the system.
+    <br> *Overall Criticality*: Low
+    <br> Solution: Explain how upvote works as a sign of agreement. Remove the downvote function to simplify the system.
 
 #### Distraction
 
 10.  **Distracted by the notification of assigned question (P1)**
-    *Overall Criticality*: Medium
-    *Solution*: Find the right timing to send out the notifications.
+    <br> *Overall Criticality*: Medium
+    <br> *Solution*: Find the right timing to send out the notifications.
 
 11.  **Mentally bothered by the numbers(questions) marked on the flag (P1, P5)**
-    *Overall Criticality*: Medium
-    *Solution*: Allow users to set the setting of whether to show the numbers.
+    <br> *Overall Criticality*: Medium
+    <br> *Solution*: Allow users to set the setting of whether to show the numbers.
 
 #### Unclear Purported User
 
 12.  **Thought that the questions are only to be answered by the lecturer at first (P1)**
-    *Overall Criticality*: High
-    Solution: Make it clear with a simple instruction on top of chat or other visual cues (e.g. chat box flashing) to direct the questions to the user
+    <br> *Overall Criticality*: High
+    <br> *Solution*: Make it clear with a simple instruction on top of chat or other visual cues (e.g. chat box flashing) to direct the questions to the user
 
 13.  **Was confused who performed what roles (who does the flags, who upvotes, etc.) (P3, P4, P5)**
     *Overall Criticality*: High
-    Solution: Seeing that the buttons responsible for the roles are all interactable on a single screen will help resolve the issue. Dividing the tasks into separate workflows could have resulted in such a confusion.
+    <br> *Solution*: Seeing that the buttons responsible for the roles are all interactable on a single screen will help resolve the issue. Dividing the tasks into separate workflows could have resulted in such a confusion.
