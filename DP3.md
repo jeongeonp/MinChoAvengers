@@ -78,6 +78,7 @@ For the “answer the questions assigned to you via MinChat” part in task 3, p
 #### Confusion from the UI
 
  1. **Was confused on which flags direct to which content (P1)**
+
  *Overall Criticality*: High
  *Solution*: Full implementation of thumbnails-on-hover will help the user know which content each flag leads to.
 
