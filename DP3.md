@@ -1,8 +1,6 @@
 # DP3 - Low-Fi Prototype
 
-Team Name: MinCho Avengers
-
-Team Members: Mina Huh, Juhoon Lee, Hyunchang Oh, Jeongeon Park
+Team Name: MinCho Avengers <b> Team Members: Mina Huh, Juhoon Lee, Hyunchang Oh, Jeongeon Park
 
 2020 Fall, CS473 Intro to Social Computing KAIST
 
@@ -78,9 +76,8 @@ For the “answer the questions assigned to you via MinChat” part in task 3, p
 #### Confusion from the UI
 
  1. **Was confused on which flags direct to which content (P1)**
-
- *Overall Criticality*: High
- *Solution*: Full implementation of thumbnails-on-hover will help the user know which content each flag leads to.
+ <b> *Overall Criticality*: High
+ <b> *Solution*: Full implementation of thumbnails-on-hover will help the user know which content each flag leads to.
 
  2.  **Worried that as time passes, the flags will clump together and be hard to distinguish (P1)**
     *Overall Criticality*: High
