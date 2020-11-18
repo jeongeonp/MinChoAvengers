@@ -21,26 +21,27 @@
   display: flex;
 }
 
-.split-left {
-  width: 70%;
+.split {
+  width: 100%;
   height: 100%;
   margin-left: 2%;
   margin-top: 2%;
   overflow-x: hidden;
   overflow-y: hidden;
+}
+
+.left-wrapper{
   left: 0;
-}
-.split-right {
-  width: 30%;
-  height: 100%;
-  margin-right: 2%;
-  margin-top: 2%;
-  overflow-x: hidden;
   overflow-y: hidden;
-  right: 0;
 }
+.right-wrapper{
+  right: 0;
+  overflow-y: hidden;
+}
+
 .main-video {
   /* top: 10%; */
+  margin-left: 5%;
   width: 90%;
   height: 70%;
   

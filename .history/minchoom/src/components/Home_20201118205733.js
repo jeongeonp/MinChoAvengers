@@ -66,7 +66,7 @@ class Home extends Component {
                     </div>  
                 </div>
                 <div className="main-page">
-                <div className="split-left"  tabIndex="1">
+                <div className="split left-wrapper"  tabIndex="1">
                     <div className="main-video">
                     <ReactPlayer ref={this.ref} playing={playing}
                     playbackRate={playbackRate} id="video"  width="100%" height="100%" controls url = {'https://www.youtube.com/watch?v=rj_YjNakQ5k'} onPause={this._onPause}
@@ -78,7 +78,7 @@ class Home extends Component {
                     </ReactPlayer>
                     </div>
                 </div>
-                <div className="split-right" >
+                <div className=" right-wrapper" >
                     <Chat>
 
                     </Chat>
