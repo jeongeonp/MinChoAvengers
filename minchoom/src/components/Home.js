@@ -22,9 +22,11 @@ class Home extends Component {
     }
 
     sendData = () => {
+        const sampleString = "Sent at " + new Date() + "- last dummy data from firebase."
+        const sampleDict = {text: "Sent at " + new Date() + "- last dummy data from firebase."}
         return fetch( `${databaseURL+'/dummyData'}/.json`, {
-            method: 'POST',
-            body: JSON.stringify("Sent at " + new Date() + "- last dummy data from firebase.")
+            method: 'PATCH',
+            body: JSON.stringify(sampleDict)
         }).then(res => {
             if (res.status !== 200) {
                 throw new Error(res.statusText);
@@ -43,8 +45,9 @@ class Home extends Component {
             return res.json();
         }).then(res => {
             const keys = Object.keys(res)
+            console.log(res)
             this.setState({
-                dummyData: res[keys[keys.length-1]],
+                dummyData: res["text"],
             })
         })
     }
