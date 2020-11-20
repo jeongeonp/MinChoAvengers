@@ -5,7 +5,7 @@ Repository for Design Project of CS473, KAIST, 2020 Fall
 Human-computer interaction no longer only concerns a single user in front of their computer. An increasing number of modern systems are inherently social, involving a large group of users to collaborate, discuss, ideate, solve problems, and make decisions together via social interaction. This course focuses on crowdsourcing and social computing, two of the most important concepts in the era of interaction at scale. This course will cover major design issues and computational techniques in building crowdsourcing and social computing systems. [Course Website](https://www.kixlab.org/courses/cs473-fall-2020/index.html)
 
 ## About the Design Project
-Following a [user-centered design process](https://www.kixlab.org/courses/cs473-fall-2020/design-project.html), you’ll build an interactive prototype through a semester-long team project.
+Following a [user-centered design process](https://www.kixlab.org/courses/cs473-fall-2020/design-project.html), the students form teams to build an interactive prototype through a semester-long team project.
 
 ### Our system - Minchoom
 The system aims to support **late or distracted users** who are often **heavily penalized** due to the characteristics of real-time online lectures by helping them to easily catch up with the context.  
