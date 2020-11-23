@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactPlayer from 'react-player'
 import { Header, Input, Form, Button, Progress, Dimmer, Loader } from 'semantic-ui-react';
 import '../App.css';
-import logo from'../minchoom-logo.png';
+import logo from'../images/KatchUp.png';
 import Chat from './Chat';
 import Modal from './Modal';
 
@@ -60,12 +60,8 @@ class Home extends Component {
             <div className="Home">
                 <div className="header-bar">
                     <div className="header-title">
-                        <img src={logo} alt="fireSpot"/>
-                    {/*
-                    <Header as="h1">
-                        Minchoom 🌿
-                    </Header>
-                    */}
+                        <img src={logo} height="50" alt="fireSpot"/>
+
                     </div>  
                 </div>
                 <div className="main-page">
