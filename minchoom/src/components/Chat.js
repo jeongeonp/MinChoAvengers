@@ -3,19 +3,19 @@ import '../App.css';
 import ketchup from '../ketchup.png';
 import mustard from "../mustard.png";
 
-import firebase from 'firebase/app';
-import 'firebase/database';
+// import firebase from 'firebase/app';
+// import 'firebase/database';
 
-firebase.initializeApp({
-  apiKey: "AIzaSyAbSi5-Zo17vSZzCTEM3N0_LigxJ-FP_1g",
-  authDomain: "minchoom-cs473.firebaseapp.com",
-  databaseURL: "https://minchoom-cs473.firebaseio.com",
-  projectId: "minchoom-cs473",
-  storageBucket: "minchoom-cs473.appspot.com",
-  messagingSenderId: "408648982373",
-  appId: "1:408648982373:web:4fa501aa75ec79501b0b8c",
-  measurementId: "G-Y0J1GG0TE2"
-});
+// firebase.initializeApp({
+//   apiKey: "AIzaSyAbSi5-Zo17vSZzCTEM3N0_LigxJ-FP_1g",
+//   authDomain: "minchoom-cs473.firebaseapp.com",
+//   databaseURL: "https://minchoom-cs473.firebaseio.com",
+//   projectId: "minchoom-cs473",
+//   storageBucket: "minchoom-cs473.appspot.com",
+//   messagingSenderId: "408648982373",
+//   appId: "1:408648982373:web:4fa501aa75ec79501b0b8c",
+//   measurementId: "G-Y0J1GG0TE2"
+// });
 
 const databaseURL = "https://minchoom-cs473.firebaseio.com"
 
@@ -34,12 +34,12 @@ export default class Chat extends React.Component {
 
   componentDidMount() {
     this.getData();
-    firebase
-      .database()
-      .ref("/chatroom")
-      .on("value", snapshot =>
-        this.getData
-      );
+    // firebase
+    //   .database()
+    //   .ref("/chatroom")
+    //   .on("value", snapshot =>
+    //     this.getData
+    //   );
   }
 
   sendData = (dataDict) => {
@@ -98,7 +98,7 @@ export default class Chat extends React.Component {
     return (
             <chat>
               <div class="tab">
-                <button class="tablinks">MinChat</button>
+                <button class="tablinks">Chatroom</button>
                 <button class="tablinks">Catch Up</button>
               </div>
               <main>
@@ -120,7 +120,7 @@ export default class Chat extends React.Component {
           
               <form onSubmit={sendMessage}>
                   
-                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} placeholder="Ask your question!" />
+                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} placeholder=" Type in anything!" />
             
                   <button type="submit" disabled={!formValue}>🕊️</button>
             

@@ -39,7 +39,7 @@
   overflow-y: hidden;
   right: 0;
   border-style: solid;
-  border-color: #edcc24;
+  border-color: #ffc857;
   border-width: 7px;
 }
 .main-video {
@@ -107,7 +107,7 @@ main::-webkit-scrollbar-track {
 }
 
 main::-webkit-scrollbar-thumb {
-  background:red;
+  background:#ff6666;
 }
 
 form {
@@ -121,16 +121,17 @@ form {
 
 form button {
   width: 20%;
-  background-color: lightcoral;
+  background-color: #fc6666;
 }
 
 
 textarea {
   line-height: 1.5;
   width: 100%;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
-  background: beige;
+  background: #fceed2;
+  opacity: 0.9;
   color: black;
   outline: none;
   border: none;
@@ -141,7 +142,8 @@ textarea {
 button {
   background-color: #282c34; /* Green */
   border: none;
-  color: white;
+  color: black;
+  font-weight: bold;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -151,7 +153,8 @@ button {
 }
 
 button:disabled {
-  opacity: 0.5;
+  background-color: #fceed2;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
@@ -182,14 +185,14 @@ p {
 }
 
 .sent p {
-  color: white;
-  background: red;
+  color: black;
+  background: #ff6666;
   align-self: flex-end;
   text-align: justify;
   margin-left: 80px;
 }
 .received p {
-  background: yellow;
+  background: #ffc857;
   color: black;
   text-align: justify;
   margin-right: 80px;
@@ -205,16 +208,16 @@ img {
 /* Style the tab */
 .tab {
   overflow: hidden;
-  background-color: #edcc24;
+  background-color: #ffc857;
   width: auto;
 }
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
-  background-color: inherit;
+  background-color: #ffc857;
   float: center;
   border: none;
-  outline: none;
+  outline: 2px solid #ff6666;
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
@@ -223,7 +226,7 @@ img {
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-  background-color: #efee10;
+  background-color: #ff6666;
 }
 
 /* Create an active/current tablink class */
