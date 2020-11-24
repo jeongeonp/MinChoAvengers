@@ -4,7 +4,9 @@ import { Header, Input, Form, Button, Progress, Dimmer, Loader } from 'semantic-
 import '../App.css';
 import logo from'../images/KatchUp.png';
 import Chat from './Chat';
+import Catchup from './Catchup';
 import Modal from './Modal';
+
 
 const databaseURL = "https://minchoom-cs473.firebaseio.com/";
 
@@ -78,9 +80,9 @@ class Home extends Component {
                     </div>
                 </div>
                 <div className="split-right" >
-                    <Chat>
+                    <Catchup>
 
-                    </Chat>
+                    </Catchup>
                     {/* <button type="button" onClick={sendData}>Send dummy data to database</button> <br/> <br/>
                     <button type="button" onClick={getData}>Get dummy data from database</button> <br/> <br/>
                     { dummyData 
