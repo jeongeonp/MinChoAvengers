@@ -85,14 +85,14 @@ class Home extends Component {
                     <Chat>
 
                     </Chat>
-                    <button type="button" onClick={sendData}>Send dummy data to database</button> <br/> <br/>
+                    {/* <button type="button" onClick={sendData}>Send dummy data to database</button> <br/> <br/>
                     <button type="button" onClick={getData}>Get dummy data from database</button> <br/> <br/>
                     { dummyData 
                         ?
                         <span style={{border: "2px solid blue", padding: "3px", margin: "3px"}}>{dummyData}</span>
                         :
                         <span> no data yet</span>
-                    }
+                    } */}
                 </div>
                 </div>
                 <Modal open={true}></Modal>
