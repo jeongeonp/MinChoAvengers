@@ -33,7 +33,7 @@ The **documents** folder is where the reports and the presentation slides are, a
 Inside the **minchoom** folder, the components are divided in the **src/components** directory.
 * [Home.js](./minchoom/src/components/Home.js): Main JavaScript file where all the components are linked to
 * [Chat.js](./minchoom/src/components/Chat.js): Chatroom of the system
-* 여기 추가해야 함!
+* [Timeline.js](./minchoom/src/components/Timeline.js): The timeline of the real-time lecture with crowd-generated flags
 
 ### How to run?
 You can see our system [here](https://minchoom-cs473.web.app/).  
