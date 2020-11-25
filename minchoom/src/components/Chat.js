@@ -96,15 +96,16 @@ export default class Chat extends React.Component {
     return minutes + ":" + seconds;
   }
 
+
   keyPress = e => {
-    if(e.key == "Enter" && e.shiftKey == false) {
+    if(e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
-      this.myFormRef.submit();
+      this.sendMessage();
     }
   }
 
   sendMessage = async (e) => {
-    e.preventDefault();
+    //e.preventDefault();
 
     this.sendData(
         {
@@ -123,7 +124,7 @@ export default class Chat extends React.Component {
   render() {
     const { videoTime } = this.props;
     const { messages, formValue, sessionId } = this.state;
-    const { sendMessage, keyPress } = this;
+    const { sendMessage, keyPress, handleSubmit } = this;
     return (
             <chat>
               <main>
@@ -145,13 +146,10 @@ export default class Chat extends React.Component {
               
               </main>
           
-              <form onSubmit={sendMessage} ref={el => this.myFormRef = el}>
-                  
-                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})}  placeholder=" Type in anything!" />
-            
-                  <button type="submit" disabled={!formValue} onKeyDown={keyPress}>🕊️</button>
-            
+              <form ref={el => this.myFormRef = el}>
+                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder=" Type in anything!" />
+                  <button type="submit" disabled={!formValue} onClick={sendMessage} >🕊️</button>
                 </form>
           </chat>)
-          }
+    }
 };
