@@ -37,12 +37,7 @@ export default class Chat extends React.Component {
 
   componentDidMount() {
     this.getChatData();
-    // firebase
-    //   .database()
-    //   .ref("/chatroom")
-    //   .on("value", snapshot =>
-    //     this.getChatData
-    //   );
+    this.scrollToBottom();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -119,6 +114,10 @@ export default class Chat extends React.Component {
     //dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
 
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+
 
   render() {
     const { videoTime } = this.props;
@@ -127,22 +126,23 @@ export default class Chat extends React.Component {
     return (
             <chat>
               <main>
-                <div>{messages 
-                ?
-                messages.map(msg => { return (
-                <>
-                <div className={`message ${this.state.sessionId === msg[1] ? 'sent' : 'received'}`}>
-                  <img src={profile} />
-                  <p>{msg[2]}</p>
-                  <span style={{color: 'grey', padding: '4px 7px 0 7px'}}>{this.formatTime(msg[0])}</span>
+                <div>
+                  {messages 
+                  ?
+                  messages.map(msg => { return (
+                  <>
+                    <div className={`message ${this.state.sessionId === msg[1] ? 'sent' : 'received'}`}>
+                      <img src={profile} />
+                      <p>{msg[2]}</p>
+                      <span style={{color: 'grey', padding: '4px 7px 0 7px'}}>{this.formatTime(msg[0])}</span>
+                    </div>
+                  </>
+                  )})
+                  :
+                  <div>no messages</div>  
+                  }
+                  <div style={{ float:"left", clear: "both" }} ref={(el) => { this.messagesEnd = el; }}/>
                 </div>
-                </>
-                )})
-                :
-                <div>no messages</div>  
-                }</div>
-
-              
               </main>
           
               <form onSubmit={sendMessage} ref={el => this.myFormRef = el}>

@@ -25,12 +25,6 @@ export default class Catchup extends React.Component {
 
   componentDidMount() {
     this.getChatData();
-    // firebase
-    //   .database()
-    //   .ref("/catchup")
-    //   .on("value", snapshot =>
-    //     this.getData
-    //   );
   }
 
   componentDidUpdate(prevProps, prevState) {
