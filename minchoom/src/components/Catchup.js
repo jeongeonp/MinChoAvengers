@@ -108,6 +108,7 @@ export default class Catchup extends React.Component {
                 questions.map(q => { return(
                 <>
                 <div className='question'>
+                {/* This is where the screenshot image goes */}
                   <img className='questionImg' src={lecture} />
                   <div className="q">Q. {q[4]}</div>
                 </div></>)})
