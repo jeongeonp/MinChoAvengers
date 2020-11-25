@@ -10,10 +10,11 @@ const db = ['/questions', '/answers']
 
 function flagToImg(flagTime) {
   const slide_timestamps = [0, 42, 60, 220, 420, 600, 715, 732, 960, 985, 1153, 1333, 1520, 1680, 1860, 1950, 1990, 2100, 2270, 2460];
-  var i = 0;
-  while(slide_timestamps[++i] < flagTime);
-  console.log("closest is ", slide_timestamps[--i]);
-  return i;
+  var closest = slide_timestamps.reduce(function(prev, curr) {
+    return ((curr >= flagTime && flagTime > prev) ? curr : prev);
+  })      
+  console.log("closest is ", closest);
+  return slide_timestamps.indexOf(closest);
 }
 
 export default class Catchup extends React.Component {
@@ -141,7 +142,7 @@ export default class Catchup extends React.Component {
                     Notice    
                 </div>
                 {/* This is where the screenshot image goes */}
-                <img className='questionImg' src={`../../public/cs231n_2017_lecture16-${imgIndex+1}.png`}  />
+                <img className='questionImg' src={`../../public/cs231n_2017_lecture16-${}.png`}  />
                 <div>{questions.filter((q) => q.flagId == this.props.flagId)
                     ?
                     questions.filter((q) => q.flagId == this.props.flagId).map(q => { return(

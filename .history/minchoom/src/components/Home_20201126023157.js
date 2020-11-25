@@ -172,7 +172,6 @@ class Home extends Component {
 
     flagClickHandler(info){
         //here
-        
         console.log("Flag info is", info);
         this.handleTab('2')
         this.setState({
@@ -181,7 +180,6 @@ class Home extends Component {
             tempSessionId: info[3],
             tempTime: info[1],
         })
-
     }
 
 
@@ -218,7 +216,7 @@ class Home extends Component {
                 <Row className="split-left"  tabIndex="1">
                     <Row className="main-video">
                         <ReactPlayer ref={this.ref} playing={playing}
-                            playbackRate={playbackRate} id="video"  width="100%" height="100%" controls url = {'https://www.youtube.com/watch?v=CIfsB_EYsVI'} onPause={this._onPause}
+                            playbackRate={playbackRate} id="video"  width="100%" height="100%" controls url = {'https://www.youtube.com/watch?v=jGwO_UgTS7I'} onPause={this._onPause}
                             onPlay={this._onPlay}
                             onReady={this._onReady}
                             onProgress={this.handleProgress}
@@ -273,7 +271,7 @@ class Home extends Component {
                                 flagId={tempFlagId}
                                 flagLabel={tempFlagLabel}
                                 sessionId={tempSessionId}
-                                flagTime={tempTime}
+                                //time={tempTime}
                             />
                         </Typography>
                     </div>

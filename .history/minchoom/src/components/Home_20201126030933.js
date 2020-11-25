@@ -172,7 +172,6 @@ class Home extends Component {
 
     flagClickHandler(info){
         //here
-        
         console.log("Flag info is", info);
         this.handleTab('2')
         this.setState({
@@ -181,7 +180,6 @@ class Home extends Component {
             tempSessionId: info[3],
             tempTime: info[1],
         })
-
     }
 
 
@@ -273,7 +271,7 @@ class Home extends Component {
                                 flagId={tempFlagId}
                                 flagLabel={tempFlagLabel}
                                 sessionId={tempSessionId}
-                                flagTime={tempTime}
+                                //time={tempTime}
                             />
                         </Typography>
                     </div>

@@ -172,6 +172,7 @@ class Home extends Component {
 
     flagClickHandler(info){
         //here
+        slide_timestamps = [0, 42, 60, 220, 420, 600, 715, 732, 960, 985, 1153, 1333, 1520, 1680, 1860, 1950, 1990, 2100, 2270, 2460];
         
         console.log("Flag info is", info);
         this.handleTab('2')
@@ -273,7 +274,7 @@ class Home extends Component {
                                 flagId={tempFlagId}
                                 flagLabel={tempFlagLabel}
                                 sessionId={tempSessionId}
-                                flagTime={tempTime}
+                                //time={tempTime}
                             />
                         </Typography>
                     </div>

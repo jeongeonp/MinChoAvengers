@@ -141,7 +141,7 @@ export default class Catchup extends React.Component {
                     Notice    
                 </div>
                 {/* This is where the screenshot image goes */}
-                <img className='questionImg' src={`../../public/cs231n_2017_lecture16-${imgIndex+1}.png`}  />
+                <img className='questionImg' src={`../../public/cs231n_2017_lecture16-${}.png`}  />
                 <div>{questions.filter((q) => q.flagId == this.props.flagId)
                     ?
                     questions.filter((q) => q.flagId == this.props.flagId).map(q => { return(
