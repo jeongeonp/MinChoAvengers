@@ -36,6 +36,7 @@ class Home extends Component {
             modalOpen: true,
             flags: [],
             tabValue: '1',
+            hover: false,
 
 
             // States that will be passed onto Catch Up mode
@@ -52,6 +53,7 @@ class Home extends Component {
         this.selectRole = this.selectRole.bind(this);
         this.flagClickHandler = this.flagClickHandler.bind(this);
         this.handleTab = this.handleTab.bind(this);
+        this.showFlags = this.showFlags.bind(this);
     }
     componentDidMount() {
     }
@@ -97,6 +99,7 @@ class Home extends Component {
             label: label,
             lectureMaterial: "image",
             sessionId: sessionid
+        
         }
         
         //console.log(flagInfo)
@@ -120,6 +123,8 @@ class Home extends Component {
 
             this.addFlagTwice(flagInfo, res.name)
         })
+
+        this.setState({ hover: false })
     }
 
     // Send to /flags/{flagId}
@@ -196,10 +201,14 @@ class Home extends Component {
         this.setState({ tabValue: value })
     }
 
+    showFlags = () => {
+        this.setState({ hover: true })
+    }
+
     render() {
         const { } = this.props;
-        const {playing, playbackRate, modalOpen, tabValue, tempFlagId, tempFlagLabel, tempSessionId, tempTime } = this.state;
-        const { addFlag, handleTab, flagClickHandler } = this;
+        const {playing, playbackRate, modalOpen, tabValue, hover, tempFlagId, tempFlagLabel, tempSessionId, tempTime } = this.state;
+        const { addFlag, handleTab, flagClickHandler, showFlags } = this;
 
         return (
             <div className="Home">
@@ -226,19 +235,21 @@ class Home extends Component {
                         
                         <Fab 
                             variant="extended" 
-                            style={{top: '-45px', fontWeight: '600', fontSize: '1.4em'}} 
+                            style={{top: '-45px', fontWeight: '600', fontSize: '1.4em'}}
+                            onMouseOver={showFlags}
                         >
                         🚩Flag
                         </Fab>
-                        
-                        <Button.Group vertical>
-                            <Button onClick={() => addFlag('Activity')}><Image src={Activity} avatar/> Activity</Button>
-                            <Button onClick={() => addFlag('Emphasis')}><Image src={Emphasis} avatar/> Emphasis</Button>
-                            <Button onClick={() => addFlag('Exclusive Material')}><Image src={Exclusive} avatar/> Exclusive Material</Button>
-                            <Button onClick={() => addFlag('Notice')}><Image src={Notice} avatar/> Notice</Button>
-                            <Button onClick={() => addFlag('Q&A')}><Image src={QnA} avatar/> Q&A</Button>
-                        </Button.Group>
-                        
+                        <div className="buttonGroup" hidden={ hover !== true } onMouseOver={showFlags} onMouseOut={ () => this.setState({ hover: false }) }>
+                            <Button.Group>
+                                <Button onClick={() => addFlag('Activity')}><Image src={Activity} avatar/> Activity</Button>
+                                <Button onClick={() => addFlag('Emphasis')}><Image src={Emphasis} avatar/> Emphasis</Button>
+                                <Button onClick={() => addFlag('Exclusive Material')}><Image src={Exclusive} avatar/> Exclusive Material</Button>
+                                <Button onClick={() => addFlag('Notice')}><Image src={Notice} avatar/> Notice</Button>
+                                <Button onClick={() => addFlag('Q&A')}><Image src={QnA} avatar/> Q&A</Button>
+                            </Button.Group>
+                        </div>
+
                     </Row>
                     <br/>
                     <Timeline flagClickHandler={flagClickHandler} flags={this.state.flags} videoTime={this.state.playedSeconds}></Timeline>
