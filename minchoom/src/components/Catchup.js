@@ -238,11 +238,11 @@ export default class Catchup extends React.Component {
     }
   }
 
-  keyPress2 = e => {
+  keyPress2 = (e, qId) => {
     if(e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
       
-      this.sendAnswer()
+      this.sendAnswer(qId)
       
     }
   }
@@ -269,16 +269,15 @@ export default class Catchup extends React.Component {
                 {questions.map(q => { return (
                   <div>
                     <div className="q">Q. {q[4]}</div>
-                    <div style={{color:'grey'}}>{answers.filter(e => e[4] == answers[q[7]])}</div>
                     {answers
                       ?
-                      answers.filter(e => e[4] == answers[q[7]]).map(a => { return (
-                      <div className="a">A.{a[0]}</div>
+                      answers.filter(e => e[4] == q[7]).map(a => { return (
+                      <div className="a">A. {a[0]}</div>
                       )})
                       :
                       null
                     }
-                    <textarea type="text" value={answerValue} onChange={(e) => this.setState({answerValue: e.target.value})} onKeyDown={keyPress2} placeholder="Answer the question here."/>
+                    <textarea type="text" className="textarea2" value={answerValue} onChange={(e) => this.setState({answerValue: e.target.value})} onKeyDown={() => keyPress2(q[7])} placeholder="Answer the question here."/>
                     <button type="submit" disabled={!answerValue} onClick={() => sendAnswer(q[7])}>Answer</button>
 
                   </div>

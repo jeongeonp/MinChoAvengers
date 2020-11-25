@@ -166,6 +166,24 @@ textarea {
   border: none;
   padding: 10px 10px;
   overflow-wrap: break-word;
+  
+}
+
+.textarea2 {
+  line-height: 1.5;
+  width: 91%;
+  font-family: -apple-system, Arial, Helvetica, sans-serif;
+  font-size: 0.7rem;
+  background: #fceed2;
+  opacity: 0.9;
+  color: black;
+  outline: none;
+  border: none;
+  overflow-wrap: break-word;
+  
+  margin-left: 25px;
+  margin-bottom: 8px;
+  margin-right: 7px;
 }
 
 button {
@@ -281,8 +299,8 @@ img {
 
 .q {
   background-color: #ff6666;
-  margin-top: 10px;
   padding: 10px 10px 10px 10px;
+  margin: 10px 2% 0;
   text-align: justify;
   font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
@@ -293,7 +311,7 @@ img {
   max-width: 500px;
   margin-left: 25px;
   margin-bottom: 8px;
-  margin-right: 25px;
+  margin-right: 7px;
   line-height: 24px;
   padding: 10px 15px 15px 15px;
   background: #ffc857;
