@@ -39,12 +39,12 @@ export default class Modal extends React.Component {
                   {" "}
                   </div>
                   <div className="actions">
-                  <Button className="button" variant="contained" onClick={() => { console.log("modal closed "); selectRole(0); closeModal();
+                  <Button className="button" variant="contained" style={{margin: '10px'}} onClick={() => { console.log("modal closed "); selectRole(0); closeModal();
                       //send to server
                     }}>
                       Helper
                   </Button>
-                  <Button className="button" variant="contained" onClick={() => { console.log("modal closed "); selectRole(1); closeModal();
+                  <Button className="button" variant="contained" style={{margin: '10px'}} onClick={() => { console.log("modal closed "); selectRole(1); closeModal();
                       //send to server
                     }}>
                       Helpee
