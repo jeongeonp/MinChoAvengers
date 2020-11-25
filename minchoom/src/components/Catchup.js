@@ -1,12 +1,55 @@
 import React from 'react';
 import '../App.css';
 import lecture from "../images/lecture.png";
-
+import slide1 from "../images/cs231n_2017_lecture16/40EA23FD1.jpeg"
+import slide2 from "../images/cs231n_2017_lecture16/40EA23FD2.jpeg"
+import slide3 from "../images/cs231n_2017_lecture16/40EA23FD3.jpeg"
+import slide4 from "../images/cs231n_2017_lecture16/40EA23FD4.jpeg"
+import slide5 from "../images/cs231n_2017_lecture16/40EA23FD5.jpeg"
+import slide6 from "../images/cs231n_2017_lecture16/40EA23FD6.jpeg"
+import slide7 from "../images/cs231n_2017_lecture16/40EA23FD7.jpeg"
+import slide8 from "../images/cs231n_2017_lecture16/40EA23FD8.jpeg"
+import slide9 from "../images/cs231n_2017_lecture16/40EA23FD9.jpeg"
+import slide10 from "../images/cs231n_2017_lecture16/40EA23FD10.jpeg"
 import firebase from 'firebase/app';
 import 'firebase/database';
+import { requirePropFactory } from '@material-ui/core';
 
 const databaseURL = "https://minchoom-cs473.firebaseio.com"
 const db = ['/questions', '/answers']
+
+
+
+function flagToImg(flagTime) {
+  const slide_timestamps = [0, 42, 60, 220, 420, 600, 715, 732, 960, 985, 1153, 1333, 1520, 1680, 1860, 1950, 1990, 2100, 2270, 2460];
+  var i = 0;
+  while(slide_timestamps[++i] < flagTime);
+  console.log("closest is ", slide_timestamps[--i]);
+  switch (i) {
+    case 0:
+      return slide1;
+    case 1:
+      return slide2;
+    case 2:
+      return slide3;
+    case 3:
+      return slide4;
+    case 4:
+      return slide5;
+    case 5:
+      return slide6;
+    case 6:
+      return slide7;
+    case 7:
+      return slide8;
+    case 8:
+      return slide9;
+    case 9:
+      return slide10;
+
+  }
+  return i;
+}
 
 export default class Catchup extends React.Component {
   constructor(props) {
@@ -182,7 +225,8 @@ export default class Catchup extends React.Component {
   }
 
   render() {
-    const {flagLabel } = this.props;
+    const { flagTime, flagLabel} = this.props;
+    const imgSrc = flagToImg(flagTime);
     const {questions, answers, formValue, sessionId, asking} = this.state;
     const { sendQuestion, handleQuestion, sendAnswer, keyPress } = this;
     return (
@@ -192,7 +236,7 @@ export default class Catchup extends React.Component {
                     {flagLabel}    
                 </div>
                 {/* This is where the screenshot image goes */}
-                <img className='questionImg' src={lecture} />
+                <img className='questionImg' src={imgSrc}  />
                 <div>{questions.filter((q) => q.flagId == this.props.flagId)
                     ?
                     questions.filter((q) => q.flagId == this.props.flagId).map(q => { return(

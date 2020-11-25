@@ -15,7 +15,7 @@ import Row from 'react-bootstrap/Row'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
-//import PieMenu, { Slice } from 'react-pie-menu';
+import PieMenu, { Slice } from 'react-pie-menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
  
 import Activity from '../images/Activity.png'
@@ -36,7 +36,6 @@ class Home extends Component {
             modalOpen: true,
             flags: [],
             tabValue: '1',
-            hover: false,
 
 
             // States that will be passed onto Catch Up mode
@@ -53,7 +52,6 @@ class Home extends Component {
         this.selectRole = this.selectRole.bind(this);
         this.flagClickHandler = this.flagClickHandler.bind(this);
         this.handleTab = this.handleTab.bind(this);
-        this.showFlags = this.showFlags.bind(this);
     }
     componentDidMount() {
     }
@@ -99,7 +97,6 @@ class Home extends Component {
             label: label,
             lectureMaterial: "image",
             sessionId: sessionid
-        
         }
         
         //console.log(flagInfo)
@@ -123,8 +120,6 @@ class Home extends Component {
 
             this.addFlagTwice(flagInfo, res.name)
         })
-
-        this.setState({ hover: false })
     }
 
     // Send to /flags/{flagId}
@@ -177,6 +172,7 @@ class Home extends Component {
 
     flagClickHandler(info){
         //here
+        slide_timestamps = [0, 42, 60, 220, 420, 600, 715, 732, 960, 985, 1153, 1333, 1520, 1680, 1860, 1950, 1990, 2100, 2270, 2460];
         
         console.log("Flag info is", info);
         this.handleTab('2')
@@ -203,14 +199,10 @@ class Home extends Component {
         this.setState({ tabValue: value })
     }
 
-    showFlags = () => {
-        this.setState({ hover: true })
-    }
-
     render() {
         const { } = this.props;
-        const {playing, playbackRate, modalOpen, tabValue, hover, tempFlagId, tempFlagLabel, tempSessionId, tempTime } = this.state;
-        const { addFlag, handleTab, flagClickHandler, showFlags } = this;
+        const {playing, playbackRate, modalOpen, tabValue, tempFlagId, tempFlagLabel, tempSessionId, tempTime } = this.state;
+        const { addFlag, handleTab, flagClickHandler } = this;
 
         return (
             <div className="Home">
@@ -237,21 +229,22 @@ class Home extends Component {
                         
                         <Fab 
                             variant="extended" 
-                            style={{top: '-45px', fontWeight: '600', fontSize: '1.4em'}}
-                            onMouseOver={showFlags}
+                            style={{top: '-45px', fontWeight: '600', fontSize: '1.4em'}} 
+                            
                         >
                         🚩Flag
                         </Fab>
-                        <div className="buttonGroup" hidden={ hover !== true } onMouseOver={showFlags} onMouseOut={ () => this.setState({ hover: false }) }>
-                            <Button.Group>
-                                <Button onClick={() => addFlag('Activity')}><Image src={Activity} avatar/> Activity</Button>
-                                <Button onClick={() => addFlag('Emphasis')}><Image src={Emphasis} avatar/> Emphasis</Button>
-                                <Button onClick={() => addFlag('Exclusive Material')}><Image src={Exclusive} avatar/> Exclusive Material</Button>
-                                <Button onClick={() => addFlag('Notice')}><Image src={Notice} avatar/> Notice</Button>
-                                <Button onClick={() => addFlag('Q&A')}><Image src={QnA} avatar/> Q&A</Button>
-                            </Button.Group>
-                        </div>
-
+                        
+                        <Button.Group 
+                            vertical
+                        >
+                            <Button onClick={() => addFlag('Activity')}><Image src={Activity} avatar/> Activity</Button>
+                            <Button onClick={() => addFlag('Emphasis')}><Image src={Emphasis} avatar/> Emphasis</Button>
+                            <Button onClick={() => addFlag('Exclusive')}><Image src={Exclusive} avatar/> Exclusive Material</Button>
+                            <Button onClick={() => addFlag('Notice')}><Image src={Notice} avatar/> Notice</Button>
+                            <Button onClick={() => addFlag('Q&A')}><Image src={QnA} avatar/> Q&A</Button>
+                        </Button.Group>
+                        
                     </Row>
                     <br/>
                     <Timeline flagClickHandler={flagClickHandler} flags={this.state.flags} videoTime={this.state.playedSeconds}></Timeline>
@@ -264,7 +257,7 @@ class Home extends Component {
                             <Tab value='2' label="CatchUp">
                             </Tab>
                         </Tabs>
-                        <Typography style={{padding: '0px', margin: '0px'}}
+                        <Typography
                             role="tabpanel"
                             hidden={tabValue !== '1'}
                             className="right">
@@ -272,7 +265,7 @@ class Home extends Component {
                                 videoTime={this.state.playedSeconds}
                             />
                         </Typography>
-                        <Typography style={{padding: '0px', margin: '0px'}}
+                        <Typography
                             role="tabpanel"
                             hidden={tabValue !== '2'}
                             className="right">
@@ -281,7 +274,7 @@ class Home extends Component {
                                 flagId={tempFlagId}
                                 flagLabel={tempFlagLabel}
                                 sessionId={tempSessionId}
-                                flagTime={tempTime}
+                                //time={tempTime}
                             />
                         </Typography>
                     </div>
