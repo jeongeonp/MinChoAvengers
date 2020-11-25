@@ -33,6 +33,7 @@ export default class Chat extends React.Component {
     this.getChatData = this.getChatData.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     this.formatTime = this.formatTime.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
   }
 
   componentDidMount() {
