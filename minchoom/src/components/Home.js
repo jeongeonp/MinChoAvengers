@@ -15,7 +15,7 @@ import Row from 'react-bootstrap/Row'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
-import PieMenu, { Slice } from 'react-pie-menu';
+//import PieMenu, { Slice } from 'react-pie-menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
  
 import Activity from '../images/Activity.png'
@@ -239,7 +239,7 @@ class Home extends Component {
                         >
                             <Button onClick={() => addFlag('Activity')}><Image src={Activity} avatar/> Activity</Button>
                             <Button onClick={() => addFlag('Emphasis')}><Image src={Emphasis} avatar/> Emphasis</Button>
-                            <Button onClick={() => addFlag('Exclusive')}><Image src={Exclusive} avatar/> Exclusive Material</Button>
+                            <Button onClick={() => addFlag('Exclusive Material')}><Image src={Exclusive} avatar/> Exclusive Material</Button>
                             <Button onClick={() => addFlag('Notice')}><Image src={Notice} avatar/> Notice</Button>
                             <Button onClick={() => addFlag('Q&A')}><Image src={QnA} avatar/> Q&A</Button>
                         </Button.Group>
@@ -256,7 +256,7 @@ class Home extends Component {
                             <Tab value='2' label="CatchUp">
                             </Tab>
                         </Tabs>
-                        <Typography
+                        <Typography style={{padding: '0px', margin: '0px'}}
                             role="tabpanel"
                             hidden={tabValue !== '1'}
                             className="right">
@@ -264,7 +264,7 @@ class Home extends Component {
                                 videoTime={this.state.playedSeconds}
                             />
                         </Typography>
-                        <Typography
+                        <Typography style={{padding: '0px', margin: '0px'}}
                             role="tabpanel"
                             hidden={tabValue !== '2'}
                             className="right">
