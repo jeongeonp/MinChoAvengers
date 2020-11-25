@@ -74,6 +74,13 @@ export default class Chat extends React.Component {
     })
   }
 
+  keyPress = e => {
+    if(e.key == "Enter" && e.shiftKey == false) {
+      e.preventDefault();
+      this.myFormRef.submit();
+    }
+  }
+
   sendMessage = async (e) => {
     e.preventDefault();
 
@@ -95,7 +102,7 @@ export default class Chat extends React.Component {
   render() {
     const { } = this.props;
     const {messages, formValue, sessionId} = this.state;
-    const { sendMessage } = this;
+    const { sendMessage, keyPress } = this;
     return (
             <chat>
               <div class="tab">
@@ -119,9 +126,9 @@ export default class Chat extends React.Component {
                 {/* <span ref={dummy}></span> */}
               </main>
           
-              <form onSubmit={sendMessage}>
+              <form onSubmit={sendMessage} ref={el => this.myFormRef = el}>
                   
-                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} placeholder=" Type in anything!" />
+                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder=" Type in anything!" />
             
                   <button type="submit" disabled={!formValue}>🕊️</button>
             

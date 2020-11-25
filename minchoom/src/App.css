@@ -22,31 +22,106 @@
 }
 
 .split-left {
-  width: 70%;
-  height: 100%;
+  width: 70vw;
+  height: 100vh;
   margin-left: 2%;
   margin-top: 2%;
   overflow-x: hidden;
   overflow-y: hidden;
   left: 0;
+  display: inline-block;
 }
 .split-right {
-  width: 30%;
-  height: 90%;
-  margin-right: 2%;
-  margin-top: 2%;
+  width: 30vw;
+  height: 100vh;
   overflow-x: hidden;
   overflow-y: hidden;
   right: 0;
   border-style: solid;
-  border-color: #ff6666;
+  border-color: #edcc24;
   border-width: 7px;
+  margin: 20px 20px 20px 20px;
 }
 .main-video {
   /* top: 10%; */
-  width: 90%;
-  height: 70%;
+  width: 100%;
+  height: 67%;
+  
 }
+.add-flag {
+  position: relative;
+  top: -50px;
+}
+.pie-menu {
+  position: relative;
+  top: 61vh;
+  left: 27vw;
+}
+.modal {
+  font-size: 17px;
+}
+.modal > .header {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  font-size: 24px;
+  text-align: center;
+  padding: 5px;
+}
+.modal > .content {
+  width: 100%;
+  padding: 10px 5px 10px;
+  text-align: center;
+  font-size: 20px;
+}
+.modal > .actions {
+  width: 100%;
+  padding: 10px 5px 15px;
+  margin: auto;
+  text-align: center;
+  
+}
+.modal > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: 10px;
+  top: 10px;
+  font-size: 24px;
+  border-radius: 18px;
+  border: none;
+}
+
+.progressBar-container {
+  background-color: green;
+  top: 0px;
+  height: 200px;
+  width: 100%;
+}
+.progressBar {
+  margin-top: 5vh;
+}
+
+.time-progress{
+  font-weight: 600; 
+  font-size: 1.5em;
+  color: black;
+  margin-top: -7vh;
+  margin-right: -95%; 
+  position: relative;
+  z-index: 100;
+}
+.flag-tip {
+  position: absolute;
+  width: 3px;
+  margin-left: 2%;
+  margin-top: -4vh; 
+  font-size: 40px;
+  font-weight: bold;
+  z-index: 100;
+}
+
 
 @keyframes App-logo-spin {
   from {
@@ -127,6 +202,7 @@ main {
   display: flex;
   flex-direction: column;
   background-color: white;
+  border-width: 7px;
 }
 
 main::-webkit-scrollbar {
@@ -196,6 +272,7 @@ ul, li {
 
 p {
   max-width: 500px;
+  margin-top: 8px;
   margin-bottom: 8px;
   line-height: 24px;
   padding: 10px 20px;
@@ -208,6 +285,7 @@ p {
 .message {
   display: flex;
   align-items: left;
+  margin-bottom: 20px;
 }
 
 
@@ -224,6 +302,7 @@ p {
 }
 .received p {
   background: #ffc857;
+  align-self: flex-end;
   color: black;
   text-align: justify;
   margin-right: 80px;
