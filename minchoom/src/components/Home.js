@@ -4,6 +4,7 @@ import { Header, Input, Form, Button, Progress, Dimmer, Loader, Image } from 'se
 import '../App.css';
 import katchup from'../images/KatchUp.png';
 import Chat from './Chat';
+import Catchup from './Catchup';
 import Modal from './Modal';
 import Timeline from './Timeline';
 import Container from 'react-bootstrap/Container'
@@ -221,7 +222,8 @@ class Home extends Component {
                     <br/>
                     <Timeline flags={this.state.flags} videoTime={this.state.playedSeconds}></Timeline>
                 </Row>
-                <Row className="split-right">
+                <Row>
+                    <div className="split-right" >
                     <Chat>
 
                     </Chat>
@@ -234,8 +236,8 @@ class Home extends Component {
                         <span style={{border: "2px solid blue", padding: "3px", margin: "3px"}}>{dummyData}</span>
                         :
                         <span> no data yet</span>
-                    }
-                    */}
+                    }*/}
+                    </div>
                 </Row>
                 </Container>
                 <Modal open={!modalOpen} closeModal={this.closeModal} selectRole={this.selectRole}></Modal>

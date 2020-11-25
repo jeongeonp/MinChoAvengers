@@ -2,9 +2,10 @@ import React from 'react';
 import '../App.css';
 import ketchup from '../ketchup.png';
 import mustard from "../mustard.png";
+import profile from "../profile.png";
 
-// import firebase from 'firebase/app';
-// import 'firebase/database';
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 // firebase.initializeApp({
 //   apiKey: "AIzaSyAbSi5-Zo17vSZzCTEM3N0_LigxJ-FP_1g",
@@ -73,6 +74,13 @@ export default class Chat extends React.Component {
     })
   }
 
+  keyPress = e => {
+    if(e.key == "Enter" && e.shiftKey == false) {
+      e.preventDefault();
+      this.myFormRef.submit();
+    }
+  }
+
   sendMessage = async (e) => {
     e.preventDefault();
 
@@ -94,7 +102,7 @@ export default class Chat extends React.Component {
   render() {
     const { } = this.props;
     const {messages, formValue, sessionId} = this.state;
-    const { sendMessage } = this;
+    const { sendMessage, keyPress } = this;
     return (
             <chat>
               <div class="tab">
@@ -107,7 +115,7 @@ export default class Chat extends React.Component {
                 messages.map(msg => { return(
                 <>
                 <div className={`message ${this.state.sessionId === msg[1] ? 'sent' : 'received'}`}>
-                  <img src={ketchup} />
+                  <img src={profile} />
                   <p>{msg[2]}</p>
                 </div></>)})
                 :
@@ -118,9 +126,9 @@ export default class Chat extends React.Component {
                 {/* <span ref={dummy}></span> */}
               </main>
           
-              <form onSubmit={sendMessage}>
+              <form onSubmit={sendMessage} ref={el => this.myFormRef = el}>
                   
-                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} placeholder=" Type in anything!" />
+                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder=" Type in anything!" />
             
                   <button type="submit" disabled={!formValue}>🕊️</button>
             

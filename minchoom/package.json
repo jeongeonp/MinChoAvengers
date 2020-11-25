@@ -19,6 +19,7 @@
     "react-clickable": "^1.1.0",
     "react-dom": "^17.0.1",
     "react-firebase-hooks": "^2.2.0",
+    "react-fontawesome": "^1.7.1",
     "react-pie-menu": "^0.2.5",
     "react-player": "^2.6.2",
     "react-radial-menu": "^1.0.0",
