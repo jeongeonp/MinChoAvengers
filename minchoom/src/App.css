@@ -12,17 +12,14 @@
   margin-left: 2%;
   grid-auto-flow: column dense;
 }
-
-
 .main-page {
   width: 100%;
   height: 90%;
   display: flex;
 }
-
 .split-left {
   width: 70vw;
-  height: 100vh;
+  height: 100%;
   margin-left: 2%;
   margin-top: 2%;
   overflow-x: hidden;
@@ -31,15 +28,15 @@
   display: inline-block;
 }
 .split-right {
-  width: 90%;
-  height: 95%;
+  width: 27vw;
+  height: 85vh;
   overflow-x: hidden;
   overflow-y: hidden;
   right: 0;
   border-style: solid;
   border-color: #edcc24;
   border-width: 7px;
-  margin: 20px 20px 20px 20px;
+  margin: 28px 20px 20px 20px;
 }
 .main-video {
   /* top: 10%; */
@@ -131,37 +128,18 @@
   }
 }
 
-.right {
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: hidden;
-}
-
 main {
   width: 100%;
-  height: 80%;
+  height: 66vh;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
   background-color: white;
 }
 
-main::-webkit-scrollbar {
-  width: 1.0rem;
-}
-
-main::-webkit-scrollbar-track {
-  background: whitesmoke;
-}
-
-main::-webkit-scrollbar-thumb {
-  background:#ff6666;
-}
-
 form {
   height: 11vh;
-  position: relative;
+  position: absolute;
   background-color: rgb(24, 23, 23);
   width: 100%;
   display: flex;
@@ -169,8 +147,9 @@ form {
 }
 
 form button {
-  width: 20%;
+  width: 30%;
   background-color: #ffc857;
+  align-content: center;
 }
 
 
@@ -216,7 +195,6 @@ p {
   max-width: 500px;
   line-height: 24px;
   padding: 10px 20px;
-  border-radius: 25px;
   position: relative;
   color: white;
   text-align: center;
@@ -225,7 +203,7 @@ p {
 .message {
   display: flex;
   align-items: left;
-  margin-bottom: 10px;
+  margin-top: 8px;
 }
 
 
@@ -238,6 +216,7 @@ p {
   background: #ff6666;
   align-self: flex-end;
   text-align: justify;
+  border-radius: 25px;
   
 }
 .received p {
@@ -245,6 +224,7 @@ p {
   align-self: flex-end;
   color: black;
   text-align: justify;
+  border-radius: 25px;
   
 }
 .sent span {
@@ -319,4 +299,9 @@ img {
   text-align: justify;
   font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+Row {
+  width: 100%;
+  height: 100%;
 }

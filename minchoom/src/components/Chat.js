@@ -120,7 +120,6 @@ export default class Chat extends React.Component {
       formValue: ''
   })
     this.scrollToBottom();
-    //dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   scrollToBottom = () => {
@@ -133,7 +132,7 @@ export default class Chat extends React.Component {
     const { messages, formValue, sessionId } = this.state;
     const { sendMessage, keyPress, scrollToBottom } = this;
     return (
-            <chat>
+            <div className="chat">
               <main>
                 <div>
                   {messages 
@@ -155,6 +154,6 @@ export default class Chat extends React.Component {
                   <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder=" Type in anything!" />
                   <button type="submit" disabled={!formValue} onClick={sendMessage}>🕊️</button>
                 </form>
-          </chat>)
+          </div>)
     }
 };
