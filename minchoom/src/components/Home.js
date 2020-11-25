@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player'
-import { Header, Input, Form, Button, Progress, Dimmer, Loader } from 'semantic-ui-react';
+import { Header, Input, Form, Button, Progress, Dimmer, Loader, Image } from 'semantic-ui-react';
 import '../App.css';
-import logo from'../images/KatchUp.png';
+import katchup from'../images/KatchUp.png';
 import Chat from './Chat';
 import Catchup from './Catchup';
 import Modal from './Modal';
 import Timeline from './Timeline';
 import Container from 'react-bootstrap/Container'
 import Fab from '@material-ui/core/Fab';
+import Popover from '@material-ui/core/Popover';
+
 import Row from 'react-bootstrap/Row'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
@@ -16,6 +18,12 @@ import Typography from '@material-ui/core/Typography'
 import PieMenu, { Slice } from 'react-pie-menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
  
+import Activity from '../images/Activity.png'
+import Emphasis from '../images/Emphasis.png'
+import Exclusive from '../images/ExclusiveMaterial.png'
+import Notice from '../images/Notice.png'
+import QnA from '../images/QnA.png'
+
 const databaseURL =  "https://minchoom-cs473.firebaseio.com/";
 
 class Home extends Component {
@@ -26,7 +34,6 @@ class Home extends Component {
             playing: false,
             playbackRate: 1.0,
             modalOpen: true,
-            dummyData: "no data yet",
             flags: [],
             tabValue: '1'
         }
@@ -70,26 +77,49 @@ class Home extends Component {
         })
     }
 
-    addFlag() {
-        const { flags} = this.state;
+    addFlag(label) {
+        const {flags} = this.state;
         flags.push(this.state.playedSeconds);
         flags.sort();
         this.setState({
-        flags: flags,
+            flags: flags,
         });
         console.log(flags, this.state.playedSeconds);
-        const sampleDict = {text: "Sent at " + new Date() + "- last dummy data from firebase."}
-        return fetch( `${databaseURL+'/dummyData'}/.json`, {
-            method: 'PATCH',
-            body: JSON.stringify(sampleDict)
+        const sessionid = sessionStorage.getItem('sessionID')
+        const flagInfo = {
+            time: this.state.playedSeconds,
+            label: label,
+            lectureMaterial: "image",
+            sessionId: sessionid
+        }
+        
+        console.log(flagInfo)
+        
+        fetch(`${databaseURL+'/sessions/'+sessionid+'/flags/'}/.json`, {
+            method: 'POST',
+            body: JSON.stringify(flagInfo)
         }).then(res => {
             if (res.status !== 200) {
                 throw new Error(res.statusText);
             }
             return res.json();
         }).then(() => {
-            console.log("Dummy data succesfully sent!")
+            console.log("Flag succesfully sent!")
         })
+        
+        /*
+        fetch(`${databaseURL+'/flags/'}/.json`, {
+            method: 'POST',
+            body: JSON.stringify(flagInfo)
+        }).then(res => {
+            if (res.status !== 200) {
+                throw new Error(res.statusText);
+            }
+            return res.json();
+        }).then(() => {
+            console.log("Flag succesfully sent!")
+        })
+        */
 
     }
 
@@ -128,7 +158,6 @@ class Home extends Component {
         }
     }
 
-    
     handleProgress = state => {
         // We only want to update time slider if we are not currently seeking
         this.setState(state);
@@ -144,65 +173,52 @@ class Home extends Component {
 
     render() {
         const { } = this.props;
-        const {playing, playbackRate, dummyData, modalOpen, tabValue} = this.state;
-        const { sendData, getData, addFlag, handleTab } = this;
+        const {playing, playbackRate, modalOpen, tabValue} = this.state;
+        const { addFlag, handleTab } = this;
+
         return (
             <div className="Home">
                 <div className="header-bar">
                     <div className="header-title">
-                        {/* <img src={logo} alt="fireSpot"/> */}
-                    
-                    <Header as="h1">
-                        Minchoom 🌿
-                    </Header>
+                        
+                        <Header as="h3">
+                            <img src={katchup} /> Session Number: {sessionStorage.getItem('sessionID')}
+                        </Header>
                    
                     </div>  
                 </div>
                 <Container className="main-page">
                 <Row className="split-left"  tabIndex="1">
                     <Row className="main-video">
-                    <ReactPlayer ref={this.ref} playing={playing}
-                    playbackRate={playbackRate} id="video"  width="100%" height="100%" controls url = {'https://www.youtube.com/watch?v=jGwO_UgTS7I'} onPause={this._onPause}
-                    onPlay={this._onPlay}
-                    onReady={this._onReady}
-                    onProgress={this.handleProgress}
-                    onDuration={this.handleDuration}
-                    onSeek={this._onSeek}>
-                    </ReactPlayer>
-                    {/* <PieMenu 
-                    radius='125px' 
-                    centerRadius='30px'
-                    centerX={3000}
-                    centerY={1000}
-                    className="pie-menu"
-                    >
-                    <Slice>Exclusive</Slice>
-                    <Slice>Notice</Slice>
-                    <Slice>QnA</Slice>
-                    <Slice onSelect={() => window.open('https://www.facebook.com', '_blank')} >
-                        <FontAwesomeIcon icon="info-circle" size="2x" />
-                    </Slice>
-
-                    <Slice ></Slice>
-                    <Slice onSelect={() => window.open('https://www.facebook.com', '_blank')}>
-                        <FontAwesomeIcon icon="facebook-f" size="2x" />
-                    </Slice>
-
-
-                    <Slice onSelect={() => window.open('https://www.twitter.com', '_blank')}>
-                        <FontAwesomeIcon icon="twitter" size="2x" />
-                    </Slice>
-
-                    <Slice onSelect={() => window.open('https://www.linkedin.com', '_blank')}>
-                        <FontAwesomeIcon icon="linkedin-in" size="2x" />
-                    </Slice>
-                    <Slice>Activity</Slice>
-                    <Slice>Emphasis</Slice>
-                    </PieMenu> */}
-                    <Fab variant="extended" style={{top: '-45px', fontWeight: '600', fontSize: '1.4em'}} onClick={addFlag}>
-                    🚩Flag
-                    </Fab>
+                        <ReactPlayer ref={this.ref} playing={playing}
+                            playbackRate={playbackRate} id="video"  width="100%" height="100%" controls url = {'https://www.youtube.com/watch?v=jGwO_UgTS7I'} onPause={this._onPause}
+                            onPlay={this._onPlay}
+                            onReady={this._onReady}
+                            onProgress={this.handleProgress}
+                            onDuration={this.handleDuration}
+                            onSeek={this._onSeek}>
+                        </ReactPlayer>
+                        
+                        <Fab 
+                            variant="extended" 
+                            style={{top: '-45px', fontWeight: '600', fontSize: '1.4em'}} 
+                            
+                        >
+                        🚩Flag
+                        </Fab>
+                        
+                        <Button.Group 
+                            vertical
+                        >
+                            <Button onClick={() => addFlag('Activity')}><Image src={Activity} avatar/> Activity</Button>
+                            <Button onClick={() => addFlag('Emphasis')}><Image src={Emphasis} avatar/> Emphasis</Button>
+                            <Button onClick={() => addFlag('Exclusive')}><Image src={Exclusive} avatar/> Exclusive Material</Button>
+                            <Button onClick={() => addFlag('Notice')}><Image src={Notice} avatar/> Notice</Button>
+                            <Button onClick={() => addFlag('Q&A')}><Image src={QnA} avatar/> Q&A</Button>
+                        </Button.Group>
+                        
                     </Row>
+                    <br/>
                     <Timeline flags={this.state.flags} videoTime={this.state.playedSeconds}></Timeline>
                 </Row>
                 <Row>
@@ -225,14 +241,6 @@ class Home extends Component {
                             className="right">
                             <Catchup></Catchup>
                         </Typography>
-                        <button type="button" onClick={sendData}>Send dummy data to database</button> <br/> <br/>
-                        <button type="button" onClick={getData}>Get dummy data from database</button> <br/> <br/>
-                        { dummyData 
-                            ?
-                            <span style={{border: "2px solid blue", padding: "3px", margin: "3px"}}>{dummyData}</span>
-                            :
-                            <span> no data yet</span>
-                        }
                     </div>
                 </Row>
                 </Container>
