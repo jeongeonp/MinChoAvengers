@@ -220,7 +220,6 @@ export default class Catchup extends React.Component {
     this.setState({
       answerValue: ''
     })
-    //dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   handleQuestion = () => {
