@@ -18,19 +18,25 @@ export default class Catchup extends React.Component {
       sessionId: 'julie',
       asking: true
     }
-    this.getData = this.getData.bind(this);
+    this.getChatData = this.getChatData.bind(this);
     this.sendData = this.sendData.bind(this);
     this.sendQuestion = this.sendQuestion.bind(this);
   }
 
   componentDidMount() {
-    this.getData();
+    this.getChatData();
     // firebase
     //   .database()
     //   .ref("/catchup")
     //   .on("value", snapshot =>
     //     this.getData
     //   );
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.videoTime !== this.props.videoTime){
+      this.getChatData()
+    }
   }
 
   sendData = (dataDict, index) => {
@@ -47,7 +53,7 @@ export default class Catchup extends React.Component {
     })
   }
 
-  getData = () => {
+  getChatData = () => {
     fetch( `${databaseURL+'/catchup'}/.json`).then(res => {
         if (res.status !== 200) {
             throw new Error(res.statusText);
@@ -133,27 +139,26 @@ export default class Catchup extends React.Component {
                 </div>
                 {/* This is where the screenshot image goes */}
                 <img className='questionImg' src={lecture} />
-                <div>{questions 
-                ?
-                questions.map(q => { return(
-                <>
-                <div className='question'onClick={handleQuestion}>
-                  <div className="q">Q. {q[4]}</div>
-                </div></>)})
-                :
-                <div>no questions!</div>  
+                <div>{questions.filter((q) => q.flagId == this.props.flagId)
+                    ?
+                    questions.filter((q) => q.flagId == this.props.flagId).map(q => { return(
+                    <>
+                    <div className='question'onClick={handleQuestion}>
+                    <div className="q">Q. {q[4]}</div>
+                    </div></>)})
+                    :
+                    <div>no questions!</div>  
                 }</div>
                 <div>{answers 
-                ?
-                answers.map(a => { return(
-                <>
-                <div>
-                  <div className="a">A. {a[0]}</div>
-                </div></>)})
-                :
-                <div>no answers!</div>  
-                }
-
+                    ?
+                    answers.map(a => { return(
+                    <>
+                    <div>
+                    <div className="a">A. {a[0]}</div>
+                    </div></>)})
+                    :
+                    <div>no answers!</div>  
+                    }
                 </div>
               
                 {/* <span ref={dummy}></span> */}
