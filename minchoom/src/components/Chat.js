@@ -1,8 +1,8 @@
 import React from 'react';
 import '../App.css';
-import ketchup from '../ketchup.png';
-import mustard from "../mustard.png";
-import profile from "../profile.png";
+import ketchup from '../images/ketchup.png';
+import mustard from "../images/mustard.png";
+import profile from "../images/profile.png";
 
 import firebase from 'firebase/app';
 import 'firebase/database';
