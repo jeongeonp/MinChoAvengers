@@ -216,11 +216,7 @@ class Home extends Component {
             <div className="Home">
                 <div className="header-bar">
                     <div className="header-title">
-                        
-                        <Header as="h3">
                             <img className="logo" src={katchup} /> Session Number: {sessionStorage.getItem('sessionID')}
-                        </Header>
-                   
                     </div>  
                 </div>
                 <Container className="main-page">
