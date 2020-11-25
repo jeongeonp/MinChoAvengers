@@ -66,6 +66,7 @@ export default class Chat extends React.Component {
   }
 
   getChatData = () => {
+    console.log(this.props.videoTime)
     fetch( `${databaseURL+'/chatroom'}/.json`).then(res => {
         if (res.status !== 200) {
             throw new Error(res.statusText);
@@ -74,7 +75,8 @@ export default class Chat extends React.Component {
     }).then(res => {
         if (res) {
           const keys = Object.keys(res)
-          const chats = keys.map((k)=>[res[k]['time'], res[k]['sessionId'], res[k]['messageText']]).sort(function(first, second) {
+          const chats = keys.map((k)=>[res[k]['time'], res[k]['sessionId'], res[k]['messageText']])
+          .filter(e => (e[0]<=this.props.videoTime)).sort(function(first, second) {
             return first[0] - second[0];
           })
           this.setState({
