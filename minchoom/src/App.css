@@ -39,7 +39,7 @@
   overflow-y: hidden;
   right: 0;
   border-style: solid;
-  border-color: #ffc857;
+  border-color: #ff6666;
   border-width: 7px;
 }
 .main-video {
@@ -152,7 +152,7 @@ form {
 
 form button {
   width: 20%;
-  background-color: #fc6666;
+  background-color: #ffc857;
 }
 
 
@@ -232,23 +232,23 @@ p {
 img {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: 25px;
   margin: 2px 5px;
 }
 
 /* Style the tab */
 .tab {
   overflow: hidden;
-  background-color: #ffc857;
+  background-color: #ff6666;
   width: auto;
 }
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
-  background-color: #ffc857;
+  background-color: #ff6666;
   float: center;
   border: none;
-  outline: 2px solid #ff6666;
+  outline: 2px solid #ffc857;
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
@@ -265,16 +265,53 @@ img {
   background-color: #ccc;
 }
 
+.type {
+  width: 150px;
+  height: 30px;
+  margin-top: 30px;
+  align-self: center;
+  text-align: center;
+  padding-top: 10px;
+  color: white;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: lightcoral;
+  border-radius: 20px;
+}
+
 .question {
   width: 80%;
   margin: 20px 10px 20px 55px;
-  background-color: lightcoral;
 }
 
 .questionImg {
-  width: 80%;
-  height: 60px;
+  width: 400px;
+  height: 200px;
   border-radius: 0%;
   margin: 2px 5px;
   margin-top: 15px;
+}
+
+.q {
+  background-color: #ff6666;
+  margin-top: 10px;
+  padding: 10px 10px 10px 10px;
+  text-align: justify;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.a {
+  max-width: 500px;
+  margin-left: 25px;
+  margin-bottom: 8px;
+  margin-right: 25px;
+  line-height: 24px;
+  padding: 10px 15px 15px 15px;
+  background: #ffc857;
+  color: black;
+  text-align: justify;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
 }

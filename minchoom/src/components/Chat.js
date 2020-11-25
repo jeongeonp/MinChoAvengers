@@ -2,9 +2,10 @@ import React from 'react';
 import '../App.css';
 import ketchup from '../ketchup.png';
 import mustard from "../mustard.png";
+import profile from "../profile.png";
 
-// import firebase from 'firebase/app';
-// import 'firebase/database';
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 // firebase.initializeApp({
 //   apiKey: "AIzaSyAbSi5-Zo17vSZzCTEM3N0_LigxJ-FP_1g",
@@ -107,7 +108,7 @@ export default class Chat extends React.Component {
                 messages.map(msg => { return(
                 <>
                 <div className={`message ${this.state.sessionId === msg[1] ? 'sent' : 'received'}`}>
-                  <img src={ketchup} />
+                  <img src={profile} />
                   <p>{msg[2]}</p>
                 </div></>)})
                 :

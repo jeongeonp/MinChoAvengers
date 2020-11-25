@@ -2,6 +2,8 @@ import React from 'react';
 import '../App.css';
 import ketchup from '../ketchup.png';
 import mustard from "../mustard.png";
+import checkmark from "../checkmark.png";
+import lecture from "../lecture.png";
 
 import firebase from 'firebase/app';
 import 'firebase/database';
@@ -25,12 +27,12 @@ export default class Catchup extends React.Component {
 
   componentDidMount() {
     this.getData();
-    firebase
-      .database()
-      .ref("/catchup")
-      .on("value", snapshot =>
-        this.getData
-      );
+    // firebase
+    //   .database()
+    //   .ref("/catchup")
+    //   .on("value", snapshot =>
+    //     this.getData
+    //   );
   }
 
   sendData = (dataDict) => {
@@ -98,11 +100,11 @@ export default class Catchup extends React.Component {
     return (
             <chat>
               <div class="tab">
-                <button class="tablinks">MinChat</button>
+                <button class="tablinks">Chatroom</button>
                 <button class="tablinks">Catch Up</button>
               </div>
               <main>
-                <div>
+                <div className="type">
                     Notice    
                 </div>
                 <div>{questions 
@@ -110,13 +112,24 @@ export default class Catchup extends React.Component {
                 questions.map(q => { return(
                 <>
                 <div className='question'>
-                  <img className='questionImg' src={ketchup} />
-                  <p>Q. {q[4]}</p>
+                  <img className='questionImg' src={lecture} />
+                  <div className="q">Q. {q[4]}</div>
                 </div></>)})
                 :
                 <div>no questions!</div>  
                 }</div>
+                <div>{answers 
+                ?
+                answers.map(a => { return(
+                <>
+                <div>
+                  <div className="a">A. {a[1]}</div>
+                </div></>)})
+                :
+                <div>no answers!</div>  
+                }
 
+                </div>
               
                 {/* <span ref={dummy}></span> */}
               </main>
