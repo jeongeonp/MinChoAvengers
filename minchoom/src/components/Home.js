@@ -15,7 +15,7 @@ import Row from 'react-bootstrap/Row'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
-import PieMenu, { Slice } from 'react-pie-menu';
+//import PieMenu, { Slice } from 'react-pie-menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
  
 import Activity from '../images/Activity.png'

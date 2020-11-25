@@ -65,7 +65,7 @@ export default class Chat extends React.Component {
   }
 
   getChatData = () => {
-    console.log(this.props.videoTime)
+    //console.log(this.props.videoTime)
     fetch( `${databaseURL+'/chatroom'}/.json`).then(res => {
         if (res.status !== 200) {
             throw new Error(res.statusText);

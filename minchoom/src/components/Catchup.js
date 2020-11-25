@@ -15,12 +15,20 @@ export default class Catchup extends React.Component {
       questions: [],
       answers: [],
       formValue: '',
-      sessionId: 'julie',
-      asking: true
+      sessionId: sessionStorage.getItem('sessionID'),
+      asking: true,
+
+      tempImage: '',
+      tempQuestions: [],
+      tempAnswers: [],
     }
     this.getChatData = this.getChatData.bind(this);
     this.sendData = this.sendData.bind(this);
+    this.addQuestionTwice = this.addQuestionTwice.bind(this);
+    this.addAnswerTwice = this.addAnswerTwice.bind(this);
     this.sendQuestion = this.sendQuestion.bind(this);
+    this.sendAnswer = this.sendAnswer.bind(this);
+    this.keyPress = this.keyPress.bind(this);
   }
 
   componentDidMount() {
@@ -42,13 +50,49 @@ export default class Catchup extends React.Component {
         throw new Error(res.statusText);
       }
       return res.json();
-    }).then(() => {
+    }).then((res) => {
       console.log("CatchUp Question succesfully sent!")
+      if (index === 0) {
+        // question
+        this.addQuestionTwice(dataDict, res.name)
+      }
+      if (index === 1) {
+        // answer
+        this.addAnswerTwice(dataDict, res.name)
+      }
+
     })
   }
 
+  addQuestionTwice(questionInfo, questionId) {
+    const sessionid = sessionStorage.getItem('sessionID')
+    fetch(`${databaseURL+'/sessions/'+sessionid+'/questions/'+questionId}/.json`, {
+        method: 'PATCH',
+        body: JSON.stringify(questionInfo)
+    }).then(res => {
+        if (res.status !== 200) {
+            throw new Error(res.statusText);
+        }
+        return res.json();
+    })
+  }
+
+  addAnswerTwice(answerInfo, answerId) {
+    const sessionid = sessionStorage.getItem('sessionID')
+    fetch(`${databaseURL+'/sessions/'+sessionid+'/answers/'+answerId}/.json`, {
+        method: 'PATCH',
+        body: JSON.stringify(answerInfo)
+    }).then(res => {
+        if (res.status !== 200) {
+            throw new Error(res.statusText);
+        }
+        return res.json();
+    })
+  } 
+
   getChatData = () => {
-    fetch( `${databaseURL+'/catchup'}/.json`).then(res => {
+    fetch( `${databaseURL+'/catchup'}/.json`)
+    .then(res => {
         if (res.status !== 200) {
             throw new Error(res.statusText);
         }
@@ -72,8 +116,6 @@ export default class Catchup extends React.Component {
   }
 
   sendQuestion = async (e) => {
-    e.preventDefault();
-
     this.sendData(
         {
           answered: false,
@@ -82,7 +124,6 @@ export default class Catchup extends React.Component {
           flagLabel: this.props.flagLabel,
           questionText: this.state.formValue,
           sessionId: this.state.sessionId,
-          //sessionId: "pat",
           time: this.props.time,
         }, 0
     )
@@ -93,8 +134,6 @@ export default class Catchup extends React.Component {
   }
 
   sendAnswer = async (e) => {
-    e.preventDefault();
-
     this.sendData(
         {
           answerText: false,
@@ -103,8 +142,7 @@ export default class Catchup extends React.Component {
           liked:false,
           questionId: '',
           sessionId: this.state.sessionId,
-          //sessionId: "pat",
-          time: new Date(),
+          time: this.props.time,
           upvotes: 0
         }, 1
     )
@@ -120,16 +158,33 @@ export default class Catchup extends React.Component {
       })
   }
 
+  keyPress = e => {
+    if(e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      if (this.state.asking) {
+        this.sendQuestion()
+      }
+      else {
+        this.sendAnswer()
+      }
+    }
+  }
+
+/*
+  getHintText(label) {
+    if (label === "Activity") {return }
+  }
+*/
 
   render() {
-    const { } = this.props;
+    const {flagLabel } = this.props;
     const {questions, answers, formValue, sessionId, asking} = this.state;
-    const { sendQuestion, handleQuestion, sendAnswer } = this;
+    const { sendQuestion, handleQuestion, sendAnswer, keyPress } = this;
     return (
             <chat>
               <main>
                 <div className="type">
-                    Notice    
+                    {flagLabel}    
                 </div>
                 {/* This is where the screenshot image goes */}
                 <img className='questionImg' src={lecture} />
@@ -155,15 +210,10 @@ export default class Catchup extends React.Component {
                     }
                 </div>
               
-                {/* <span ref={dummy}></span> */}
               </main>
-          
-              <form onSubmit={asking ? sendQuestion: sendAnswer}>
-                  
-                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} placeholder="Ask your question!" />
-            
-                  <button type="submit" disabled={!formValue}>🕊️</button>
-            
+              <form >
+                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder="Ask your question!" />
+                  <button type="submit" disabled={!formValue} onClick={asking ? sendQuestion: sendAnswer}>🕊️</button>
               </form>
           </chat>)
           }

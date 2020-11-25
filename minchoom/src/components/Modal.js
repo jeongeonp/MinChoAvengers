@@ -28,7 +28,7 @@ export default class Modal extends React.Component {
     render() {
         const { open, selectRole, closeModal} = this.props;
         return (
-            <Popup  open={open} position="top center" >
+            <Popup open={open} position="top center" >
               {close => (
                 <div className="modal">
                   {/*<IconButton className="close"  onClick={close}>
