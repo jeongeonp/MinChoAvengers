@@ -254,7 +254,7 @@ class Home extends Component {
                             <Tab value='2' label="CatchUp">
                             </Tab>
                         </Tabs>
-                        <Typography
+                        <Typography style={{padding: '0px', margin: '0px'}}
                             role="tabpanel"
                             hidden={tabValue !== '1'}
                             className="right">
@@ -262,7 +262,7 @@ class Home extends Component {
                                 videoTime={this.state.playedSeconds}
                             />
                         </Typography>
-                        <Typography
+                        <Typography style={{padding: '0px', margin: '0px'}}
                             role="tabpanel"
                             hidden={tabValue !== '2'}
                             className="right">

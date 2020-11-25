@@ -255,6 +255,14 @@ p {
   margin-right: 80px;
 }
 
+.sent img {
+  margin-right: 10px;
+}
+.received img {
+  margin-left: 12px;
+}
+
+
 img {
   width: 40px;
   height: 40px;
