@@ -17,6 +17,10 @@ export default class Catchup extends React.Component {
       formValue: '',
       sessionId: sessionStorage.getItem('sessionID'),
       asking: true,
+
+      tempImage: '',
+      tempQuestions: [],
+      tempAnswers: [],
     }
     this.getChatData = this.getChatData.bind(this);
     this.sendData = this.sendData.bind(this);
@@ -166,16 +170,21 @@ export default class Catchup extends React.Component {
     }
   }
 
+/*
+  getHintText(label) {
+    if (label === "Activity") {return }
+  }
+*/
 
   render() {
-    const { } = this.props;
+    const {flagLabel } = this.props;
     const {questions, answers, formValue, sessionId, asking} = this.state;
     const { sendQuestion, handleQuestion, sendAnswer, keyPress } = this;
     return (
             <chat>
               <main>
                 <div className="type">
-                    Notice    
+                    {flagLabel}    
                 </div>
                 {/* This is where the screenshot image goes */}
                 <img className='questionImg' src={lecture} />
@@ -201,15 +210,10 @@ export default class Catchup extends React.Component {
                     }
                 </div>
               
-                {/* <span ref={dummy}></span> */}
               </main>
-          
               <form >
-                  
                   <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder="Ask your question!" />
-            
                   <button type="submit" disabled={!formValue} onClick={asking ? sendQuestion: sendAnswer}>🕊️</button>
-            
               </form>
           </chat>)
           }
