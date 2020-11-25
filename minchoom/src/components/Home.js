@@ -218,7 +218,7 @@ class Home extends Component {
                     <div className="header-title">
                         
                         <Header as="h3">
-                            <img src={katchup} /> Session Number: {sessionStorage.getItem('sessionID')}
+                            <img className="logo" src={katchup} /> Session Number: {sessionStorage.getItem('sessionID')}
                         </Header>
                    
                     </div>  
