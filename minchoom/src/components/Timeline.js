@@ -37,9 +37,38 @@ export default class Timeline extends React.Component {
         return (
             <div className="progressBar-conntainer">
                 <div className="progressBar">
-                {flags.map((value) => <Clickable onClick={() => this.flagClickHandler(value)}><div className="flag-tip" key={value} style={{left: value/videoTime*65+"%"}}>🚩 </div></Clickable>)}
-                <Progress   percent={95} color='light-grey' />
-                <div className="time-progress">{formatTime(videoTime)}</div>
+                    {
+                    flags.map((value) => 
+                    
+                    <Clickable onClick={() => this.flagClickHandler(value)}>
+                        <div className="flag-tip" key={value[1]} style={{left: value[1]/videoTime*65+"%"}}>
+                            { value[0] === "Activity" 
+                                ?
+                                '🚩'
+                                :
+                                value[0] === "Emphasis"
+                                ?
+                                'EM'
+                                :
+                                value[0] === "Exclusive"
+                                ?
+                                'EX'
+                                :
+                                value[0] === "Notice"
+                                ?
+                                'No'
+                                :
+                                value[0] === "Q&A"
+                                ?
+                                'QA'
+                                :
+                                null
+                            }
+                        </div>
+                    </Clickable>
+                    )}
+                    <Progress percent={95} color='light-grey' />
+                    <div className="time-progress">{formatTime(videoTime)}</div>
                 </div>
             </div>
         );

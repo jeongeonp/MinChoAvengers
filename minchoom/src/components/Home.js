@@ -75,7 +75,7 @@ class Home extends Component {
 
     addFlag(label) {
         const {flags} = this.state;
-        flags.push(this.state.playedSeconds);
+        flags.push([label, this.state.playedSeconds]);
         flags.sort();
         this.setState({
             flags: flags,
@@ -103,7 +103,7 @@ class Home extends Component {
             console.log("Flag succesfully sent!")
         })
         
-        /*
+        
         fetch(`${databaseURL+'/flags/'}/.json`, {
             method: 'POST',
             body: JSON.stringify(flagInfo)
@@ -115,7 +115,7 @@ class Home extends Component {
         }).then(() => {
             console.log("Flag succesfully sent!")
         })
-        */
+        
 
     }
 
