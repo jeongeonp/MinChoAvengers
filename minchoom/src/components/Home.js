@@ -31,17 +31,13 @@ class Home extends Component {
             playing: false,
             playbackRate: 1.0,
             modalOpen: true,
-            dummyData: "no data yet",
             flags: [],
-            anchorEl: null,
         }
         this.sendData = this.sendData.bind(this);
         this.getData = this.getData.bind(this);
         this.addFlag = this.addFlag.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.selectRole = this.selectRole.bind(this);
-        this.handlePopoverOpen = this.handlePopoverOpen.bind(this);
-        this.handlePopoverClose = this.handlePopoverClose.bind(this);
     }
     componentDidMount() {
     }
@@ -95,7 +91,7 @@ class Home extends Component {
         
         console.log(flagInfo)
         
-        fetch( `${databaseURL+'/sessions/'+sessionid+'/flags/'}/.json`, {
+        fetch(`${databaseURL+'/sessions/'+sessionid+'/flags/'}/.json`, {
             method: 'POST',
             body: JSON.stringify(flagInfo)
         }).then(res => {
@@ -107,7 +103,19 @@ class Home extends Component {
             console.log("Flag succesfully sent!")
         })
         
-        
+        /*
+        fetch(`${databaseURL+'/flags/'}/.json`, {
+            method: 'POST',
+            body: JSON.stringify(flagInfo)
+        }).then(res => {
+            if (res.status !== 200) {
+                throw new Error(res.statusText);
+            }
+            return res.json();
+        }).then(() => {
+            console.log("Flag succesfully sent!")
+        })
+        */
 
     }
 
@@ -146,17 +154,6 @@ class Home extends Component {
         }
     }
 
-    handlePopoverOpen = (event) => {
-        this.setState({ anchorEl: event.currentTarget })
-        console.log(this.state.anchorEl)
-    };
-
-    handlePopoverClose = () => {
-        this.setState({ anchorEl: null })
-        console.log("**", this.state.anchorEl)
-    };
-
-    
     handleProgress = state => {
         // We only want to update time slider if we are not currently seeking
         this.setState(state);
@@ -168,8 +165,8 @@ class Home extends Component {
 
     render() {
         const { } = this.props;
-        const { playing, playbackRate, dummyData, modalOpen, buttonsOpen, anchorEl } = this.state;
-        const { sendData, getData, addFlag, handlePopoverOpen, handlePopoverClose } = this;
+        const { playing, playbackRate, modalOpen } = this.state;
+        const { addFlag, } = this;
         return (
             <div className="Home">
                 <div className="header-bar">
@@ -196,26 +193,19 @@ class Home extends Component {
                         <Fab 
                             variant="extended" 
                             style={{top: '-45px', fontWeight: '600', fontSize: '1.4em'}} 
-                            onClick={addFlag}
-                            onMouseEnter={handlePopoverOpen}
+                            
                         >
                         🚩Flag
-                            
                         </Fab>
                         
                         <Button.Group 
                             vertical
-                            anchorEl={anchorEl}
-                            keepMounted
-                            open={Boolean(anchorEl)}
-                            onClose={handlePopoverClose}
-                            style={{top: '-55px'}}
                         >
-                            <Button><Image src={Activity} avatar/> Activity</Button>
-                            <Button><Image src={Emphasis} avatar/> Emphasis</Button>
-                            <Button><Image src={Exclusive} avatar/> Exclusive Material</Button>
-                            <Button><Image src={Notice} avatar/> Notice</Button>
-                            <Button><Image src={QnA} avatar/> Q&A</Button>
+                            <Button onClick={() => addFlag('Activity')}><Image src={Activity} avatar/> Activity</Button>
+                            <Button onClick={() => addFlag('Emphasis')}><Image src={Emphasis} avatar/> Emphasis</Button>
+                            <Button onClick={() => addFlag('Exclusive')}><Image src={Exclusive} avatar/> Exclusive Material</Button>
+                            <Button onClick={() => addFlag('Notice')}><Image src={Notice} avatar/> Notice</Button>
+                            <Button onClick={() => addFlag('Q&A')}><Image src={QnA} avatar/> Q&A</Button>
                         </Button.Group>
                         
                     </Row>
@@ -228,19 +218,10 @@ class Home extends Component {
 
                     </Chat>
 
-                    {/*
-                    <button type="button" onClick={sendData}>Send dummy data to database</button> <br/> <br/>
-                    <button type="button" onClick={getData}>Get dummy data from database</button> <br/> <br/>
-                    { dummyData 
-                        ?
-                        <span style={{border: "2px solid blue", padding: "3px", margin: "3px"}}>{dummyData}</span>
-                        :
-                        <span> no data yet</span>
-                    }*/}
                     </div>
                 </Row>
                 </Container>
-                <Modal open={!modalOpen} closeModal={this.closeModal} selectRole={this.selectRole}></Modal>
+                <Modal open={modalOpen} closeModal={this.closeModal} selectRole={this.selectRole}></Modal>
             </div>
         )
     }
