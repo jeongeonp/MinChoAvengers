@@ -105,10 +105,6 @@ export default class Chat extends React.Component {
     const { sendMessage, keyPress } = this;
     return (
             <chat>
-              <div class="tab">
-                <button class="tablinks">Chatroom</button>
-                <button class="tablinks">Catch Up</button>
-              </div>
               <main>
                 <div>{messages 
                 ?

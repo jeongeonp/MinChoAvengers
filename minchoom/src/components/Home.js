@@ -12,6 +12,9 @@ import Fab from '@material-ui/core/Fab';
 import Popover from '@material-ui/core/Popover';
 
 import Row from 'react-bootstrap/Row'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import Typography from '@material-ui/core/Typography'
 import PieMenu, { Slice } from 'react-pie-menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
  
@@ -32,6 +35,7 @@ class Home extends Component {
             playbackRate: 1.0,
             modalOpen: true,
             flags: [],
+            tabValue: '1'
         }
         this.sendData = this.sendData.bind(this);
         this.getData = this.getData.bind(this);
@@ -163,10 +167,15 @@ class Home extends Component {
         this.player = player;
     }
 
+    handleTab = (value) => {
+        this.setState({ tabValue: value })
+    }
+
     render() {
         const { } = this.props;
-        const { playing, playbackRate, modalOpen } = this.state;
-        const { addFlag, } = this;
+        const {playing, playbackRate, modalOpen, tabValue} = this.state;
+        const { addFlag, handleTab } = this;
+
         return (
             <div className="Home">
                 <div className="header-bar">
@@ -214,10 +223,24 @@ class Home extends Component {
                 </Row>
                 <Row>
                     <div className="split-right" >
-                    <Chat>
-
-                    </Chat>
-
+                        <Tabs variant="fullWidth" tab={tabValue} onChange={(e, v) => { handleTab(v) }}>
+                            <Tab value='1' label="Chatroom">
+                            </Tab>
+                            <Tab value='2' label="CatchUp">
+                            </Tab>
+                        </Tabs>
+                        <Typography
+                            role="tabpanel"
+                            hidden={tabValue !== '1'}
+                            className="right">
+                            <Chat></Chat>
+                        </Typography>
+                        <Typography
+                            role="tabpanel"
+                            hidden={tabValue !== '2'}
+                            className="right">
+                            <Catchup></Catchup>
+                        </Typography>
                     </div>
                 </Row>
                 </Container>
