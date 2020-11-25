@@ -271,7 +271,7 @@ class Home extends Component {
                                 flagId={tempFlagId}
                                 flagLabel={tempFlagLabel}
                                 sessionId={tempSessionId}
-                                //time={tempTime}
+                                time={tempTime}
                             />
                         </Typography>
                     </div>
