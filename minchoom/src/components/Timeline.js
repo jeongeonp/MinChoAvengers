@@ -72,7 +72,7 @@ export default class Timeline extends React.Component {
                         <div className="flag-tip" key={value[1]} style={{left: value[1]/videoTime*65+"%"}}>
                             { value[0] === "Activity" 
                                 ?
-                                '💻'
+                                '📝'
                                 :
                                 value[0] === "Emphasis"
                                 ?
@@ -80,7 +80,7 @@ export default class Timeline extends React.Component {
                                 :
                                 value[0] === "Exclusive"
                                 ?
-                                '🤫'
+                                '➕'
                                 :
                                 value[0] === "Notice"
                                 ?

@@ -98,20 +98,23 @@ export default class Catchup extends React.Component {
         }
         return res.json();
     }).then(res => {
-        const q = 'questions'
-        const a = 'answers'
-        const question_keys = Object.keys(res['questions'])
-        const answer_keys = Object.keys(res['answers'])
-        const questions = question_keys.map((k)=>[res[q][k]['answered'], res[q][k]['answeredSessions'], res[q][k]['flagId'], res[q][k]['flagLabel'], res[q][k]['questionText'], res[q][k]['sessionId'], res[q][k]['time']]).sort(function(first, second) {
+        if (res) {
+          const q = 'questions'
+          const a = 'answers'
+          const question_keys = Object.keys(res['questions'])
+          const answer_keys = Object.keys(res['answers'])
+          const questions = question_keys.map((k)=>[res[q][k]['answered'], res[q][k]['answeredSessions'], res[q][k]['flagId'], res[q][k]['flagLabel'], res[q][k]['questionText'], res[q][k]['sessionId'], res[q][k]['time']]).sort(function(first, second) {
+              return second[6] - first[6];
+            })
+          const answers = answer_keys.map((k)=>[res[a][k]['answerText'], res[a][k]['flagId'], res[a][k]['flagLabel'], res[a][k]['liked'], res[a][k]['questionId'], res[a][k]['sessionId'], res[a][k]['time'], res[a][k]['upvotes']]).sort(function(first, second) {
             return second[6] - first[6];
           })
-        const answers = answer_keys.map((k)=>[res[a][k]['answerText'], res[a][k]['flagId'], res[a][k]['flagLabel'], res[a][k]['liked'], res[a][k]['questionId'], res[a][k]['sessionId'], res[a][k]['time'], res[a][k]['upvotes']]).sort(function(first, second) {
-          return second[6] - first[6];
-        })
-        this.setState({
-          questions: questions,
-          answers: answers
-        })
+          this.setState({
+            questions: questions,
+            answers: answers
+          })
+        }
+        
     })
   }
 
@@ -170,11 +173,13 @@ export default class Catchup extends React.Component {
     }
   }
 
-/*
   getHintText(label) {
-    if (label === "Activity") {return }
+    if (label === "Activity") {return "What was this notice about?"}
+    if (label === "Activity") {return "What was this notice about?"}
+    if (label === "Activity") {return "What was this notice about?"}
+    if (label === "Activity") {return "What was this notice about?"}
+    if (label === "Activity") {return "What was this notice about?"}
   }
-*/
 
   render() {
     const {flagLabel } = this.props;

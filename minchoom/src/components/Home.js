@@ -234,7 +234,7 @@ class Home extends Component {
                         <Button.Group vertical>
                             <Button onClick={() => addFlag('Activity')}><Image src={Activity} avatar/> Activity</Button>
                             <Button onClick={() => addFlag('Emphasis')}><Image src={Emphasis} avatar/> Emphasis</Button>
-                            <Button onClick={() => addFlag('Exclusive')}><Image src={Exclusive} avatar/> Exclusive Material</Button>
+                            <Button onClick={() => addFlag('Exclusive Material')}><Image src={Exclusive} avatar/> Exclusive Material</Button>
                             <Button onClick={() => addFlag('Notice')}><Image src={Notice} avatar/> Notice</Button>
                             <Button onClick={() => addFlag('Q&A')}><Image src={QnA} avatar/> Q&A</Button>
                         </Button.Group>
