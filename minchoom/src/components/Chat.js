@@ -45,6 +45,9 @@ export default class Chat extends React.Component {
     if (prevProps.videoTime !== this.props.videoTime){
       this.getChatData()
     }
+    if (prevState.messages !== this.state.messages){
+      this.scrollToBottom();
+    }
   }
 
   sendData = (dataDict) => {
@@ -75,9 +78,12 @@ export default class Chat extends React.Component {
           .filter(e => (e[0]<=this.props.videoTime)).sort(function(first, second) {
             return first[0] - second[0];
           })
-          this.setState({
-            messages: chats
-          })
+          if (this.state.messages.length !== chats.length) {
+            this.setState({
+              messages: chats
+            })
+          }
+          
         }
         
     })
@@ -113,6 +119,7 @@ export default class Chat extends React.Component {
     this.setState({
       formValue: ''
   })
+    this.scrollToBottom();
     //dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
 
@@ -124,7 +131,7 @@ export default class Chat extends React.Component {
   render() {
     const { videoTime } = this.props;
     const { messages, formValue, sessionId } = this.state;
-    const { sendMessage, keyPress, handleSubmit } = this;
+    const { sendMessage, keyPress, scrollToBottom } = this;
     return (
             <chat>
               <main>
@@ -132,24 +139,21 @@ export default class Chat extends React.Component {
                   {messages 
                   ?
                   messages.map(msg => { return (
-                  <>
                     <div className={`message ${this.state.sessionId === msg[1] ? 'sent' : 'received'}`}>
                       <img src={profile} />
                       <p>{msg[2]}</p>
                       <span style={{color: 'grey', padding: '4px 7px 0 7px'}}>{this.formatTime(msg[0])}</span>
                     </div>
-                  </>
                   )})
                   :
                   <div>no messages</div>  
                   }
-                  <div style={{ float:"left", clear: "both" }} ref={(el) => { this.messagesEnd = el; }}/>
                 </div>
+                <div style={{ float:"left", clear: "both" }} ref={(el) => { this.messagesEnd = el; }}/>
               </main>
-          
               <form ref={el => this.myFormRef = el}>
                   <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder=" Type in anything!" />
-                  <button type="submit" disabled={!formValue} onClick={sendMessage} >🕊️</button>
+                  <button type="submit" disabled={!formValue} onClick={sendMessage}>🕊️</button>
                 </form>
           </chat>)
     }
