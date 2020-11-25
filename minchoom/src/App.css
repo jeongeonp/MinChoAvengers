@@ -32,8 +32,8 @@
   display: inline-block;
 }
 .split-right {
-  width: 30vw;
-  height: 100vh;
+  width: 90%;
+  height: 95%;
   overflow-x: hidden;
   overflow-y: hidden;
   right: 0;
@@ -132,67 +132,11 @@
   }
 }
 
-
-.Chat {
-  text-align: center;
-  max-width: 150px;
-  margin: 0 auto;
-}
-
-.Chat header {
-  background-color: #181717;
-  height: 10vh;
-  min-height: 50px;
-  color: white;
-  position: fixed;
+.right {
   width: 100%;
-  max-width: 150px;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 99;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-.Chat section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: rgb(40, 37, 53);
-}
-
-.Catchup {
-  text-align: center;
-  max-width: 150px;
-  margin: 0 auto;
-}
-
-.Catchup header {
-  background-color: #181717;
-  height: 10vh;
-  min-height: 50px;
-  color: white;
-  position: fixed;
-  width: 100%;
-  max-width: 150px;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 99;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-.Catchup section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: rgb(40, 37, 53);
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 main {
@@ -202,7 +146,6 @@ main {
   display: flex;
   flex-direction: column;
   background-color: white;
-  border-width: 7px;
 }
 
 main::-webkit-scrollbar {
@@ -219,7 +162,7 @@ main::-webkit-scrollbar-thumb {
 
 form {
   height: 11vh;
-  position: sticky;
+  position: relative;
   background-color: rgb(24, 23, 23);
   width: 100%;
   display: flex;
@@ -272,8 +215,6 @@ ul, li {
 
 p {
   max-width: 500px;
-  margin-top: 8px;
-  margin-bottom: 8px;
   line-height: 24px;
   padding: 10px 20px;
   border-radius: 25px;
@@ -285,7 +226,7 @@ p {
 .message {
   display: flex;
   align-items: left;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 
@@ -315,35 +256,6 @@ img {
   margin: 2px 5px;
 }
 
-/* Style the tab */
-.tab {
-  overflow: hidden;
-  background-color: #ff6666;
-  width: auto;
-}
-
-/* Style the buttons that are used to open the tab content */
-.tab button {
-  background-color: #ff6666;
-  float: center;
-  border: none;
-  outline: 2px solid #ffc857;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  width: 50%;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ff6666;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-  background-color: #ccc;
-}
-
 .type {
   width: 150px;
   height: 30px;
@@ -364,11 +276,12 @@ img {
 }
 
 .questionImg {
-  width: 400px;
-  height: 200px;
+  width: 300px;
+  height: 180px;
   border-radius: 0%;
   margin: 2px 5px;
   margin-top: 15px;
+  align-items: center;
 }
 
 .q {

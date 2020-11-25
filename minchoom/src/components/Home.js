@@ -10,6 +10,9 @@ import Timeline from './Timeline';
 import Container from 'react-bootstrap/Container'
 import Fab from '@material-ui/core/Fab';
 import Row from 'react-bootstrap/Row'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import Typography from '@material-ui/core/Typography'
 import PieMenu, { Slice } from 'react-pie-menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
  
@@ -25,6 +28,7 @@ class Home extends Component {
             modalOpen: true,
             dummyData: "no data yet",
             flags: [],
+            tabValue: '1'
         }
         this.sendData = this.sendData.bind(this);
         this.getData = this.getData.bind(this);
@@ -134,10 +138,14 @@ class Home extends Component {
         this.player = player;
     }
 
+    handleTab = (value) => {
+        this.setState({ tabValue: value })
+    }
+
     render() {
         const { } = this.props;
-        const {playing, playbackRate, dummyData, modalOpen} = this.state;
-        const { sendData, getData, addFlag } = this;
+        const {playing, playbackRate, dummyData, modalOpen, tabValue} = this.state;
+        const { sendData, getData, addFlag, handleTab } = this;
         return (
             <div className="Home">
                 <div className="header-bar">
@@ -199,17 +207,32 @@ class Home extends Component {
                 </Row>
                 <Row>
                     <div className="split-right" >
-                    <Chat>
-
-                    </Chat>
-                    <button type="button" onClick={sendData}>Send dummy data to database</button> <br/> <br/>
-                    <button type="button" onClick={getData}>Get dummy data from database</button> <br/> <br/>
-                    { dummyData 
-                        ?
-                        <span style={{border: "2px solid blue", padding: "3px", margin: "3px"}}>{dummyData}</span>
-                        :
-                        <span> no data yet</span>
-                    }
+                        <Tabs variant="fullWidth" tab={tabValue} onChange={(e, v) => { handleTab(v) }}>
+                            <Tab value='1' label="Chatroom">
+                            </Tab>
+                            <Tab value='2' label="CatchUp">
+                            </Tab>
+                        </Tabs>
+                        <Typography
+                            role="tabpanel"
+                            hidden={tabValue !== '1'}
+                            className="right">
+                            <Chat></Chat>
+                        </Typography>
+                        <Typography
+                            role="tabpanel"
+                            hidden={tabValue !== '2'}
+                            className="right">
+                            <Catchup></Catchup>
+                        </Typography>
+                        <button type="button" onClick={sendData}>Send dummy data to database</button> <br/> <br/>
+                        <button type="button" onClick={getData}>Get dummy data from database</button> <br/> <br/>
+                        { dummyData 
+                            ?
+                            <span style={{border: "2px solid blue", padding: "3px", margin: "3px"}}>{dummyData}</span>
+                            :
+                            <span> no data yet</span>
+                        }
                     </div>
                 </Row>
                 </Container>

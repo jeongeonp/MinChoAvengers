@@ -99,10 +99,6 @@ export default class Catchup extends React.Component {
     const { sendQuestion } = this;
     return (
             <chat>
-              <div class="tab">
-                <button class="tablinks">Chatroom</button>
-                <button class="tablinks">Catch Up</button>
-              </div>
               <main>
                 <div className="type">
                     Notice    
