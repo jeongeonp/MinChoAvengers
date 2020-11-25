@@ -258,17 +258,20 @@ class Home extends Component {
                             role="tabpanel"
                             hidden={tabValue !== '1'}
                             className="right">
-                            <Chat/>
+                            <Chat
+                                videoTime={this.state.playedSeconds}
+                            />
                         </Typography>
                         <Typography
                             role="tabpanel"
                             hidden={tabValue !== '2'}
                             className="right">
                             <Catchup
+                                videoTime={this.state.playedSeconds}
                                 flagId={tempFlagId}
                                 flagLabel={tempFlagLabel}
                                 sessionId={tempSessionId}
-                                time={tempTime}
+                                //time={tempTime}
                             />
                         </Typography>
                     </div>
