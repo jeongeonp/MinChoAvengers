@@ -26,21 +26,29 @@ export default class Chat extends React.Component {
     this.state = {
       messages: [],
       formValue: '',
-      sessionId: 'julie'
+      sessionId: sessionStorage.getItem('sessionID'),
+
     }
     this.sendData = this.sendData.bind(this);
-    this.getData = this.getData.bind(this);
+    this.getChatData = this.getChatData.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
+    this.formatTime = this.formatTime.bind(this);
   }
 
   componentDidMount() {
-    this.getData();
+    this.getChatData();
     // firebase
     //   .database()
     //   .ref("/chatroom")
     //   .on("value", snapshot =>
-    //     this.getData
+    //     this.getChatData
     //   );
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.videoTime !== this.props.videoTime){
+      this.getChatData()
+    }
   }
 
   sendData = (dataDict) => {
@@ -57,21 +65,33 @@ export default class Chat extends React.Component {
     })
   }
 
-  getData = () => {
+  getChatData = () => {
     fetch( `${databaseURL+'/chatroom'}/.json`).then(res => {
         if (res.status !== 200) {
             throw new Error(res.statusText);
         }
         return res.json();
     }).then(res => {
-        const keys = Object.keys(res)
-        const chats = keys.map((k)=>[res[k]['time'], res[k]['sessionId'], res[k]['messageText']]).sort(function(first, second) {
-          return second[0] - first[0];
-        })
-        this.setState({
-          messages: chats
-        })
+        if (res) {
+          const keys = Object.keys(res)
+          const chats = keys.map((k)=>[res[k]['time'], res[k]['sessionId'], res[k]['messageText']]).sort(function(first, second) {
+            return first[0] - second[0];
+          })
+          this.setState({
+            messages: chats
+          })
+        }
+        
     })
+  }
+
+  formatTime(time) {
+    time = Math.round(time);
+  
+    var minutes = Math.floor(time / 60),
+        seconds = time - minutes * 60;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    return minutes + ":" + seconds;
   }
 
   keyPress = e => {
@@ -87,9 +107,8 @@ export default class Chat extends React.Component {
     this.sendData(
         {
           messageText: this.state.formValue,
-          //sessionId: this.state.sessionId,
-          sessionId: "pat",
-          time: new Date()
+          sessionId: this.state.sessionId,
+          time: this.props.videoTime
         }
     )
     this.setState({
@@ -100,33 +119,35 @@ export default class Chat extends React.Component {
 
 
   render() {
-    const { } = this.props;
-    const {messages, formValue, sessionId} = this.state;
+    const { videoTime } = this.props;
+    const { messages, formValue, sessionId } = this.state;
     const { sendMessage, keyPress } = this;
     return (
             <chat>
               <main>
                 <div>{messages 
                 ?
-                messages.map(msg => { return(
+                messages.map(msg => { return (
                 <>
                 <div className={`message ${this.state.sessionId === msg[1] ? 'sent' : 'received'}`}>
                   <img src={profile} />
                   <p>{msg[2]}</p>
-                </div></>)})
+                  <span style={{color: 'grey', padding: '4px 7px 0 7px'}}>{this.formatTime(msg[0])}</span>
+                </div>
+                </>
+                )})
                 :
                 <div>no messages</div>  
                 }</div>
 
               
-                {/* <span ref={dummy}></span> */}
               </main>
           
               <form onSubmit={sendMessage} ref={el => this.myFormRef = el}>
                   
-                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder=" Type in anything!" />
+                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})}  placeholder=" Type in anything!" />
             
-                  <button type="submit" disabled={!formValue}>🕊️</button>
+                  <button type="submit" disabled={!formValue} onKeyDown={keyPress}>🕊️</button>
             
                 </form>
           </chat>)

@@ -239,13 +239,19 @@ p {
   background: #ff6666;
   align-self: flex-end;
   text-align: justify;
-  margin-left: 80px;
+  
 }
 .received p {
   background: #ffc857;
   align-self: flex-end;
   color: black;
   text-align: justify;
+  
+}
+.sent span {
+  margin-left: 80px;
+}
+.received span {
   margin-right: 80px;
 }
 
