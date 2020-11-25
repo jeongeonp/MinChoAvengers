@@ -35,13 +35,23 @@ class Home extends Component {
             playbackRate: 1.0,
             modalOpen: true,
             flags: [],
-            tabValue: '1'
+            tabValue: '1',
+
+
+            // States that will be passed onto Catch Up mode
+            tempFlagId: '',
+            tempFlagLabel: '',
+            tempSessionId: '',
+            tempTime: '',
         }
         this.sendData = this.sendData.bind(this);
         this.getData = this.getData.bind(this);
         this.addFlag = this.addFlag.bind(this);
+        this.addFlagTwice = this.addFlagTwice.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.selectRole = this.selectRole.bind(this);
+        this.flagClickHandler = this.flagClickHandler.bind(this);
+        this.handleTab = this.handleTab.bind(this);
     }
     componentDidMount() {
     }
@@ -77,15 +87,11 @@ class Home extends Component {
         })
     }
 
+    // Send to /sessions/{sessionId}/flags/{flagId}
     addFlag(label) {
-        const {flags} = this.state;
-        flags.push([label, this.state.playedSeconds]);
-        flags.sort();
-        this.setState({
-            flags: flags,
-        });
-        console.log(flags, this.state.playedSeconds);
+        const { flags } = this.state;
         const sessionid = sessionStorage.getItem('sessionID')
+
         const flagInfo = {
             time: this.state.playedSeconds,
             label: label,
@@ -93,7 +99,7 @@ class Home extends Component {
             sessionId: sessionid
         }
         
-        console.log(flagInfo)
+        //console.log(flagInfo)
         
         fetch(`${databaseURL+'/sessions/'+sessionid+'/flags/'}/.json`, {
             method: 'POST',
@@ -103,24 +109,30 @@ class Home extends Component {
                 throw new Error(res.statusText);
             }
             return res.json();
-        }).then(() => {
-            console.log("Flag succesfully sent!")
+        }).then((res) => {
+            //console.log("Flag succesfully sent!")
+            flags.push([label, this.state.playedSeconds, res.name, sessionid]);
+            flags.sort();
+            this.setState({
+                flags: flags,
+            });
+            console.log(flags);
+
+            this.addFlagTwice(flagInfo, res.name)
         })
-        
-        
-        fetch(`${databaseURL+'/flags/'}/.json`, {
-            method: 'POST',
+    }
+
+    // Send to /flags/{flagId}
+    addFlagTwice(flagInfo, flagId) {
+        fetch(`${databaseURL+'/flags/'+flagId+'/'}/.json`, {
+            method: 'PATCH',
             body: JSON.stringify(flagInfo)
         }).then(res => {
             if (res.status !== 200) {
                 throw new Error(res.statusText);
             }
             return res.json();
-        }).then(() => {
-            console.log("Flag succesfully sent!")
         })
-        
-
     }
 
     closeModal(){
@@ -158,6 +170,19 @@ class Home extends Component {
         }
     }
 
+    flagClickHandler(info){
+        //here
+        console.log("Flag info is", info);
+        this.handleTab('2')
+        this.setState({
+            tempFlagId: info[2],
+            tempFlagLabel: info[0],
+            tempSessionId: info[3],
+            tempTime: info[1],
+        })
+    }
+
+
     handleProgress = state => {
         // We only want to update time slider if we are not currently seeking
         this.setState(state);
@@ -173,8 +198,8 @@ class Home extends Component {
 
     render() {
         const { } = this.props;
-        const {playing, playbackRate, modalOpen, tabValue} = this.state;
-        const { addFlag, handleTab } = this;
+        const {playing, playbackRate, modalOpen, tabValue, tempFlagId, tempFlagLabel, tempSessionId, tempTime } = this.state;
+        const { addFlag, handleTab, flagClickHandler } = this;
 
         return (
             <div className="Home">
@@ -219,11 +244,11 @@ class Home extends Component {
                         
                     </Row>
                     <br/>
-                    <Timeline flags={this.state.flags} videoTime={this.state.playedSeconds}></Timeline>
+                    <Timeline flagClickHandler={flagClickHandler} flags={this.state.flags} videoTime={this.state.playedSeconds}></Timeline>
                 </Row>
                 <Row>
                     <div className="split-right" >
-                        <Tabs variant="fullWidth" tab={tabValue} onChange={(e, v) => { handleTab(v) }}>
+                        <Tabs variant="fullWidth" tab={tabValue} onChange={(e, v) => { handleTab(v); }}>
                             <Tab value='1' label="Chatroom">
                             </Tab>
                             <Tab value='2' label="CatchUp">
@@ -233,13 +258,18 @@ class Home extends Component {
                             role="tabpanel"
                             hidden={tabValue !== '1'}
                             className="right">
-                            <Chat></Chat>
+                            <Chat/>
                         </Typography>
                         <Typography
                             role="tabpanel"
                             hidden={tabValue !== '2'}
                             className="right">
-                            <Catchup></Catchup>
+                            <Catchup
+                                flagId={tempFlagId}
+                                flagLabel={tempFlagLabel}
+                                sessionId={tempSessionId}
+                                time={tempTime}
+                            />
                         </Typography>
                     </div>
                 </Row>
