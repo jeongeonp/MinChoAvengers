@@ -58,6 +58,7 @@ export default class Catchup extends React.Component {
       questions: [],
       answers: [],
       formValue: '',
+      answerValue: [],
       sessionId: sessionStorage.getItem('sessionID'),
       asking: true,
 
@@ -65,7 +66,8 @@ export default class Catchup extends React.Component {
       tempQuestions: [],
       tempAnswers: [],
     }
-    this.getChatData = this.getChatData.bind(this);
+    this.formatTime = this.formatTime.bind(this);
+    this.getQuestionAnswerData = this.getQuestionAnswerData.bind(this);
     this.sendData = this.sendData.bind(this);
     this.addQuestionTwice = this.addQuestionTwice.bind(this);
     this.addAnswerTwice = this.addAnswerTwice.bind(this);
@@ -75,13 +77,23 @@ export default class Catchup extends React.Component {
   }
 
   componentDidMount() {
-    this.getChatData();
+    this.getQuestionAnswerData();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.videoTime !== this.props.videoTime){
-      this.getChatData()
+      this.getQuestionAnswerData()
     }
+  }
+
+
+  formatTime(time) {
+    time = Math.round(time);
+  
+    var minutes = Math.floor(time / 60),
+        seconds = time - minutes * 60;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    return minutes + ":" + seconds;
   }
 
   sendData = (dataDict, index) => {
@@ -94,7 +106,7 @@ export default class Catchup extends React.Component {
       }
       return res.json();
     }).then((res) => {
-      console.log("CatchUp Question succesfully sent!")
+      console.log("CatchUp " + index + " succesfully sent!")
       if (index === 0) {
         // question
         this.addQuestionTwice(dataDict, res.name)
@@ -102,13 +114,14 @@ export default class Catchup extends React.Component {
       if (index === 1) {
         // answer
         this.addAnswerTwice(dataDict, res.name)
+        console.log(dataDict)
       }
 
     })
   }
 
   addQuestionTwice(questionInfo, questionId) {
-    const sessionid = sessionStorage.getItem('sessionID')
+    const sessionid = this.props.sessionId
     fetch(`${databaseURL+'/sessions/'+sessionid+'/questions/'+questionId}/.json`, {
         method: 'PATCH',
         body: JSON.stringify(questionInfo)
@@ -121,7 +134,8 @@ export default class Catchup extends React.Component {
   }
 
   addAnswerTwice(answerInfo, answerId) {
-    const sessionid = sessionStorage.getItem('sessionID')
+    console.log(answerInfo, answerId)
+    const sessionid = this.props.sessionId
     fetch(`${databaseURL+'/sessions/'+sessionid+'/answers/'+answerId}/.json`, {
         method: 'PATCH',
         body: JSON.stringify(answerInfo)
@@ -133,7 +147,7 @@ export default class Catchup extends React.Component {
     })
   } 
 
-  getChatData = () => {
+  getQuestionAnswerData = () => {
     fetch( `${databaseURL+'/catchup'}/.json`)
     .then(res => {
         if (res.status !== 200) {
@@ -145,13 +159,23 @@ export default class Catchup extends React.Component {
           const q = 'questions'
           const a = 'answers'
           const question_keys = Object.keys(res['questions'])
-          const answer_keys = Object.keys(res['answers'])
-          const questions = question_keys.map((k)=>[res[q][k]['answered'], res[q][k]['answeredSessions'], res[q][k]['flagId'], res[q][k]['flagLabel'], res[q][k]['questionText'], res[q][k]['sessionId'], res[q][k]['time']]).sort(function(first, second) {
-              return second[6] - first[6];
+          const answer_keys = res['answers'] ? Object.keys(res['answers']) : []
+          const questions = question_keys.map((k)=>[res[q][k]['answered'], res[q][k]['answeredSessions'], res[q][k]['flagId'], res[q][k]['flagLabel'], res[q][k]['questionText'], res[q][k]['sessionId'], res[q][k]['time'], k])
+          .filter(e => (e[2]===this.props.flagId)).sort(function(first, second) {
+              return first[6] - second[6];
             })
-          const answers = answer_keys.map((k)=>[res[a][k]['answerText'], res[a][k]['flagId'], res[a][k]['flagLabel'], res[a][k]['liked'], res[a][k]['questionId'], res[a][k]['sessionId'], res[a][k]['time'], res[a][k]['upvotes']]).sort(function(first, second) {
-            return second[6] - first[6];
+          
+          const answers = answer_keys.map((k)=>[res[a][k]['answerText'], res[a][k]['flagId'], res[a][k]['flagLabel'], res[a][k]['liked'], res[a][k]['questionId'], res[a][k]['sessionId'], res[a][k]['time'], res[a][k]['upvotes']])
+          .sort(function(first, second) {
+            return first[6] - second[6];
           })
+          console.log(answers)
+          /*
+          const answerDict = []
+          for (var answer in allAnswers) {
+            if ()
+          }*/
+          console.log(answers)
           this.setState({
             questions: questions,
             answers: answers
@@ -169,7 +193,7 @@ export default class Catchup extends React.Component {
           flagId: this.props.flagId,
           flagLabel: this.props.flagLabel,
           questionText: this.state.formValue,
-          sessionId: this.state.sessionId,
+          sessionId: this.props.sessionId,
           time: this.props.time,
         }, 0
     )
@@ -179,21 +203,22 @@ export default class Catchup extends React.Component {
     })
   }
 
-  sendAnswer = async (e) => {
+  sendAnswer = (qId) => {
+    console.log(qId)
     this.sendData(
         {
-          answerText: false,
+          answerText: this.state.answerValue,
           flagId: this.props.flagId,
           flagLabel: this.props.flagLabel,
           liked:false,
-          questionId: '',
-          sessionId: this.state.sessionId,
+          questionId: qId,
+          sessionId: this.props.sessionId,
           time: this.props.time,
           upvotes: 0
         }, 1
     )
     this.setState({
-      formValue: ''
+      answerValue: ''
     })
     //dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
@@ -210,43 +235,55 @@ export default class Catchup extends React.Component {
       if (this.state.asking) {
         this.sendQuestion()
       }
-      else {
-        this.sendAnswer()
-      }
+    }
+  }
+
+  keyPress2 = e => {
+    if(e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      
+      this.sendAnswer()
+      
     }
   }
 
   getHintText(label) {
-    if (label === "Activity") {return "What was this notice about?"}
-    if (label === "Activity") {return "What was this notice about?"}
-    if (label === "Activity") {return "What was this notice about?"}
-    if (label === "Activity") {return "What was this notice about?"}
-    if (label === "Activity") {return "What was this notice about?"}
+    if (label === "Notice") {return "What was this notice about?"}
+    if (label === "Emphasis") {return "Did the professor emphasize something here?"}
+    if (label === "Exclusive Material") {return "What did the professor cover here that is not in the slides?"}
+    if (label === "Q&A") {return "What was the question and the professor’s answer?"}
+    if (label === "Activity") {return "What did I miss here?"}
   }
 
   render() {
-    const { flagTime, flagLabel} = this.props;
-    const imgSrc = flagToImg(flagTime);
-    const {questions, answers, formValue, sessionId, asking} = this.state;
-    const { sendQuestion, handleQuestion, sendAnswer, keyPress } = this;
+    const { flagId, flagLabel, time, videoTime } = this.props;
+    const { questions, answers, formValue, answerValue, sessionId, asking } = this.state;
+    const { formatTime, sendQuestion, handleQuestion, sendAnswer, keyPress, keyPress2, getHintText } = this;
     return (
             <chat>
               <main>
-                <div className="type">
-                    {flagLabel}    
-                </div>
+                <div className="type">{flagLabel}</div>
                 {/* This is where the screenshot image goes */}
-                <img className='questionImg' src={imgSrc}  />
-                <div>{questions.filter((q) => q.flagId == this.props.flagId)
-                    ?
-                    questions.filter((q) => q.flagId == this.props.flagId).map(q => { return(
-                    <>
-                    <div className='question'onClick={handleQuestion}>
+                <img className='questionImg' src={lecture} />
+                <div style={{color: 'grey'}}>Flagged at {formatTime(time)}</div>
+                {questions.map(q => { return (
+                  <div>
                     <div className="q">Q. {q[4]}</div>
-                    </div></>)})
-                    :
-                    <div>no questions!</div>  
-                }</div>
+                    <div style={{color:'grey'}}>{answers.filter(e => e[4] == answers[q[7]])}</div>
+                    {answers
+                      ?
+                      answers.filter(e => e[4] == answers[q[7]]).map(a => { return (
+                      <div className="a">A.{a[0]}</div>
+                      )})
+                      :
+                      null
+                    }
+                    <textarea type="text" value={answerValue} onChange={(e) => this.setState({answerValue: e.target.value})} onKeyDown={keyPress2} placeholder="Answer the question here."/>
+                    <button type="submit" disabled={!answerValue} onClick={() => sendAnswer(q[7])}>Answer</button>
+
+                  </div>
+                )})}
+                {/*
                 <div>{answers 
                     ?
                     answers.map(a => { return(
@@ -258,11 +295,12 @@ export default class Catchup extends React.Component {
                     <div>no answers!</div>  
                     }
                 </div>
+                  */}
               
               </main>
               <form >
-                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder="Ask your question!" />
-                  <button type="submit" disabled={!formValue} onClick={asking ? sendQuestion: sendAnswer}>🕊️</button>
+                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder={getHintText(flagLabel)} />
+                  <button type="submit" disabled={!formValue} onClick={sendQuestion}>🕊️</button>
               </form>
           </chat>)
           }

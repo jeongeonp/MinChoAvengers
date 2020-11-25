@@ -78,7 +78,7 @@ export default class Timeline extends React.Component {
                                 ?
                                 '⭐'
                                 :
-                                value[0] === "Exclusive"
+                                value[0] === "Exclusive Material"
                                 ?
                                 '➕'
                                 :
