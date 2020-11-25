@@ -31,9 +31,9 @@ export default class Modal extends React.Component {
             <Popup  open={open} position="top center" >
               {close => (
                 <div className="modal">
-                  <IconButton className="close"  onClick={close}>
+                  {/*<IconButton className="close"  onClick={close}>
                     &times;
-                  </IconButton>
+              </IconButton>*/}
                   <div className="header"> Choose your role: </div>
                   <div className="content">
                   {" "}

@@ -21,26 +21,22 @@ export default class Timeline extends React.Component {
         this.state = {
             
         };
-        this.flagClickHandler = this.flagClickHandler.bind(this);
+        
     }
 
-    flagClickHandler(index){
-        //here
-        console.log("flag index is", index);
-    }
-
+    
       
 
 
     render() {
-        const { flags, videoTime  } = this.props;
+        const { flags, videoTime, flagClickHandler  } = this.props;
         return (
             <div className="progressBar-conntainer">
                 <div className="progressBar">
                     {
                     flags.map((value) => 
                     
-                    <Clickable onClick={() => this.flagClickHandler(value)}>
+                    <Clickable onClick={() => flagClickHandler(value)}>
                         <div className="flag-tip" key={value[1]} style={{left: value[1]/videoTime*65+"%"}}>
                             { value[0] === "Activity" 
                                 ?
