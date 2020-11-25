@@ -1,9 +1,6 @@
 import React from 'react';
 import '../App.css';
-import ketchup from '../ketchup.png';
-import mustard from "../mustard.png";
-import checkmark from "../checkmark.png";
-import lecture from "../lecture.png";
+import lecture from "../images/lecture.png";
 
 import firebase from 'firebase/app';
 import 'firebase/database';
@@ -108,6 +105,7 @@ export default class Catchup extends React.Component {
                 questions.map(q => { return(
                 <>
                 <div className='question'>
+                {/* This is where the screenshot image goes */}
                   <img className='questionImg' src={lecture} />
                   <div className="q">Q. {q[4]}</div>
                 </div></>)})
