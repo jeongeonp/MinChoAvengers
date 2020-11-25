@@ -42,6 +42,7 @@
   /* top: 10%; */
   width: 100%;
   height: 67%;
+  margin-bottom: 25px;
   
 }
 .add-flag {
@@ -307,14 +308,14 @@ Row {
   height: 100%;
 }
 
-Timeline {
+.timeline {
   z-index: -10;
 }
 
 .buttonGroup {
   width: inherit;
   height: fit-content;
-  top: -150px;
+  top: -140px;
   align-items: center;
   position: relative;
 }

@@ -237,7 +237,7 @@ class Home extends Component {
                         
                         <Fab 
                             variant="extended" 
-                            style={{top: '-45px', fontWeight: '600', fontSize: '1.4em'}}
+                            style={{top: '-30px', fontWeight: '600', fontSize: '1.4em'}}
                             onMouseOver={showFlags}
                         >
                         🚩Flag
@@ -254,7 +254,7 @@ class Home extends Component {
 
                     </Row>
                     <br/>
-                    <Timeline flagClickHandler={flagClickHandler} flags={this.state.flags} videoTime={this.state.playedSeconds}></Timeline>
+                    <Timeline className="timeline" flagClickHandler={flagClickHandler} flags={this.state.flags} videoTime={this.state.playedSeconds}></Timeline>
                 </Row>
                 <Row>
                     <div className="split-right" >
