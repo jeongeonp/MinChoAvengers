@@ -60,7 +60,7 @@ export default class Timeline extends React.Component {
 
 
     render() {
-        const { flags, videoTime, flagClickHandler  } = this.props;
+        const { flags, videoTime, flagClickHandler } = this.props;
         const { currentFlags } = this.state;
         return (
             <div className="progressBar-conntainer">
@@ -78,7 +78,7 @@ export default class Timeline extends React.Component {
                                 ?
                                 '⭐'
                                 :
-                                value[0] === "Exclusive"
+                                value[0] === "Exclusive Material"
                                 ?
                                 '➕'
                                 :
