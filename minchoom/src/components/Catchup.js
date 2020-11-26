@@ -169,13 +169,7 @@ export default class Catchup extends React.Component {
           .sort(function(first, second) {
             return first[6] - second[6];
           })
-          console.log(answers)
-          /*
-          const answerDict = []
-          for (var answer in allAnswers) {
-            if ()
-          }*/
-          console.log(answers)
+          //console.log(answers)
           this.setState({
             questions: questions,
             answers: answers

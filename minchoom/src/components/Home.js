@@ -254,7 +254,7 @@ class Home extends Component {
                 </Row>
                 <Row>
                     <div className="split-right" >
-                        <Tabs variant="fullWidth" tab={tabValue} onChange={(e, v) => { handleTab(v); }}>
+                        <Tabs variant="fullWidth" tab={tabValue} value={tabValue} onChange={(e, v) => { handleTab(v); }}>
                             <Tab value='1' label="Chatroom">
                             </Tab>
                             <Tab value='2' label="CatchUp">
