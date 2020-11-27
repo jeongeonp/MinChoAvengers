@@ -183,6 +183,7 @@ export default class Catchup extends React.Component {
       console.log(sessionStorage.getItem('sessionID') , question)
       if (sessionStorage.getItem('sessionID') === question['sessionId']) {
         alert('Your question: ' + question['questionText'] + ", has been answered!")
+        //this.props.showAlert(question['questionText'])
       }
     })
   }
@@ -347,6 +348,7 @@ export default class Catchup extends React.Component {
                   <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder={getHintText(flagLabel)} />
                   <button type="submit" disabled={!formValue} onClick={sendQuestion}>🕊️</button>
               </form>
+              
           </chat>)
           }
 };

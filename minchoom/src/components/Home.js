@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player'
-import { Header, Input, Form, Button, Progress, Dimmer, Loader, Image } from 'semantic-ui-react';
+import { Header, Input, Form, Button, Progress, Dimmer, Loader, Image, Message } from 'semantic-ui-react';
 import '../App.css';
 import katchup from'../images/KatchUp.png';
 import Chat from './Chat';
@@ -44,6 +44,9 @@ class Home extends Component {
             tempFlagLabel: '',
             tempSessionId: '',
             tempTime: '',
+
+            answeredQuestion: '',
+            message: false,
         }
         this.sendData = this.sendData.bind(this);
         this.getData = this.getData.bind(this);
@@ -54,6 +57,7 @@ class Home extends Component {
         this.flagClickHandler = this.flagClickHandler.bind(this);
         this.handleTab = this.handleTab.bind(this);
         this.showFlags = this.showFlags.bind(this);
+        this.showAlert = this.showAlert.bind(this);
     }
     componentDidMount() {
     }
@@ -189,6 +193,14 @@ class Home extends Component {
 
     }
 
+    showAlert(text) {
+        this.setState({answeredQuestion: text, message: true})
+    }
+
+    closeAlert() {
+        this.setState({answeredQuestion: '', message: false})
+    }
+
 
     handleProgress = state => {
         // We only want to update time slider if we are not currently seeking
@@ -209,7 +221,7 @@ class Home extends Component {
 
     render() {
         const { } = this.props;
-        const {playing, playbackRate, modalOpen, tabValue, hover, tempFlagId, tempFlagLabel, tempSessionId, tempTime } = this.state;
+        const { playing, playbackRate, modalOpen, tabValue, hover, tempFlagId, tempFlagLabel, tempSessionId, tempTime, answeredQuestion, message } = this.state;
         const { addFlag, handleTab, flagClickHandler, showFlags } = this;
 
         return (
@@ -218,6 +230,9 @@ class Home extends Component {
                     <div className="header-title">
                             <img className="logo" src={katchup} /> Session Number: {sessionStorage.getItem('sessionID')}
                     </div>  
+                    <Message positive hidden={true} onTimeout={this.closeAlert} timeout={5000} >
+                        <Message.Header>Your question: "{answeredQuestion}" has been answered!</Message.Header>
+                    </Message>
                 </div>
                 <Container className="main-page">
                 <Row className="split-left"  tabIndex="1">
@@ -278,12 +293,15 @@ class Home extends Component {
                                 flagLabel={tempFlagLabel}
                                 sessionId={tempSessionId} // who placed the flag
                                 time={tempTime}
+                                showAlert={this.showAlert}
                             />
                         </Typography>
                     </div>
                 </Row>
                 </Container>
                 <Modal open={modalOpen} closeModal={this.closeModal} selectRole={this.selectRole}></Modal>
+                
+                
             </div>
         )
     }
