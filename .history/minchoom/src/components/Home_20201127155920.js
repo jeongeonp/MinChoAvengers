@@ -332,11 +332,11 @@ class Home extends Component {
                     </div>
                 </Row>
                 </Container>
-                {/* <Popup open = {this.state.showPopup} position="top center" >
+                <Popup open = {this.state.showPopup} position="top center" >
                     <div className="popup-modal">
                     Flags being aggregated...
                     </div>
-                </Popup> */}
+                </Popup>
                 <Modal open={modalOpen} closeModal={this.closeModal} selectRole={this.selectRole}></Modal>
                 
             </div>

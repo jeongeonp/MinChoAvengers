@@ -4,7 +4,7 @@ import {Progress} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 import { Clickable } from 'react-clickable';
 import { css } from "@emotion/core";
-import ScaleLoader from "react-spinners/ScaleLoader";
+import FadeLoader from "react-spinners/FadeLoader";
 
 const databaseURL = "https://minchoom-cs473.firebaseio.com"
 
@@ -18,13 +18,6 @@ function formatTime(time) {
     return minutes + ":" + seconds;
 }
 
-  const override = css`
-  position: absolute;
-  font-size: 5px;
-  height: 5px;
-  left: 69vw; 
-  margin-top: -3.8vh;
-`;
 
 export default class Timeline extends React.Component {
     constructor(props) {
@@ -107,7 +100,6 @@ export default class Timeline extends React.Component {
         return (
             <div className="progressBar-container">
                 <div className="progressBar">
-                    
                     {
                     aggregatedFlags.map((value) => 
                     
@@ -141,22 +133,14 @@ export default class Timeline extends React.Component {
                                 :
                                 null
                             }
-                            
                         </div>
                     </Clickable>
                     )}
-                    <div className={showLoading ? 'flag-loading' : 'flag-loading-hidden'}> 
-                    Flags being aggregated
-                    </div>
-                    <div className={showLoading ? 'flag-loading2' : 'flag-loading-hidden'}> 
-                    <ScaleLoader
-                        css={override}
-                        height={10}
-                        radius={1}
-                        color={"black"}
-                        loading={true}
+                    <FadeLoader
+                    size={20}
+                    color={"#123abc"}
+                    loading={true}
                     />
-                    </div>
                     <Progress percent={95} color='light-grey' />
                     <div className="time-progress">{formatTime(videoTime)}</div>
                 </div>

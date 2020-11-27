@@ -4,7 +4,7 @@ import {Progress} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 import { Clickable } from 'react-clickable';
 import { css } from "@emotion/core";
-import ScaleLoader from "react-spinners/ScaleLoader";
+import FadeLoader from "react-spinners/FadeLoader";
 
 const databaseURL = "https://minchoom-cs473.firebaseio.com"
 
@@ -18,13 +18,7 @@ function formatTime(time) {
     return minutes + ":" + seconds;
 }
 
-  const override = css`
-  position: absolute;
-  font-size: 5px;
-  height: 5px;
-  left: 69vw; 
-  margin-top: -3.8vh;
-`;
+  
 
 export default class Timeline extends React.Component {
     constructor(props) {
@@ -145,14 +139,13 @@ export default class Timeline extends React.Component {
                         </div>
                     </Clickable>
                     )}
-                    <div className={showLoading ? 'flag-loading' : 'flag-loading-hidden'}> 
-                    Flags being aggregated
-                    </div>
-                    <div className={showLoading ? 'flag-loading2' : 'flag-loading-hidden'}> 
-                    <ScaleLoader
+                    <div className="flag-loading">
+                    <FadeLoader
                         css={override}
-                        height={10}
                         radius={1}
+                        height={10}
+                        width={2}
+                        margin={1}
                         color={"black"}
                         loading={true}
                     />

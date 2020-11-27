@@ -24,6 +24,9 @@ import Emphasis from '../images/Emphasis.png'
 import Exclusive from '../images/ExclusiveMaterial.png'
 import Notice from '../images/Notice.png'
 import QnA from '../images/QnA.png'
+import React from "react";
+import { css } from "@emotion/core";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const databaseURL =  "https://minchoom-cs473.firebaseio.com/";
 
@@ -298,7 +301,7 @@ class Home extends Component {
 
                     </Row>
                     <br/>
-                    <Timeline className="timeline" flagClickHandler={flagClickHandler} flags={this.state.flags} videoTime={this.state.playedSeconds} showLoading={this.state.showPopup}></Timeline>
+                    <Timeline className="timeline" flagClickHandler={flagClickHandler} flags={this.state.flags} videoTime={this.state.playedSeconds}></Timeline>
                 </Row>
                 <Row>
                     <div className="split-right" >
@@ -332,11 +335,11 @@ class Home extends Component {
                     </div>
                 </Row>
                 </Container>
-                {/* <Popup open = {this.state.showPopup} position="top center" >
+                <Popup open = {this.state.showPopup} position="top center" >
                     <div className="popup-modal">
                     Flags being aggregated...
                     </div>
-                </Popup> */}
+                </Popup>
                 <Modal open={modalOpen} closeModal={this.closeModal} selectRole={this.selectRole}></Modal>
                 
             </div>

@@ -4,7 +4,7 @@ import {Progress} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 import { Clickable } from 'react-clickable';
 import { css } from "@emotion/core";
-import ScaleLoader from "react-spinners/ScaleLoader";
+import FadeLoader from "react-spinners/FadeLoader";
 
 const databaseURL = "https://minchoom-cs473.firebaseio.com"
 
@@ -19,11 +19,13 @@ function formatTime(time) {
 }
 
   const override = css`
-  position: absolute;
+  display: block;
+  margin: 0 auto;
   font-size: 5px;
+  size: 5px;
   height: 5px;
-  left: 69vw; 
-  margin-top: -3.8vh;
+  top: -70px;
+  left: 50%;
 `;
 
 export default class Timeline extends React.Component {
@@ -107,7 +109,13 @@ export default class Timeline extends React.Component {
         return (
             <div className="progressBar-container">
                 <div className="progressBar">
-                    
+                    <FadeLoader
+                        css={override}
+                        radius={1}
+                        height={10}
+                        color={"black"}
+                        loading={true}
+                    />
                     {
                     aggregatedFlags.map((value) => 
                     
@@ -141,22 +149,9 @@ export default class Timeline extends React.Component {
                                 :
                                 null
                             }
-                            
                         </div>
                     </Clickable>
                     )}
-                    <div className={showLoading ? 'flag-loading' : 'flag-loading-hidden'}> 
-                    Flags being aggregated
-                    </div>
-                    <div className={showLoading ? 'flag-loading2' : 'flag-loading-hidden'}> 
-                    <ScaleLoader
-                        css={override}
-                        height={10}
-                        radius={1}
-                        color={"black"}
-                        loading={true}
-                    />
-                    </div>
                     <Progress percent={95} color='light-grey' />
                     <div className="time-progress">{formatTime(videoTime)}</div>
                 </div>

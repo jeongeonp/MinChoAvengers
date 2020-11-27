@@ -103,7 +103,7 @@
   font-weight: 600; 
   font-size: 1.5em;
   color: black;
-  margin-top: -6vh;
+  margin-top: -7vh;
   margin-right: -95%; 
   position: relative;
   z-index: 100;
@@ -122,14 +122,9 @@
   position: absolute;
   display: block;
   margin: 0 auto;
-  font-size: 17px;
-  left: 60%;
+  font-size: 15px;
+  margin-right: 2%;
   margin-top: -4vh; 
-}
-
-.flag-loading-hidden {
-  position: absolute;
-  top: 500vh;
 }
 
 

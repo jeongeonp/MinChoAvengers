@@ -103,7 +103,7 @@
   font-weight: 600; 
   font-size: 1.5em;
   color: black;
-  margin-top: -6vh;
+  margin-top: -7vh;
   margin-right: -95%; 
   position: relative;
   z-index: 100;
@@ -128,8 +128,7 @@
 }
 
 .flag-loading-hidden {
-  position: absolute;
-  top: 500vh;
+  top: 200vh;
 }
 
 

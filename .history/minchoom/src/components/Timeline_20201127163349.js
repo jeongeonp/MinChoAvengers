@@ -22,8 +22,8 @@ function formatTime(time) {
   position: absolute;
   font-size: 5px;
   height: 5px;
-  left: 69vw; 
-  margin-top: -3.8vh;
+  left: 65%; 
+  margin-top: -4vh;
 `;
 
 export default class Timeline extends React.Component {
@@ -145,10 +145,9 @@ export default class Timeline extends React.Component {
                         </div>
                     </Clickable>
                     )}
-                    <div className={showLoading ? 'flag-loading' : 'flag-loading-hidden'}> 
-                    Flags being aggregated
+                    <div className="flag-loading">
+                    Flag being aggregated
                     </div>
-                    <div className={showLoading ? 'flag-loading2' : 'flag-loading-hidden'}> 
                     <ScaleLoader
                         css={override}
                         height={10}
@@ -156,7 +155,6 @@ export default class Timeline extends React.Component {
                         color={"black"}
                         loading={true}
                     />
-                    </div>
                     <Progress percent={95} color='light-grey' />
                     <div className="time-progress">{formatTime(videoTime)}</div>
                 </div>

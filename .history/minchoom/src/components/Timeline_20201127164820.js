@@ -148,7 +148,7 @@ export default class Timeline extends React.Component {
                     <div className={showLoading ? 'flag-loading' : 'flag-loading-hidden'}> 
                     Flags being aggregated
                     </div>
-                    <div className={showLoading ? 'flag-loading2' : 'flag-loading-hidden'}> 
+                    <div className={showLoading ? 'flag-loading' : 'flag-loading-hidden'}> 
                     <ScaleLoader
                         css={override}
                         height={10}

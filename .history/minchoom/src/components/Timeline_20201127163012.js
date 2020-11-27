@@ -19,11 +19,12 @@ function formatTime(time) {
 }
 
   const override = css`
-  position: absolute;
+  position: absolute
+  display: block;
   font-size: 5px;
-  height: 5px;
-  left: 69vw; 
-  margin-top: -3.8vh;
+  height: 0;
+  left: 80%;
+  top: -40px;
 `;
 
 export default class Timeline extends React.Component {
@@ -145,18 +146,14 @@ export default class Timeline extends React.Component {
                         </div>
                     </Clickable>
                     )}
-                    <div className={showLoading ? 'flag-loading' : 'flag-loading-hidden'}> 
-                    Flags being aggregated
+                    <div className="flag-loading">
+                    Flag being aggregated...
                     </div>
-                    <div className={showLoading ? 'flag-loading2' : 'flag-loading-hidden'}> 
                     <ScaleLoader
                         css={override}
-                        height={10}
-                        radius={1}
                         color={"black"}
                         loading={true}
                     />
-                    </div>
                     <Progress percent={95} color='light-grey' />
                     <div className="time-progress">{formatTime(videoTime)}</div>
                 </div>
