@@ -24,7 +24,7 @@ function flagToImg(flagTime) {
   const slide_timestamps = [0, 42, 60, 220, 420, 600, 715, 732, 960, 985, 1153, 1333, 1520, 1680, 1860, 1950, 1990, 2100, 2270, 2460];
   var i = 0;
   while(slide_timestamps[++i] < flagTime);
-  console.log("closest is ", slide_timestamps[--i]);
+  //console.log("closest is ", slide_timestamps[--i]);
   switch (i) {
     case 0:
       return slide1;
@@ -97,6 +97,7 @@ export default class Catchup extends React.Component {
   }
 
   sendData = (dataDict, index) => {
+    console.log(dataDict)
     return fetch( `${databaseURL+'/catchup'+ db[index]}/.json`, {
       method: 'POST',
       body: JSON.stringify(dataDict)
@@ -107,21 +108,21 @@ export default class Catchup extends React.Component {
       return res.json();
     }).then((res) => {
       console.log("CatchUp " + index + " succesfully sent!")
+      // question
       if (index === 0) {
-        // question
         this.addQuestionTwice(dataDict, res.name)
       }
+      // answer
       if (index === 1) {
-        // answer
         this.addAnswerTwice(dataDict, res.name)
-        console.log(dataDict)
+        this.findQuestionSession(dataDict, res.name)
       }
 
     })
   }
 
   addQuestionTwice(questionInfo, questionId) {
-    const sessionid = this.props.sessionId
+    const sessionid = sessionStorage.getItem('sessionID')
     fetch(`${databaseURL+'/sessions/'+sessionid+'/questions/'+questionId}/.json`, {
         method: 'PATCH',
         body: JSON.stringify(questionInfo)
@@ -135,7 +136,7 @@ export default class Catchup extends React.Component {
 
   addAnswerTwice(answerInfo, answerId) {
     console.log(answerInfo, answerId)
-    const sessionid = this.props.sessionId
+    const sessionid = sessionStorage.getItem('sessionID')
     fetch(`${databaseURL+'/sessions/'+sessionid+'/answers/'+answerId}/.json`, {
         method: 'PATCH',
         body: JSON.stringify(answerInfo)
@@ -146,6 +147,57 @@ export default class Catchup extends React.Component {
         return res.json();
     })
   } 
+
+  findQuestionSession = (data, answerId) => {
+    fetch(`${databaseURL+'/catchup/questions'}/.json`)
+    .then(res => {
+      if (res.status !== 200) {
+        throw new Error(res.statusText);
+      }
+      return res.json();
+    }).then(res => {
+      const questionId = Object.keys(res).filter(q => q === data['questionId'])[0]
+      this.sendQuestionAlert(res[questionId], data, answerId)
+    })
+  }
+
+  sendQuestionAlert = (question, answer, answerId) => {
+    const newQuestion = question
+    newQuestion['answered'] = true
+    const currAnsweredSessions = question['answeredSessions'] ? question['answeredSessions'] : []
+    newQuestion['answeredSessions'] = currAnsweredSessions + [answer['sessionId']]
+    
+    const sessionid = question['sessionId']
+    const questionid = answer['questionId']
+    console.log(databaseURL+'/sessions/'+sessionid+'/questions/'+questionid)
+    fetch(`${databaseURL+'/sessions/'+sessionid+'/questions/'+questionid}/.json`, {
+      method: 'PATCH',
+      body: JSON.stringify(newQuestion)
+    }).then(res => {
+      if (res.status !== 200) {
+        throw new Error(res.statusText);
+      }
+      return res.json();
+    }).then(() => {
+      this.sendQuestionAlertTwice(newQuestion, questionid)
+      console.log(sessionStorage.getItem('sessionID') , question)
+      if (sessionStorage.getItem('sessionID') === question['sessionId']) {
+        alert('Your question: ' + question['questionText'] + ", has been answered!")
+      }
+    })
+  }
+
+  sendQuestionAlertTwice = (question, questionid) => {
+    fetch(`${databaseURL+'/catchup/questions/'+questionid}/.json`, {
+      method: 'PATCH',
+      body: JSON.stringify(question)
+    }).then(res => {
+      if (res.status !== 200) {
+        throw new Error(res.statusText);
+      }
+      return res.json();
+    })
+  }
 
   getQuestionAnswerData = () => {
     fetch( `${databaseURL+'/catchup'}/.json`)
@@ -187,7 +239,7 @@ export default class Catchup extends React.Component {
           flagId: this.props.flagId,
           flagLabel: this.props.flagLabel,
           questionText: this.state.formValue,
-          sessionId: this.props.sessionId,
+          sessionId: sessionStorage.getItem('sessionID'),
           time: this.props.time,
         }, 0
     )
@@ -206,7 +258,7 @@ export default class Catchup extends React.Component {
           flagLabel: this.props.flagLabel,
           liked:false,
           questionId: qId,
-          sessionId: this.props.sessionId,
+          sessionId: sessionStorage.getItem('sessionID'),
           time: this.props.time,
           upvotes: 0
         }, 1
@@ -271,7 +323,7 @@ export default class Catchup extends React.Component {
                       :
                       null
                     }
-                    <textarea type="text" className="textarea2" value={answerValue} onChange={(e) => this.setState({answerValue: e.target.value})} onKeyDown={() => keyPress2(q[7])} placeholder="Answer the question here."/>
+                    <textarea type="text" className="textarea2" value={answerValue} onChange={(e) => this.setState({answerValue: e.target.value})} onKeyDown={(e) => keyPress2(e, q[7])} placeholder="Answer the question here."/>
                     <button type="submit" disabled={!answerValue} onClick={() => sendAnswer(q[7])}>Answer</button>
 
                   </div>
