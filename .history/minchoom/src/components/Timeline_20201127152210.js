@@ -54,7 +54,7 @@ export default class Timeline extends React.Component {
                 .filter(e => (e[1]<=this.props.videoTime))
 
                 this.setState({
-                    currentFlags: filteredFlags
+                    currentFlags: filteredFlags+flags
                 })
                 
             }
@@ -93,12 +93,11 @@ export default class Timeline extends React.Component {
     render() {
         const { flags, videoTime, flagClickHandler } = this.props;
         const { currentFlags } = this.state;
-        var aggregatedFlags = flags.concat(currentFlags);
         return (
             <div className="progressBar-conntainer">
                 <div className="progressBar">
                     {
-                    aggregatedFlags.map((value) => 
+                    currentFlags.map((value) => 
                     
                     <Clickable onClick={() => flagClickHandler(value)}>
                         <div className="flag-tip" key={value[1]} style={{left: value[1]/videoTime*65+"%"}}>

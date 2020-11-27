@@ -38,7 +38,7 @@ class Home extends Component {
             flags: [],
             tabValue: '1',
             hover: false,
-            showPopup: null,
+
 
             // States that will be passed onto Catch Up mode
             tempFlagId: '',
@@ -62,31 +62,6 @@ class Home extends Component {
     }
     componentDidMount() {
     }
-    
-    getFlagData = () => {
-        //console.log(this.props.videoTime)
-        fetch( `${databaseURL+'/flags'}/.json`).then(res => {
-            if (res.status !== 200) {
-                throw new Error(res.statusText);
-            }
-            return res.json();
-        }).then(res => {
-            if (res) {
-              const keys = Object.keys(res)
-              const chats = keys.map((k)=>[res[k]['time'], res[k]['sessionId'], res[k]['messageText']])
-              .filter(e => (e[0]<=this.props.videoTime)).sort(function(first, second) {
-                return first[0] - second[0];
-              })
-              if (this.state.messages.length !== chats.length) {
-                this.setState({
-                  messages: chats
-                })
-              }
-              
-            }
-            
-        })
-      }
 
     sendData = () => {
         const sampleString = "Sent at " + new Date() + "- last dummy data from firebase."
@@ -143,17 +118,12 @@ class Home extends Component {
             }
             return res.json();
         }).then((res) => {
-            console.log("Flag succesfully sent!")
-            this.setState({ showPopup: true});
-            setTimeout(() => {
-                this.setState({showPopup: false}); 
-                flags.push([label, this.state.playedSeconds, res.name, sessionid]);
-                flags.sort();
-                this.setState({
-                    flags: flags,
-                });}, 
-            3000);
-            
+            //console.log("Flag succesfully sent!")
+            flags.push([label, this.state.playedSeconds, res.name, sessionid]);
+            flags.sort();
+            this.setState({
+                flags: flags,
+            });
             console.log(flags);
 
             this.addFlagTwice(flagInfo, res.name)
@@ -274,9 +244,7 @@ class Home extends Component {
                             onReady={this._onReady}
                             onProgress={this.handleProgress}
                             onDuration={this.handleDuration}
-                            onSeek={this._onSeek}
-                            controls={false}>
-                    
+                            onSeek={this._onSeek}>
                         </ReactPlayer>
                         
                         <Fab 
@@ -332,12 +300,14 @@ class Home extends Component {
                     </div>
                 </Row>
                 </Container>
-                <Popup open = {this.state.showPopup} position="top center" >
+                <Modal open={modalOpen} closeModal={this.closeModal} selectRole={this.selectRole}></Modal>
+                <Popup open = {this.state.showPopup} position="top center"  modal>
                     <div className="popup-modal">
-                    Flags being aggregated...
+                    {" "}
+                    {this.state.showPopup}
                     </div>
                 </Popup>
-                <Modal open={modalOpen} closeModal={this.closeModal} selectRole={this.selectRole}></Modal>
+                
                 
             </div>
         )

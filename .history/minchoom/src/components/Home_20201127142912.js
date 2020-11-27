@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player'
-import { Header, Input, Form, Button, Progress, Dimmer, Loader, Image, Message } from 'semantic-ui-react';
+import { Header, Input, Form, Button, Progress, Dimmer, Loader, Image } from 'semantic-ui-react';
 import '../App.css';
 import katchup from'../images/KatchUp.png';
 import Chat from './Chat';
@@ -11,7 +11,6 @@ import Container from 'react-bootstrap/Container'
 import Fab from '@material-ui/core/Fab';
 import Popover from '@material-ui/core/Popover';
 
-import Popup from "reactjs-popup";
 import Row from 'react-bootstrap/Row'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
@@ -38,16 +37,13 @@ class Home extends Component {
             flags: [],
             tabValue: '1',
             hover: false,
-            showPopup: null,
+
 
             // States that will be passed onto Catch Up mode
             tempFlagId: '',
             tempFlagLabel: '',
             tempSessionId: '',
             tempTime: '',
-
-            answeredQuestion: '',
-            message: false,
         }
         this.sendData = this.sendData.bind(this);
         this.getData = this.getData.bind(this);
@@ -58,35 +54,9 @@ class Home extends Component {
         this.flagClickHandler = this.flagClickHandler.bind(this);
         this.handleTab = this.handleTab.bind(this);
         this.showFlags = this.showFlags.bind(this);
-        this.showAlert = this.showAlert.bind(this);
     }
     componentDidMount() {
     }
-    
-    getFlagData = () => {
-        //console.log(this.props.videoTime)
-        fetch( `${databaseURL+'/flags'}/.json`).then(res => {
-            if (res.status !== 200) {
-                throw new Error(res.statusText);
-            }
-            return res.json();
-        }).then(res => {
-            if (res) {
-              const keys = Object.keys(res)
-              const chats = keys.map((k)=>[res[k]['time'], res[k]['sessionId'], res[k]['messageText']])
-              .filter(e => (e[0]<=this.props.videoTime)).sort(function(first, second) {
-                return first[0] - second[0];
-              })
-              if (this.state.messages.length !== chats.length) {
-                this.setState({
-                  messages: chats
-                })
-              }
-              
-            }
-            
-        })
-      }
 
     sendData = () => {
         const sampleString = "Sent at " + new Date() + "- last dummy data from firebase."
@@ -143,17 +113,12 @@ class Home extends Component {
             }
             return res.json();
         }).then((res) => {
-            console.log("Flag succesfully sent!")
-            this.setState({ showPopup: true});
-            setTimeout(() => {
-                this.setState({showPopup: false}); 
-                flags.push([label, this.state.playedSeconds, res.name, sessionid]);
-                flags.sort();
-                this.setState({
-                    flags: flags,
-                });}, 
-            3000);
-            
+            //console.log("Flag succesfully sent!")
+            flags.push([label, this.state.playedSeconds, res.name, sessionid]);
+            flags.sort();
+            this.setState({
+                flags: flags,
+            });
             console.log(flags);
 
             this.addFlagTwice(flagInfo, res.name)
@@ -224,14 +189,6 @@ class Home extends Component {
 
     }
 
-    showAlert(text) {
-        this.setState({answeredQuestion: text, message: true})
-    }
-
-    closeAlert() {
-        this.setState({answeredQuestion: '', message: false})
-    }
-
 
     handleProgress = state => {
         // We only want to update time slider if we are not currently seeking
@@ -252,7 +209,7 @@ class Home extends Component {
 
     render() {
         const { } = this.props;
-        const { playing, playbackRate, modalOpen, tabValue, hover, tempFlagId, tempFlagLabel, tempSessionId, tempTime, answeredQuestion, message } = this.state;
+        const {playing, playbackRate, modalOpen, tabValue, hover, tempFlagId, tempFlagLabel, tempSessionId, tempTime } = this.state;
         const { addFlag, handleTab, flagClickHandler, showFlags } = this;
 
         return (
@@ -261,9 +218,6 @@ class Home extends Component {
                     <div className="header-title">
                             <img className="logo" src={katchup} /> Session Number: {sessionStorage.getItem('sessionID')}
                     </div>  
-                    <Message positive hidden={true} onTimeout={this.closeAlert} timeout={5000} >
-                        <Message.Header>Your question: "{answeredQuestion}" has been answered!</Message.Header>
-                    </Message>
                 </div>
                 <Container className="main-page">
                 <Row className="split-left"  tabIndex="1">
@@ -274,9 +228,7 @@ class Home extends Component {
                             onReady={this._onReady}
                             onProgress={this.handleProgress}
                             onDuration={this.handleDuration}
-                            onSeek={this._onSeek}
-                            controls={false}>
-                    
+                            onSeek={this._onSeek}>
                         </ReactPlayer>
                         
                         <Fab 
@@ -302,7 +254,7 @@ class Home extends Component {
                 </Row>
                 <Row>
                     <div className="split-right" >
-                        <Tabs variant="fullWidth" tab={tabValue} value={tabValue} onChange={(e, v) => { handleTab(v); }}>
+                        <Tabs variant="fullWidth" tab={tabValue} onChange={(e, v) => { handleTab(v); }}>
                             <Tab value='1' label="Chatroom">
                             </Tab>
                             <Tab value='2' label="CatchUp">
@@ -324,19 +276,14 @@ class Home extends Component {
                                 videoTime={this.state.playedSeconds}
                                 flagId={tempFlagId}
                                 flagLabel={tempFlagLabel}
-                                sessionId={tempSessionId} // who placed the flag
+                                sessionId={tempSessionId}
                                 time={tempTime}
-                                showAlert={this.showAlert}
+
                             />
                         </Typography>
                     </div>
                 </Row>
                 </Container>
-                <Popup open = {this.state.showPopup} position="top center" >
-                    <div className="popup-modal">
-                    Flags being aggregated...
-                    </div>
-                </Popup>
                 <Modal open={modalOpen} closeModal={this.closeModal} selectRole={this.selectRole}></Modal>
                 
             </div>
@@ -344,3 +291,4 @@ class Home extends Component {
     }
 }
 export default Home;
+

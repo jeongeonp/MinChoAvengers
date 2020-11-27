@@ -93,7 +93,7 @@ export default class Timeline extends React.Component {
     render() {
         const { flags, videoTime, flagClickHandler } = this.props;
         const { currentFlags } = this.state;
-        var aggregatedFlags = flags.concat(currentFlags);
+        aggregatedFlags = flags + currentFlags;
         return (
             <div className="progressBar-conntainer">
                 <div className="progressBar">

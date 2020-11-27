@@ -152,7 +152,7 @@ class Home extends Component {
                 this.setState({
                     flags: flags,
                 });}, 
-            3000);
+            1000);
             
             console.log(flags);
 
