@@ -301,7 +301,7 @@ export default class Catchup extends React.Component {
   }
 
   render() {
-    const { flagId, flagLabel, time, videoTime, } = this.props;
+    const { flagId, flagLabel, time, videoTime } = this.props;
     const { questions, answers, formValue, answerValue, sessionId, asking } = this.state;
     const { formatTime, sendQuestion, handleQuestion, sendAnswer, keyPress, keyPress2, getHintText } = this;
     const imgSrc = flagToImg(time);

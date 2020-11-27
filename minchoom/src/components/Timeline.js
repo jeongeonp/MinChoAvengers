@@ -21,8 +21,11 @@ export default class Timeline extends React.Component {
         super(props);
         this.state = {
             currentFlags: this.props.flags,
+            questions: [],
         };
         this.getFlagData = this.getFlagData.bind(this)
+        this.getQuestionData = this.getQuestionData.bind(this)
+        this.getUnresolvedQuestions = this.getUnresolvedQuestions.bind(this)
     }
 
     componentDidMount() {
@@ -32,6 +35,7 @@ export default class Timeline extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.videoTime !== this.props.videoTime){
             this.getFlagData()
+            this.getQuestionData()
         }
       }
     
@@ -57,6 +61,33 @@ export default class Timeline extends React.Component {
             
         })
       }
+
+    getQuestionData = () => {
+        fetch( `${databaseURL+'/catchup/questions'}/.json`)
+        .then(res => {
+            if (res.status !== 200) {
+                throw new Error(res.statusText);
+            }
+            return res.json();
+        }).then(res => {
+            if (res) {
+                const questionKeys = Object.keys(res)
+                const questions = questionKeys.map((k)=>[res[k]['answered'], res[k]['answeredSessions'], res[k]['flagId'], res[k]['flagLabel'], res[k]['questionText'], res[k]['sessionId'], res[k]['time'], k]).sort(function(first, second) {
+                    return first[6] - second[6];
+                })
+                
+                this.setState({
+                    questions: questions,
+                })
+            }
+            
+        })
+    }
+
+    getUnresolvedQuestions = (flagId) => {
+        const unresolvedQuestions = this.state.questions.filter(e => (e[2] === flagId)).filter(q => (q[0] === false)).length
+        return unresolvedQuestions;
+    }
 
 
     render() {
@@ -89,6 +120,12 @@ export default class Timeline extends React.Component {
                                 value[0] === "Q&A"
                                 ?
                                 '🙋'
+                                :
+                                null
+                            }
+                            { this.getUnresolvedQuestions(value[2]) >= 1
+                                ?
+                                <div className="unresolvedQuestion">{this.getUnresolvedQuestions(value[2])}</div>
                                 :
                                 null
                             }
