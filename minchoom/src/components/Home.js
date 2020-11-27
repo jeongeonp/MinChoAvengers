@@ -276,7 +276,7 @@ class Home extends Component {
                                 videoTime={this.state.playedSeconds}
                                 flagId={tempFlagId}
                                 flagLabel={tempFlagLabel}
-                                sessionId={tempSessionId}
+                                sessionId={tempSessionId} // who placed the flag
                                 time={tempTime}
                             />
                         </Typography>
