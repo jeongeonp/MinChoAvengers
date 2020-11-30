@@ -148,15 +148,15 @@ export default class Timeline extends React.Component {
                     <div className={showLoading ? 'flag-loading' : 'flag-loading-hidden'}> 
                     Flags being aggregated
                     </div>
-                    {/* <div className={showLoading ? 'flag-loading' : 'flag-loading'}>  */}
+                    <div className={showLoading ? 'flag-loading' : 'flag-loading'}> 
                     <ScaleLoader
                         css={override}
                         height={10}
                         radius={1}
                         color={"black"}
-                        loading={showLoading}
+                        loading={true}
                     />
-                    {/* </div> */}
+                    </div>
                     <Progress percent={95} color='light-grey' />
                     <div className="time-progress">{formatTime(videoTime)}</div>
                 </div>

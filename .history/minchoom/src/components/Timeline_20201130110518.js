@@ -154,9 +154,9 @@ export default class Timeline extends React.Component {
                         height={10}
                         radius={1}
                         color={"black"}
-                        loading={showLoading}
-                    />
-                    {/* </div> */}
+                        loading={true}
+                    // />
+                    </div>
                     <Progress percent={95} color='light-grey' />
                     <div className="time-progress">{formatTime(videoTime)}</div>
                 </div>

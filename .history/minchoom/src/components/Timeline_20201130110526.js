@@ -154,7 +154,7 @@ export default class Timeline extends React.Component {
                         height={10}
                         radius={1}
                         color={"black"}
-                        loading={showLoading}
+                        loading={true}
                     />
                     {/* </div> */}
                     <Progress percent={95} color='light-grey' />
