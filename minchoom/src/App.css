@@ -89,6 +89,12 @@
   border-radius: 18px;
   border: none;
 }
+.preview{
+  position: absolute;
+  margin-left: 2%;
+  margin-top: -4vh; 
+  z-index: 100;
+}
 
 .progressBar-container {
   top: 0px;
@@ -139,7 +145,7 @@
 
 .flag-loading-hidden {
   position: absolute;
-  top: 70vh;
+  top: 50vh;
   right: 30vw;
   z-index: -10;
 }

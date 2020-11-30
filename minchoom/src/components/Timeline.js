@@ -1,6 +1,16 @@
 import React from "react";
 import '../App.css';
 import {Progress} from 'semantic-ui-react';
+import slide1 from "../images/cs231n_2017_lecture16/40EA23FD1.jpeg"
+import slide2 from "../images/cs231n_2017_lecture16/40EA23FD2.jpeg"
+import slide3 from "../images/cs231n_2017_lecture16/40EA23FD3.jpeg"
+import slide4 from "../images/cs231n_2017_lecture16/40EA23FD4.jpeg"
+import slide5 from "../images/cs231n_2017_lecture16/40EA23FD5.jpeg"
+import slide6 from "../images/cs231n_2017_lecture16/40EA23FD6.jpeg"
+import slide7 from "../images/cs231n_2017_lecture16/40EA23FD7.jpeg"
+import slide8 from "../images/cs231n_2017_lecture16/40EA23FD8.jpeg"
+import slide9 from "../images/cs231n_2017_lecture16/40EA23FD9.jpeg"
+import slide10 from "../images/cs231n_2017_lecture16/40EA23FD10.jpeg"
 import 'semantic-ui-css/semantic.min.css'
 import { Clickable } from 'react-clickable';
 import { css } from "@emotion/core";
@@ -9,6 +19,37 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 const databaseURL = "https://minchoom-cs473.firebaseio.com"
 
 // Helper Functions
+function flagToImg(flagTime) {
+    const slide_timestamps = [0, 42, 60, 220, 420, 600, 715, 732, 960, 985, 1153, 1333, 1520, 1680, 1860, 1950, 1990, 2100, 2270, 2460];
+    var i = 0;
+    while(slide_timestamps[++i] < flagTime);
+    //console.log("closest is ", slide_timestamps[--i]);
+    switch (i) {
+      case 0:
+        return slide1;
+      case 1:
+        return slide2;
+      case 2:
+        return slide3;
+      case 3:
+        return slide4;
+      case 4:
+        return slide5;
+      case 5:
+        return slide6;
+      case 6:
+        return slide7;
+      case 7:
+        return slide8;
+      case 8:
+        return slide9;
+      case 9:
+        return slide10;
+  
+    }
+    return i;
+  }
+
 function formatTime(time) {
     time = Math.round(time);
   
@@ -53,10 +94,13 @@ export default class Timeline extends React.Component {
         this.state = {
             currentFlags: this.props.flags,
             questions: [],
+            hoverPreview: false,
         };
         this.getFlagData = this.getFlagData.bind(this)
         this.getQuestionData = this.getQuestionData.bind(this)
-        this.getUnresolvedQuestions = this.getUnresolvedQuestions.bind(this)
+        this.getUnresolvedQuestions = this.getUnresolvedQuestions.bind(this);
+
+        this.showPreview = this.showPreview.bind(this);
     }
 
     componentDidMount() {
@@ -120,52 +164,62 @@ export default class Timeline extends React.Component {
         return unresolvedQuestions;
     }
 
+    showPreview = (index) => {
+        this.setState({hoverPreview: index});
+    }
+
+
 
     render() {
         const { flags, videoTime, flagClickHandler, showLoading } = this.props;
-        const { currentFlags } = this.state;
+        const { currentFlags, hoverPreview } = this.state;
+        const { showPreview} = this;
         var allFlags = flags.concat(currentFlags);
         var aggregatedFlags = aggregate(allFlags);
         return (
             <div className="progressBar-container">
                 <div className="progressBar">
-                    
                     {
-                    aggregatedFlags.map((value) => 
-                    
-                    <Clickable onClick={() => flagClickHandler(value)}>
-                        <div className="flag-tip" key={value[1]} style={{left: value[1]/videoTime*65+"%"}}>
-                            { value[0] === "Activity" 
-                                ?
-                                '📝'
-                                :
-                                value[0] === "Emphasis"
-                                ?
-                                '⭐'
-                                :
-                                value[0] === "Exclusive Material"
-                                ?
-                                '➕'
-                                :
-                                value[0] === "Notice"
-                                ?
-                                '📌'
-                                :
-                                value[0] === "Q&A"
-                                ?
-                                '🙋'
-                                :
-                                null
-                            }
-                            { this.getUnresolvedQuestions(value[2]) >= 1
-                                ?
-                                <div className="unresolvedQuestion">{this.getUnresolvedQuestions(value[2])}</div>
-                                :
-                                null
-                            }
-                            
+                    aggregatedFlags.map((value, index) => 
+                    <div >
+                        <div className="preview" hidden={hoverPreview !== index}  style={{left: value[1]/videoTime*65+"%"}}>
+                            <img   className={hoverPreview ? 'questionImg' : 'flag-loading-hidden'} src={flagToImg(value[1])}  />
+                            <div className={hoverPreview ? null : 'flag-loading-hidden'} style={{color: 'grey'}}> Flagged at {formatTime(value[1])}</div>
                         </div>
-                    </Clickable>
+                        <Clickable onClick={() => flagClickHandler(value)}>
+                            <div className="flag-tip" key={value[1]} style={{left: value[1]/videoTime*65+"%"}} onMouseOver={() => showPreview(index)} onMouseOut = {() => this.setState({hoverPreview: false})}>
+                                { value[0] === "Activity" 
+                                    ?
+                                    '📝'
+                                    :
+                                    value[0] === "Emphasis"
+                                    ?
+                                    '⭐'
+                                    :
+                                    value[0] === "Exclusive Material"
+                                    ?
+                                    '➕'
+                                    :
+                                    value[0] === "Notice"
+                                    ?
+                                    '📌'
+                                    :
+                                    value[0] === "Q&A"
+                                    ?
+                                    '🙋'
+                                    :
+                                    null
+                                }
+                                { this.getUnresolvedQuestions(value[2]) >= 1
+                                    ?
+                                    <div className="unresolvedQuestion">{this.getUnresolvedQuestions(value[2])}</div>
+                                    :
+                                    null
+                                }
+                                
+                            </div>
+                        </Clickable>
+                    </div>
                     )}
                     <div className={showLoading ? 'flag-loading' : 'flag-loading-hidden'}> 
                     Flags being aggregated
