@@ -37,13 +37,11 @@ function aggregate(flags){
         var prevFlagTime = sortedArray[i-1][1];
         console.log('aggregate', flagTime, prevFlagTime, sortedArray[i][0], sortedArray[i-1][0]);
         if (flagTime > prevFlagTime + 60 || sortedArray[i][0] !== sortedArray[i-1][0]){
-            aggregatedFlags.push(sortedArray[i]);
+            aggregatedFlags.push(flagTime);
         }
         
     }
     console.log(aggregatedFlags)
-    if(sortedArray.length)
-        aggregatedFlags.push(sortedArray[0]);
     return aggregatedFlags;
 }
 

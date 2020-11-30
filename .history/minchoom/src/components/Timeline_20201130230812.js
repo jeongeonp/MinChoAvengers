@@ -42,8 +42,6 @@ function aggregate(flags){
         
     }
     console.log(aggregatedFlags)
-    if(sortedArray.length)
-        aggregatedFlags.push(sortedArray[0]);
     return aggregatedFlags;
 }
 

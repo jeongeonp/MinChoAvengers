@@ -31,7 +31,8 @@ function aggregate(flags){
     var sortedArray = flags.sort(function(a, b) {
         return b[1] - a[1];
       }).reverse();
-    console.log(sortedArray);
+    console.log(sortedArray[0]);
+    // aggregatedFlags.push(sortedArray[0]);
     for (var i=1; i<sortedArray.length; i++){
         var flagTime = sortedArray[i][1];
         var prevFlagTime = sortedArray[i-1][1];
@@ -42,8 +43,6 @@ function aggregate(flags){
         
     }
     console.log(aggregatedFlags)
-    if(sortedArray.length)
-        aggregatedFlags.push(sortedArray[0]);
     return aggregatedFlags;
 }
 

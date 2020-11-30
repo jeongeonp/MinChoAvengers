@@ -28,22 +28,15 @@ function formatTime(time) {
 
 function aggregate(flags){
     var aggregatedFlags = [];
-    var sortedArray = flags.sort(function(a, b) {
-        return b[1] - a[1];
-      }).reverse();
-    console.log(sortedArray);
-    for (var i=1; i<sortedArray.length; i++){
-        var flagTime = sortedArray[i][1];
-        var prevFlagTime = sortedArray[i-1][1];
-        console.log('aggregate', flagTime, prevFlagTime, sortedArray[i][0], sortedArray[i-1][0]);
-        if (flagTime > prevFlagTime + 60 || sortedArray[i][0] !== sortedArray[i-1][0]){
-            aggregatedFlags.push(sortedArray[i]);
+    for (var i=1; i<flags.length; i++){
+        var flagTime = flags[i][1];
+        var prevFlagTime = flags[i-1][1];
+        console.log('aggregate', flagTime, prevFlagTime);
+        if (flagTime > prevFlagTime + 60 || flags[i][0] !== flags[i-1][0]){
+            aggregatedFlags.push(flagTime);
         }
         
     }
-    console.log(aggregatedFlags)
-    if(sortedArray.length)
-        aggregatedFlags.push(sortedArray[0]);
     return aggregatedFlags;
 }
 
