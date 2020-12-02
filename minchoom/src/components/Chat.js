@@ -74,7 +74,7 @@ export default class Chat extends React.Component {
     }).then(res => {
         if (res) {
           const keys = Object.keys(res)
-          const chats = keys.map((k)=>[res[k]['time'], res[k]['sessionId'], res[k]['messageText']])
+          const chats = keys.map((k)=>[res[k]['time'], res[k]['sessionId'], res[k]['messageText'], res[k]['sessionName']])
           .filter(e => (e[0]<=this.props.videoTime)).sort(function(first, second) {
             return first[0] - second[0];
           })
@@ -113,7 +113,8 @@ export default class Chat extends React.Component {
         {
           messageText: this.state.formValue,
           sessionId: this.state.sessionId,
-          time: this.props.videoTime
+          time: this.props.videoTime,
+          sessionName: sessionStorage.getItem('sessionName')
         }
     )
     this.setState({
@@ -138,11 +139,14 @@ export default class Chat extends React.Component {
                   {messages 
                   ?
                   messages.map(msg => { return (
+                    <>
+                    {this.state.sessionId !== msg[1] && <div style={{color: '#444444', margin: '3px 14px 0px', textAlign: 'left'}}>{msg[3]}</div>}
                     <div className={`message ${this.state.sessionId === msg[1] ? 'sent' : 'received'}`}>
                       <img src={profile} />
                       <p>{msg[2]}</p>
                       <span style={{color: 'grey', padding: '4px 7px 0 7px'}}>{this.formatTime(msg[0])}</span>
                     </div>
+                    </>
                   )})
                   :
                   <div>no messages</div>  

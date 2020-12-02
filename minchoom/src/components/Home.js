@@ -26,6 +26,21 @@ import QnA from '../images/QnA.png'
 
 const databaseURL =  "https://minchoom-cs473.firebaseio.com/";
 
+const adj = ['alcoholic', 'silent', 'big', 'difficult', 'courageous', 'fancy', 'cruel', 'materialistic', 'childlike', 'ruthless', 
+'flawless', 'doubtful', 'jealous', 'husky', 'enchanted', 'idiotic', 'giant', 'boring', 'determined', 'irritating']
+const animal = ['sheep', 'chimpanzee', 'antelope', 'bear', 'fox', 'cat', 'puma', 'ape', 'cow', 'koala',
+'deer', 'parrot', 'donkey', 'gorilla', 'alpaca', 'hamster', 'frog', 'elephant', 'alligator', 'dingo']
+
+const adj_animal = []
+
+for (var i in adj) {
+    for (var j in animal) {
+        adj_animal.push(adj[i] + " " + animal[j])
+    }
+}
+
+//console.log(adj_animal)
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -50,6 +65,8 @@ class Home extends Component {
 
             leaderboard: [],
             leaderboardState: false,
+
+            nameList: [],
         }
         this.sendData = this.sendData.bind(this);
         this.getData = this.getData.bind(this);
@@ -64,9 +81,11 @@ class Home extends Component {
         this.addParticipationPoint = this.addParticipationPoint.bind(this);
         this.patchParticipationPoint = this.patchParticipationPoint.bind(this);
         this.calcLeaderboard = this.calcLeaderboard.bind(this);
+        this.getUsedNames = this.getUsedNames.bind(this);
     }
     componentDidMount() {
         this.calcLeaderboard()
+        this.getUsedNames()
     }
     
     getFlagData = () => {
@@ -195,9 +214,15 @@ class Home extends Component {
         }
         this.setState({playing: true});
 
+        // Create session name
+        var newSessionName = adj_animal[Math.floor(Math.random() * 400)]
+        while (this.state.nameList.indexOf(newSessionName) > -1) {
+            newSessionName = adj_animal[Math.floor(Math.random() * 400)]
+        }
+
         if (sessionStorage.getItem('sessionCreated') === null) {
             const startTime = new Date();
-            const newSession = {startTime: startTime, role: role, participationPoint: 0};
+            const newSession = {startTime: startTime, role: role, participationPoint: 0, sessionName: newSessionName};
             return fetch( `${databaseURL+'/sessions/'}/.json`, {
                 method: 'POST',
                 body: JSON.stringify(newSession)
@@ -211,11 +236,25 @@ class Home extends Component {
                 console.log("Session created: ", newSession);
                 sessionStorage.setItem('sessionID', res.name);
                 sessionStorage.setItem('sessionCreated', true);
+                sessionStorage.setItem('sessionName', newSessionName);
             })
         }
         else{
             console.log("Session exists: ", sessionStorage.getItem('sessionID'));
         }
+    }
+
+    getUsedNames() {
+        fetch(`${databaseURL+'/sessions'}/.json`)
+        .then(res => {
+        if (res.status !== 200) {
+            throw new Error(res.statusText);
+        }
+        return res.json();
+        }).then(res => {
+            const nameList = Object.keys(res).map(k => res[k]['sessionName']).filter((k) => k !== undefined)
+            this.setState({nameList: nameList})
+        })
     }
 
     flagClickHandler(info){
@@ -270,7 +309,7 @@ class Home extends Component {
         return res.json();
         }).then(res => {
             const topThree = Object.keys(res)
-            .map(k => [k, res[k]['participationPoint']])
+            .map(k => [res[k]['sessionName'], res[k]['participationPoint']])
             .filter((k) => k[1] !== undefined)
             .sort((a, b) => b[1] - a[1]).slice(0, 3)
 
@@ -313,7 +352,7 @@ class Home extends Component {
             <div className="Home">
                 <div className="header-bar">
                     <div className="header-title">
-                            <img className="logo" src={katchup} /> Session Number: {sessionStorage.getItem('sessionID')}
+                            <img className="logo" src={katchup} /> Session Id: <b>{sessionStorage.getItem('sessionID')}</b> / Session Name: <b style={{color: 'red'}}>{sessionStorage.getItem('sessionName')}</b>
                     </div>  
                     <Message positive hidden={true} onTimeout={this.closeAlert} timeout={5000} >
                         <Message.Header>Your question: "{answeredQuestion}" has been answered!</Message.Header>

@@ -253,7 +253,8 @@ p {
 .message {
   display: flex;
   align-items: left;
-  margin-top: 8px;
+  margin-bottom: 4px;
+  margin-top: 2px;
 }
 
 
