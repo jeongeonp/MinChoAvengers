@@ -295,6 +295,12 @@ export default class Catchup extends React.Component {
     }
   }
 
+  changeAnswerForm = (e) => {
+    this.state.answerValue[e.target.name] = e.target.value
+    console.log(this.state.answerValue)
+    this.setState({answerValue: this.state.answerValue})
+  }
+
   getHintText(label) {
     if (label === "Notice") {return "What was this notice about?"}
     if (label === "Emphasis") {return "Did the professor emphasize something here?"}
@@ -306,7 +312,7 @@ export default class Catchup extends React.Component {
   render() {
     const { flagId, flagLabel, time, videoTime } = this.props;
     const { questions, answers, formValue, answerValue, sessionId, asking } = this.state;
-    const { formatTime, sendQuestion, handleQuestion, sendAnswer, keyPress, keyPress2, getHintText } = this;
+    const { formatTime, sendQuestion, handleQuestion, sendAnswer, keyPress, keyPress2, getHintText, changeAnswerForm } = this;
     const imgSrc = flagToImg(time);
     return (
             <chat>
@@ -320,7 +326,7 @@ export default class Catchup extends React.Component {
                     <div className="q">Q. {q[4]}</div>
                     {answers
                       ?
-                      answers.filter(e => e[4] == q[7]).map(a => { return (
+                      answers.filter(e => e[4] === q[7]).map(a => { return (
                       <div className="a">A. {a[0]}</div>
                       )})
                       :

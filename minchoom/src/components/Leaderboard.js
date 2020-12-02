@@ -31,7 +31,7 @@ export default class SessionEndBtn extends React.Component {
                                 <Table.Header>
                                     <Table.Row>
                                         <Table.HeaderCell>Rank</Table.HeaderCell>
-                                        <Table.HeaderCell>Session Name</Table.HeaderCell>
+                                        <Table.HeaderCell>Nickname</Table.HeaderCell>
                                         <Table.HeaderCell>Points</Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>

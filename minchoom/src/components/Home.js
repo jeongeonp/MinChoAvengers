@@ -26,10 +26,10 @@ import QnA from '../images/QnA.png'
 
 const databaseURL =  "https://minchoom-cs473.firebaseio.com/";
 
-const adj = ['alcoholic', 'silent', 'big', 'difficult', 'courageous', 'fancy', 'cruel', 'materialistic', 'childlike', 'ruthless', 
-'flawless', 'doubtful', 'jealous', 'husky', 'enchanted', 'idiotic', 'giant', 'boring', 'determined', 'irritating']
-const animal = ['sheep', 'chimpanzee', 'antelope', 'bear', 'fox', 'cat', 'puma', 'ape', 'cow', 'koala',
-'deer', 'parrot', 'donkey', 'gorilla', 'alpaca', 'hamster', 'frog', 'elephant', 'alligator', 'dingo']
+const adj = ['Alcoholic', 'Silent', 'Big', 'Difficult', 'Courageous', 'Fancy', 'Cruel', 'Materialistic', 'Childlike', 'Ruthless', 
+'Flawless', 'Doubtful', 'Jealous', 'Husky', 'Enchanted', 'Idiotic', 'Giant', 'Boring', 'Determined', 'Irritating']
+const animal = ['Sheep', 'Chimpanzee', 'Antelope', 'Bear', 'Fox', 'Cat', 'Puma', 'Ape', 'Cow', 'Koala',
+'Deer', 'Parrot', 'Donkey', 'Gorilla', 'Alpaca', 'Hamster', 'Frog', 'Elephant', 'Alligator', 'Dingo']
 
 const adj_animal = []
 
@@ -215,9 +215,9 @@ class Home extends Component {
         this.setState({playing: true});
 
         // Create session name
-        var newSessionName = adj_animal[Math.floor(Math.random() * 400)]
+        var newSessionName = adj_animal[Math.floor(Math.random() * adj_animal.length)]
         while (this.state.nameList.indexOf(newSessionName) > -1) {
-            newSessionName = adj_animal[Math.floor(Math.random() * 400)]
+            newSessionName = adj_animal[Math.floor(Math.random() * adj_animal.length)]
         }
 
         if (sessionStorage.getItem('sessionCreated') === null) {
@@ -352,7 +352,7 @@ class Home extends Component {
             <div className="Home">
                 <div className="header-bar">
                     <div className="header-title">
-                            <img className="logo" src={katchup} /> Session Id: <b>{sessionStorage.getItem('sessionID')}</b> / Session Name: <b style={{color: 'red'}}>{sessionStorage.getItem('sessionName')}</b>
+                            <img className="logo" src={katchup} /> Session Id: <b>{sessionStorage.getItem('sessionID')}</b> / Nickname: <b style={{color: 'red'}}>{sessionStorage.getItem('sessionName')}</b>
                     </div>  
                     <Message positive hidden={true} onTimeout={this.closeAlert} timeout={5000} >
                         <Message.Header>Your question: "{answeredQuestion}" has been answered!</Message.Header>
