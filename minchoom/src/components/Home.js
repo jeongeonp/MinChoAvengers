@@ -7,6 +7,7 @@ import Chat from './Chat';
 import Catchup from './Catchup';
 import Modal from './Modal';
 import Timeline from './Timeline';
+import Leaderboard from './Leaderboard';
 import Container from 'react-bootstrap/Container'
 import Fab from '@material-ui/core/Fab';
 import Popover from '@material-ui/core/Popover';
@@ -16,8 +17,6 @@ import Row from 'react-bootstrap/Row'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
-//import PieMenu, { Slice } from 'react-pie-menu';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
  
 import Activity from '../images/Activity.png'
 import Emphasis from '../images/Emphasis.png'
@@ -48,6 +47,9 @@ class Home extends Component {
 
             answeredQuestion: '',
             message: false,
+
+            leaderboard: [],
+            leaderboardState: false,
         }
         this.sendData = this.sendData.bind(this);
         this.getData = this.getData.bind(this);
@@ -59,8 +61,12 @@ class Home extends Component {
         this.handleTab = this.handleTab.bind(this);
         this.showFlags = this.showFlags.bind(this);
         this.showAlert = this.showAlert.bind(this);
+        this.addParticipationPoint = this.addParticipationPoint.bind(this);
+        this.patchParticipationPoint = this.patchParticipationPoint.bind(this);
+        this.calcLeaderboard = this.calcLeaderboard.bind(this);
     }
     componentDidMount() {
+        this.calcLeaderboard()
     }
     
     getFlagData = () => {
@@ -172,6 +178,8 @@ class Home extends Component {
                 throw new Error(res.statusText);
             }
             return res.json();
+        }).then(() => {
+            this.addParticipationPoint(flagInfo['sessionId'], 2)
         })
     }
 
@@ -189,7 +197,7 @@ class Home extends Component {
 
         if (sessionStorage.getItem('sessionCreated') === null) {
             const startTime = new Date();
-            const newSession = {startTime: startTime, role: role};
+            const newSession = {startTime: startTime, role: role, participationPoint: 0};
             return fetch( `${databaseURL+'/sessions/'}/.json`, {
                 method: 'POST',
                 body: JSON.stringify(newSession)
@@ -224,6 +232,52 @@ class Home extends Component {
 
     }
 
+    addParticipationPoint(sessionId, point) {
+        //console.log(sessionId, "add this much:", point)
+        fetch(`${databaseURL+'/sessions/'+sessionId}/.json`)
+        .then(res => {
+        if (res.status !== 200) {
+            throw new Error(res.statusText);
+        }
+        return res.json();
+        }).then(res => {
+            this.patchParticipationPoint(sessionId, res, point)
+        })
+    }
+
+    patchParticipationPoint(sessionId, sessionInfo, newPoint) {
+        sessionInfo['participationPoint'] += newPoint
+
+        fetch(`${databaseURL+'/sessions/'+sessionId}/.json`, {
+            method: 'PATCH',
+            body: JSON.stringify(sessionInfo)
+        }).then(res => {
+            if (res.status !== 200) {
+                throw new Error(res.statusText);
+            }
+            return res.json();
+        }).then(() => {
+            this.calcLeaderboard()
+        })
+    }
+
+    calcLeaderboard() {
+        fetch(`${databaseURL+'/sessions'}/.json`)
+        .then(res => {
+        if (res.status !== 200) {
+            throw new Error(res.statusText);
+        }
+        return res.json();
+        }).then(res => {
+            const topThree = Object.keys(res)
+            .map(k => [k, res[k]['participationPoint']])
+            .filter((k) => k[1] !== undefined)
+            .sort((a, b) => b[1] - a[1]).slice(0, 3)
+
+            this.setState({ leaderboard: topThree })
+        })
+    }
+
     showAlert(text) {
         this.setState({answeredQuestion: text, message: true})
     }
@@ -252,8 +306,8 @@ class Home extends Component {
     
     render() {
         const { } = this.props;
-        const { playing, playbackRate, modalOpen, tabValue, hover, tempFlagId, tempFlagLabel, tempSessionId, tempTime, answeredQuestion, message } = this.state;
-        const { addFlag, handleTab, flagClickHandler, showFlags } = this;
+        const { playing, playbackRate, modalOpen, tabValue, hover, tempFlagId, tempFlagLabel, tempSessionId, tempTime, answeredQuestion, message, leaderboardState, leaderboard } = this.state;
+        const { addFlag, handleTab, flagClickHandler, showFlags, addParticipationPoint } = this;
 
         return (
             <div className="Home">
@@ -264,6 +318,14 @@ class Home extends Component {
                     <Message positive hidden={true} onTimeout={this.closeAlert} timeout={5000} >
                         <Message.Header>Your question: "{answeredQuestion}" has been answered!</Message.Header>
                     </Message>
+                    <div style={{position: "absolute", top: "20px", right: "15px"}}>
+                        <Button
+                            disabled={this.state.playedSeconds < 10}
+                            onClick={() => this.setState({leaderboardState: true})}
+                        >
+                            End session
+                        </Button>
+                    </div>
                 </div>
                 <Container className="main-page">
                 <Row className="split-left"  tabIndex="1">
@@ -327,6 +389,7 @@ class Home extends Component {
                                 sessionId={tempSessionId} // who placed the flag
                                 time={tempTime}
                                 showAlert={this.showAlert}
+                                addParticipationPoint={addParticipationPoint}
                             />
                         </Typography>
                     </div>
@@ -338,7 +401,7 @@ class Home extends Component {
                     </div>
                 </Popup> */}
                 <Modal open={modalOpen} closeModal={this.closeModal} selectRole={this.selectRole}></Modal>
-                
+                <Leaderboard open={leaderboardState} topThree={leaderboard}></Leaderboard>
             </div>
         )
     }

@@ -145,6 +145,8 @@ export default class Catchup extends React.Component {
             throw new Error(res.statusText);
         }
         return res.json();
+    }).then((res) => {
+      this.props.addParticipationPoint(answerInfo['sessionId'], 10)
     })
   } 
 
