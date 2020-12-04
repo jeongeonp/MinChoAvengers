@@ -12,7 +12,7 @@ In real-time online lectures, students who are late or lose track have difficult
 
 ### Instruction
 #### Interface
-![](./images/overall.PNG)
+![](./images/overall.png)
 * Lecture Video
 * Flag Buttons
 * Timeline & Flags
@@ -21,20 +21,20 @@ In real-time online lectures, students who are late or lose track have difficult
 
 #### Choosing Your Role
 Select your role as Helper or Helpee. The former will watch the lecture from the beginning, and the latter will watch the lecture midway (~15 minutes). **This function simulates being late and will not be part of the actual system.**
-![](./images/choose.PNG)
+![](./images/choose.png)
 
 
 ==**Disclaimer:** all functions can be used regardless of the role you choose.==
 
 #### Helper
 * When you **hover** over the floating "Flag" button near the bottom of the video, a button list of possible flag types appears. 
-![](./images/hover.PNG)
+![](./images/hover.png)
 
 * Click on one of the flag types you think is appropriate for the current time. Button clicks from multiple users will be aggregated to place the flag on the timeline. 
-![](./images/flattypes.PNG)
+![](./images/flattypes.png)
 
 * You can click on a flag on the timeline, which opens up the Catch Up mode on the right. If there are questions on the Catch Up mode, you can choose to answer.
-![](./images/catchup.PNG)
+![](./images/catchup.png)
 
 #### Helpee
 * When you click on a flag on the timeline, the Catch Up mode opens on the right, and a screenshot of the lecture at the time corresponding to the flag will be shown.
