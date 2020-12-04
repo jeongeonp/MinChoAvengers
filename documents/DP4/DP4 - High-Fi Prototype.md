@@ -31,7 +31,7 @@ Select your role as Helper or Helpee. The former will watch the lecture from the
 ![](./images/hover.PNG)
 
 * Click on one of the flag types you think is appropriate for the current time. Button clicks from multiple users will be aggregated to place the flag on the timeline. 
-![](./images/flagtypes.PNG)
+![](./images/flattypes.PNG)
 
 * You can click on a flag on the timeline, which opens up the Catch Up mode on the right. If there are questions on the Catch Up mode, you can choose to answer.
 ![](./images/catchup.PNG)
@@ -39,6 +39,12 @@ Select your role as Helper or Helpee. The former will watch the lecture from the
 #### Helpee
 * When you click on a flag on the timeline, the Catch Up mode opens on the right, and a screenshot of the lecture at the time corresponding to the flag will be shown.
 * You can post the default question (e.g. Notice: What was the notice about?) or type the question you want.
+
+
+> Instruction: Give a quick tour of the interface, and also show off some of the highlights of the interface. Note that this should not cover all features you have; focus on the most exciting and important parts. Use screenshots and callouts.
+> Screenshots are added?
+Is the instruction clear and easy-to-follow?
+Screenshots capture representative features of the prototype?
 
 ### Prototype
 #### Prototype URL: https://minchoom-cs473.web.app/
