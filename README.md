@@ -21,7 +21,7 @@ You can try our system [here](https://minchoom-cs473.web.app/).
 * DP1: Ideation [[Report](./documents/DP1/DP1-Ideation.md)]
 * DP2: Pitch [[Slides](./documents/DP2/DP2-Project%20Pitch.pdf)]
 * DP3: Low-fi Prototype [[Report](./documents/DP3/DP3-Low-fi.md)] [[Prototype](https://www.figma.com/proto/JHYZayKschscpM5sQty0GX/CS473-DP3-Low-fi?node-id=133%3A643&scaling=min-zoom)]
-* DP4: High-fi Prototype [[Report](./documents/DP4/DP4-High-Fi.md)] [[Prototype](https://minchoom-cs473.web.app)]
+* DP4: High-fi Prototype [[Report](./documents/DP4/DP4 - High-Fi Prototype.md)] [[Prototype](https://minchoom-cs473.web.app)]
 * DP5: Final Presentation
 * DP6: Final Paper & Video
 
