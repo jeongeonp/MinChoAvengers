@@ -370,7 +370,7 @@ class Home extends Component {
                 <Row className="split-left"  tabIndex="1">
                     <Row className="main-video">
                         <ReactPlayer ref={this.ref} playing={playing}
-                            playbackRate={playbackRate} id="video"  width="100%" height="100%" controls url = {'https://www.youtube.com/watch?v=CIfsB_EYsVI'} onPause={this._onPause}
+                            playbackRate={playbackRate} id="video"  width="100%" height="100%" controls url = {'https://youtu.be/ECrxWv619p0'} onPause={this._onPause}
                             onPlay={this._onPlay}
                             onReady={this._onReady}
                             onProgress={this.handleProgress}

@@ -13,6 +13,8 @@ export default class InstModal extends React.Component {
         this.state = {
           open: true,
           first: true,
+          secondHelper: false,
+          secondHelpee: false,
           helper: false,
           helpee: false,
 
@@ -67,13 +69,53 @@ export default class InstModal extends React.Component {
 
     render() {
         const { propsOpen, selectRole, closeModal } = this.props;
-        const { open, first, helper, helpee } = this.state;
+        const { open, first, secondHelper, secondHelpee, helper, helpee } = this.state;
         const { setOpen, changeMode } = this;
         return (
           <>
           
           <Modal
             open={first}
+          >
+            <Modal.Header>Introduction</Modal.Header>
+            <Modal.Content image>
+              <Modal.Description>
+                <span style={{lineHeight: '1.8', fontSize: '17px'}}>
+                  Welcome! <br/>
+                  <img src={logo} style={{width: '65px', height: '28px'}}/> is a system to support <b>late or distract students</b> in online real-time lectures <br/>
+                  to help catch up on missed information unavailable in lecture materials. <br/> <br/>
+                  Our main features include (1) crowd-generated timeline and (2) context-based QnA between peers. <br/> <br/>
+                  Please choose a role below to begin session: <br/>
+                </span>
+                <Button style={{marginTop: '10px'}} onClick={() => changeMode(0)} content='Helper'/>
+                <span style={{margin: '10px'}}></span>
+                <Button style={{marginTop: '10px'}} onClick={() => changeMode(1)} color='red' content='Helpee'/>
+                <br/>
+              </Modal.Description>
+            </Modal.Content>
+          </Modal>
+
+          <Modal
+            open={secondHelper}
+          >
+            <Modal.Header>Main Features</Modal.Header>
+            <Modal.Content image>
+              <Modal.Description>
+                <span style={{lineHeight: '1.8', fontSize: '17px'}}>
+                  This is an overall image of the system. <br/>
+                  <img src={logo} style={{width: '65px', height: '28px'}}/> <br/>
+                  #1 is the crowd-generated timeline. This is used to 
+                </span>
+                <Button style={{marginTop: '10px'}} onClick={() => changeMode(0)} content='Helper'/>
+                <span style={{margin: '10px'}}></span>
+                <Button style={{marginTop: '10px'}} onClick={() => changeMode(1)} color='red' content='Helpee'/>
+                <br/>
+              </Modal.Description>
+            </Modal.Content>
+          </Modal>
+
+          <Modal
+            open={secondHelpee}
           >
             <Modal.Header>Introduction</Modal.Header>
             <Modal.Content image>
