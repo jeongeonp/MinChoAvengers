@@ -339,20 +339,6 @@ img {
   font-weight: bold;
 }
 
-.a {
-  max-width: 500px;
-  margin-left: 25px;
-  margin-bottom: 8px;
-  margin-right: 7px;
-  line-height: 24px;
-  padding: 10px 15px 15px 15px;
-  background: #ffc857;
-  color: black;
-  text-align: justify;
-  font-size: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 Row {
   width: 100%;
   height: 100%;
@@ -399,4 +385,30 @@ Button {
   font-size: 17px;
   text-align: center;
   margin: 10px;
+}
+
+.a {
+  max-width: 383px;
+}
+
+.answerText {
+  width: 280px;
+  margin-left: 25px;
+  margin-bottom: 8px;
+  line-height: 24px;
+  padding: 10px 15px 15px 15px;
+  background: #ffc857;
+  color: black;
+  text-align: justify;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  float: left;
+}
+
+.upvote {
+  float: right;
+  text-align: center;
+  align-items: center;
+  background-color: lightgreen;
+  color: grey;
 }
