@@ -17,6 +17,7 @@ import { requirePropFactory } from '@material-ui/core';
 
 const databaseURL = "https://minchoom-cs473.firebaseio.com"
 const db = ['/questions', '/answers']
+const upvoted = []
 
 
 
@@ -74,6 +75,7 @@ export default class Catchup extends React.Component {
     this.sendQuestion = this.sendQuestion.bind(this);
     this.sendAnswer = this.sendAnswer.bind(this);
     this.keyPress = this.keyPress.bind(this);
+    this.upvotePressed = this.upvotePressed.bind(this);
   }
 
   componentDidMount() {
@@ -220,7 +222,7 @@ export default class Catchup extends React.Component {
               return first[6] - second[6];
             })
           
-          const answers = answer_keys.map((k)=>[res[a][k]['answerText'], res[a][k]['flagId'], res[a][k]['flagLabel'], res[a][k]['liked'], res[a][k]['questionId'], res[a][k]['sessionId'], res[a][k]['time'], res[a][k]['upvotes']])
+          const answers = answer_keys.map((k)=>[res[a][k]['answerText'], res[a][k]['flagId'], res[a][k]['flagLabel'], res[a][k]['liked'], res[a][k]['questionId'], res[a][k]['sessionId'], res[a][k]['time'], res[a][k]['upvotes'], k])
           .sort(function(first, second) {
             return first[6] - second[6];
           })
@@ -259,7 +261,7 @@ export default class Catchup extends React.Component {
           answerText: this.state.answerValue,
           flagId: this.props.flagId,
           flagLabel: this.props.flagLabel,
-          liked:false,
+          liked: false,
           questionId: qId,
           sessionId: sessionStorage.getItem('sessionID'),
           time: this.props.time,
@@ -270,6 +272,36 @@ export default class Catchup extends React.Component {
       answerValue: ''
     })
   }
+
+  updateAnswer = (answer, answerId) => {
+    console.log(answer)
+    return fetch( `${databaseURL+'/catchup/answers/'+answerId}/.json`, {
+      method: 'PATCH',
+      body: JSON.stringify(answer)
+    }).then(res => {
+      if (res.status !== 200) {
+        throw new Error(res.statusText);
+      }
+      return res.json();
+    }).then((res) => {
+      console.log("Upvote succesfully sent!")
+      this.updateAnswerTwice(answer, res.name)
+    })
+  }
+
+  updateAnswerTwice(answerInfo, answerId) {
+    console.log(answerInfo, answerId)
+    const sessionid = sessionStorage.getItem('sessionID')
+    fetch(`${databaseURL+'/sessions/'+sessionid+'/answers/'+answerId}/.json`, {
+        method: 'PATCH',
+        body: JSON.stringify(answerInfo)
+    }).then(res => {
+        if (res.status !== 200) {
+            throw new Error(res.statusText);
+        }
+        return res.json();
+    })
+  } 
 
   handleQuestion = () => {
       this.setState({
@@ -309,10 +341,21 @@ export default class Catchup extends React.Component {
     if (label === "Activity") {return "What did I miss here?"}
   }
 
+  upvotePressed = (a) => {
+    if (sessionStorage.getItem('upvotedAnswers') === null) {
+      sessionStorage.setItem('upvotedAnswers', [a[8]]); }
+    else if (!sessionStorage.getItem('upvotedAnswers').includes(a[8])) {
+      a[7] = a[7] + 1;
+      this.updateAnswer({
+        upvotes: a[7]
+      }, a[8]);
+    }
+  }
+
   render() {
     const { flagId, flagLabel, time, videoTime } = this.props;
     const { questions, answers, formValue, answerValue, sessionId, asking } = this.state;
-    const { formatTime, sendQuestion, handleQuestion, sendAnswer, keyPress, keyPress2, getHintText, changeAnswerForm } = this;
+    const { formatTime, sendQuestion, handleQuestion, sendAnswer, keyPress, keyPress2, getHintText, changeAnswerForm, upvotePressed } = this;
     const imgSrc = flagToImg(time);
     return (
             <chat>
@@ -327,7 +370,10 @@ export default class Catchup extends React.Component {
                     {answers
                       ?
                       answers.filter(e => e[4] === q[7]).map(a => { return (
-                      <div className="a">A. {a[0]}</div>
+                      <div className="a">
+                        <div className="answerText">A. {a[0]}</div>
+                        <button className="upvote" onClick={() => upvotePressed(a)}>▲ {a[7]}</button>
+                      </div>
                       )})
                       :
                       null
@@ -337,20 +383,6 @@ export default class Catchup extends React.Component {
 
                   </div>
                 )})}
-                {/*
-                <div>{answers 
-                    ?
-                    answers.map(a => { return(
-                    <>
-                    <div>
-                    <div className="a">A. {a[0]}</div>
-                    </div></>)})
-                    :
-                    <div>no answers!</div>  
-                    }
-                </div>
-                  */}
-              
               </main>
               <form >
                   <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder={getHintText(flagLabel)} />
