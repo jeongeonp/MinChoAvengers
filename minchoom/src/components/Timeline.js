@@ -179,7 +179,7 @@ export default class Timeline extends React.Component {
     render() {
         const { flags, videoTime, flagClickHandler, showLoading } = this.props;
         const { currentFlags, hoverPreview } = this.state;
-        const { showPreview} = this;
+        const { showPreview } = this;
         var allFlags = flags.concat(currentFlags);
         var aggregatedFlags = aggregate(allFlags);
         console.log(aggregatedFlags);
