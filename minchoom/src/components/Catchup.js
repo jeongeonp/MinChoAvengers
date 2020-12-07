@@ -351,6 +351,7 @@ export default class Catchup extends React.Component {
       this.updateAnswer({
         upvotes: a[7]
       }, a[8]);
+      sessionStorage['upvotedAnswers'] += a[8];
     }
   }
 
