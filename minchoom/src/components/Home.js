@@ -354,7 +354,7 @@ class Home extends Component {
                     </Message>
                     <div style={{position: "absolute", top: "20px", right: "15px"}}>
                         <Button
-                            disabled={this.state.playedSeconds < 10}
+                            disabled={this.state.playedSeconds < 1200}
                             onClick={() => this.setState({leaderboardState: true})}
                         >
                             End session
