@@ -3,9 +3,10 @@ import Popup from "reactjs-popup";
 import '../App.css';
 import 'reactjs-popup/dist/index.css';
 import logo from'../images/KatchUp.png';
+import flagButton from '../images/FlagButton.png'
 //import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton'
-import { Button, Header, Image, Modal } from 'semantic-ui-react'
+import { Button, Header, Image, Modal, ModalActions } from 'semantic-ui-react'
 
 export default class InstModal extends React.Component {
     constructor(props) {
@@ -13,10 +14,9 @@ export default class InstModal extends React.Component {
         this.state = {
           open: true,
           first: true,
-          secondHelper: false,
-          secondHelpee: false,
-          helper: false,
-          helpee: false,
+          feature: false,
+          helperEnd: false,
+          helpeeEnd: false,
 
         };
         this.setOpen = this.setOpen.bind(this)
@@ -42,25 +42,40 @@ export default class InstModal extends React.Component {
       } 
 
       changeMode = (inp) => {
+        // First page to second page (feature)
         if (inp === 0) {
-          this.setState({helper: true, first: false})
+          this.setState({first: false, feature: true})
         }
-        if (inp === 1) {
-          this.setState({helpee: true, first: false})
-        }
+
+        // Second page (feature) to first page
         if (inp === 2) {
-          this.setState({helper: false})
-          this.props.selectRole(0)
+          this.setState({feature: false, first: true})
         }
-        if (inp === 3) {
-          this.setState({helpee: false})
-          this.props.selectRole(1)
-        }
+
+        // Second page (feature) to last page (end)
         if (inp === 4) {
-          this.setState({first: true, helper: false})
+          this.setState({feature: false, helperEnd: true})
         }
         if (inp === 5) {
-          this.setState({first: true, helpee: false})
+          this.setState({feature: false, helpeeEnd: true})
+        }
+
+        // Last page (end) to second page (feature)
+        if (inp === 6) {
+          this.setState({feature: true, helperEnd: false})
+        }
+        if (inp === 7) {
+          this.setState({feature: true, helpeeEnd: false})
+        }
+
+        // Close last page
+        if (inp === 8) {
+          this.setState({helperEnd: false})
+          this.props.selectRole(0)
+        }
+        if (inp === 9) {
+          this.setState({helpeeEnd: false})
+          this.props.selectRole(1)
         }
           
       }
@@ -69,7 +84,7 @@ export default class InstModal extends React.Component {
 
     render() {
         const { propsOpen, selectRole, closeModal } = this.props;
-        const { open, first, secondHelper, secondHelpee, helper, helpee } = this.state;
+        const { open, first, feature, helperEnd, helpeeEnd } = this.state;
         const { setOpen, changeMode } = this;
         return (
           <>
@@ -82,67 +97,66 @@ export default class InstModal extends React.Component {
               <Modal.Description>
                 <span style={{lineHeight: '1.8', fontSize: '17px'}}>
                   Welcome! <br/>
-                  <img src={logo} style={{width: '65px', height: '28px'}}/> is a system to support <b>late or distract students</b> in online real-time lectures <br/>
+                  <img src={logo} style={{width: '65px', height: '28px'}}/> is a system to support <b>late or distracted students</b> in online real-time lectures <br/>
                   to help catch up on missed information unavailable in lecture materials. <br/> <br/>
-                  Our main features include (1) crowd-generated timeline and (2) context-based QnA between peers. <br/> <br/>
-                  Please choose a role below to begin session: <br/>
+                  Our main features include <b>(1) crowd-generated timeline</b> and <b>(2) context-based Q&A between peers.</b> <br/>
+                  Details will be explained on the next page. <br/>
                 </span>
-                <Button style={{marginTop: '10px'}} onClick={() => changeMode(0)} content='Helper'/>
-                <span style={{margin: '10px'}}></span>
-                <Button style={{marginTop: '10px'}} onClick={() => changeMode(1)} color='red' content='Helpee'/>
-                <br/>
               </Modal.Description>
             </Modal.Content>
+            <Modal.Actions>
+              <Button
+                onClick={() => changeMode(0)}
+                labelPosition='right'
+                icon='arrow right'
+                content='Begin Feature Description'
+              />
+            </Modal.Actions>
           </Modal>
 
           <Modal
-            open={secondHelper}
+            open={feature}
           >
             <Modal.Header>Main Features</Modal.Header>
             <Modal.Content image>
               <Modal.Description>
                 <span style={{lineHeight: '1.8', fontSize: '17px'}}>
-                  This is an overall image of the system. <br/>
-                  <img src={logo} style={{width: '65px', height: '28px'}}/> <br/>
-                  #1 is the crowd-generated timeline. This is used to 
-                </span>
-                <Button style={{marginTop: '10px'}} onClick={() => changeMode(0)} content='Helper'/>
-                <span style={{margin: '10px'}}></span>
-                <Button style={{marginTop: '10px'}} onClick={() => changeMode(1)} color='red' content='Helpee'/>
-                <br/>
-              </Modal.Description>
-            </Modal.Content>
-          </Modal>
+                  This is the overall system. <br/>
+                  <img src={logo} style={{width: '65px', height: '28px'}}/> (placeholder for whole page) <br/> <br/>
+                  <b>#1</b> is the <b><u>crowd-generated timeline</u></b>. <br/>
+                  This is used for the helpees to identify the missed parts, not in the lecture materials. <br/>
+                  The timeline is generated by the helpers, aggregated with their button clicks through  
+                  <img src={flagButton} style={{width: '50px', height: '25px', margin: '0px 0px 0px 5px'}}/>. <br/> <br/>
 
-          <Modal
-            open={secondHelpee}
-          >
-            <Modal.Header>Introduction</Modal.Header>
-            <Modal.Content image>
-              <Modal.Description>
-                <span style={{lineHeight: '1.8', fontSize: '17px'}}>
-                  Welcome! <br/>
-                  <img src={logo} style={{width: '65px', height: '28px'}}/> is a system to support <b>late or distract students</b> in online real-time lectures <br/>
-                  to help catch up on missed information unavailable in lecture materials. <br/> <br/>
-                  Our main features include (1) crowd-generated timeline and (2) context-based QnA between peers. <br/> <br/>
-                  Please choose a role below to begin session: <br/>
+                  <b>#2</b> is the <b><u>Catchup board</u></b>, a context-based Q&A board. <br/>
+                  Here, the helpees can ask questions to clarify the contents of the flags. <br/>
+                  The helpers can either answer the questions asked, or upvote good answers. <br/> <br/>
+
+                  Please <b><u>choose a role</u></b> below to begin session: <br/>
                 </span>
-                <Button style={{marginTop: '10px'}} onClick={() => changeMode(0)} content='Helper'/>
-                <span style={{margin: '10px'}}></span>
-                <Button style={{marginTop: '10px'}} onClick={() => changeMode(1)} color='red' content='Helpee'/>
-                <br/>
               </Modal.Description>
             </Modal.Content>
+            <Modal.Actions>
+              <Button 
+                floated='left'
+                onClick={() => changeMode(2)}
+                labelPosition='left'
+                icon='arrow left'
+                content='Back to Introduction'
+              />
+              <Button onClick={() => changeMode(4)} color='google plus' content='1. Helper'/>
+              <Button onClick={() => changeMode(5)} color='google plus' content='2. Helpee'/>
+            </Modal.Actions>
           </Modal>
           
           <Modal
-            open={helper}
+            open={helperEnd}
           >
             <Modal.Header>You are going to be a <u>helper</u> in this session.</Modal.Header>
             <Modal.Content image>
               <Modal.Description>
                 <div style={{lineHeight: '1.8', fontSize: '17px'}}>
-                  You have two main tasks as a helper. <br/> <br/>
+                  You have two main tasks as a <b><u>helper</u></b>. <br/> <br/>
                   <b>(1) Please participate in generating the flags on the timeline.</b> <br/>
                   There are in total five flags you can select: <br/>
                   <div className="ui left aligned container" style={{width: '85%', paddingLeft: '12%'}}>
@@ -156,36 +170,36 @@ export default class InstModal extends React.Component {
 
                   <b>(2) Answer the questions asked by the helpees.</b> <br/>
                   Each flag will show the number of questions unanswered via a notification. <br/>
-                  Please visit the Catch Up board to answer your peers' questions. <br/> <br/>
-
+                  Please visit the Catchup board to answer your peers' questions. <br/>
                 </div>
-                <Button
-                  onClick={() => changeMode(4)}
-                  labelPosition='left'
-                  icon='arrow left'
-                  content='Back to Introduction'
-                />
-                <span style={{margin: '10px'}}></span>
-                <Button
-                  onClick={() => changeMode(2)}
-                  positive
-                  labelPosition='right'
-                  icon='arrow right'
-                  content='Begin Session'
-                />
-                
               </Modal.Description>
             </Modal.Content>
+            <Modal.Actions>
+              <Button
+                floated='left'
+                onClick={() => changeMode(6)}
+                labelPosition='left'
+                icon='arrow left'
+                content='Back to Feature'
+              />
+              <Button
+                onClick={() => changeMode(8)}
+                positive
+                labelPosition='right'
+                icon='arrow right'
+                content='Begin Session'
+              />
+            </Modal.Actions>
           </Modal>
           
           <Modal
-            open={helpee}
+            open={helpeeEnd}
           >
             <Modal.Header>You are going to be a <u>helpee</u> in this session.</Modal.Header>
             <Modal.Content image>
               <Modal.Description>
                 <span style={{lineHeight: '1.8', fontSize: '17px'}}>
-                  You have two main tasks as a helpee. <br/> <br/>
+                  You have two main tasks as a <b><u>helpee</u></b>. <br/> <br/>
                   <b>(1) Please look at the flags on the timeline to catch up with the part you missed.</b> <br/>
                   There are in total five types of flags: <br/>
                   <div className="ui left aligned container" style={{width: '85%', paddingLeft: '12%'}}>
@@ -195,31 +209,31 @@ export default class InstModal extends React.Component {
                   <b>4. Notice:</b> Notice or Administrative Notes <br/>
                   <b>5. Q&A:</b> Verbal Q&A <br/>
                   </div>
-                  Clicking on the flags will open the Catch Up board <br/>
+                  Clicking on the flags will open the Catchup board <br/>
                   where you can see the corresponding lecture material and the time.<br/> <br/>
 
                   <b>(2) Ask questions for extra details. </b> <br/>
                   Ask questions through the Catch Up board if you need extra details on the contexts of each flag. <br/>
-                  You will be notified when your question is answered. <br/> <br/>
-
+                  You will be notified when your question is answered. <br/>
                 </span>
-                <Button
-                  onClick={() => changeMode(5)}
-                  labelPosition='left'
-                  icon='arrow left'
-                  content='Back to Introduction'
-                />
-                <span style={{margin: '10px'}}></span>
-                <Button
-                  onClick={() => changeMode(3)}
-                  positive
-                  labelPosition='right'
-                  icon='arrow right'
-                  content='Begin Session'
-                />
-                
               </Modal.Description>
             </Modal.Content>
+            <Modal.Actions>
+              <Button
+                floated='left'
+                onClick={() => changeMode(7)}
+                labelPosition='left'
+                icon='arrow left'
+                content='Back to Feature'
+              />
+              <Button
+                onClick={() => changeMode(9)}
+                positive
+                labelPosition='right'
+                icon='arrow right'
+                content='Begin Session'
+              />
+            </Modal.Actions>
           </Modal>
           
           {/*
