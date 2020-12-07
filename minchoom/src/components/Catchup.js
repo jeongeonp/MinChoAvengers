@@ -351,6 +351,7 @@ export default class Catchup extends React.Component {
       this.updateAnswer({
         upvotes: a[7]
       }, a[8]);
+      sessionStorage['upvotedAnswers'] += a[8];
     }
   }
 
@@ -377,7 +378,6 @@ export default class Catchup extends React.Component {
                       answers.filter(e => e[4] === q[7]).map(a => { return (
                       <div className="a">
                         <div className="answerText">A. {a[0]} <button className="upvote" onClick={() => upvotePressed(a)}>▲ {a[7]}</button></div>
-                        
                       </div>
                       )})
                       :
