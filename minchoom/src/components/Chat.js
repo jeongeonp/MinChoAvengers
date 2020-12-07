@@ -155,7 +155,7 @@ export default class Chat extends React.Component {
                 <div style={{ float:"left", clear: "both" }} ref={(el) => { this.messagesEnd = el; }}/>
               </main>
               <form ref={el => this.myFormRef = el}>
-                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder=" Type in anything!" />
+                  <textarea className="textarea3" value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder=" Type in anything!" />
                   <button type="submit" disabled={!formValue} onClick={sendMessage}>🕊️</button>
                 </form>
           </div>)

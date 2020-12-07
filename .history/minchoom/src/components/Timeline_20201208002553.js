@@ -1,16 +1,16 @@
 import React from "react";
 import '../App.css';
 import {Progress} from 'semantic-ui-react';
-import slide1 from "../images/astronomy_lecture/IMG_00001.jpeg"
-import slide2 from "../images/astronomy_lecture/IMG_00002.jpeg"
-import slide3 from "../images/astronomy_lecture/IMG_00003.jpeg"
-import slide4 from "../images/astronomy_lecture/IMG_00004.jpeg"
-import slide5 from "../images/astronomy_lecture/IMG_00005.jpeg"
-import slide6 from "../images/astronomy_lecture/IMG_00006.jpeg"
-import slide7 from "../images/astronomy_lecture/IMG_00007.jpeg"
-import slide8 from "../images/astronomy_lecture/IMG_00008.jpeg"
-import slide9 from "../images/astronomy_lecture/IMG_00009.jpeg"
-import slide10 from "../images/astronomy_lecture/IMG_00010.jpeg"
+import slide1 from "../images/astronomy_lecture/Lecture-1.pdf"
+import slide2 from "../images/astronomy_lecture/Lecture-2.pdf"
+import slide3 from "../images/astronomy_lecture/Lecture-3.pdf"
+import slide4 from "../images/astronomy_lecture/Lecture-4.pdf"
+import slide5 from "../images/astronomy_lecture/Lecture-5.pdf"
+import slide6 from "../images/astronomy_lecture/Lecture-6.pdf"
+import slide7 from "../images/astronomy_lecture/Lecture-7.pdf"
+import slide8 from "../images/astronomy_lecture/Lecture-8.pdf"
+import slide9 from "../images/astronomy_lecture/Lecture-9.pdf"
+import slide10 from "../images/astronomy_lecture/Lecture-10.pdf"
 import 'semantic-ui-css/semantic.min.css'
 import { Clickable } from 'react-clickable';
 import { css } from "@emotion/core";
@@ -68,29 +68,23 @@ function formatTime(time) {
 `;
 
 function aggregate(flags){
-    var aggregatedFlags ;
-    var removeFlags = [];
+    var aggregatedFlags = [];
     var sortedArray = flags.sort(function(a, b) {
         return b[1] - a[1];
       }).reverse();
     //console.log(sortedArray);
     for (var i=1; i<sortedArray.length; i++){
-
         var flagTime = sortedArray[i][1];
-        for (var j=1; j<i; j++){
-            var prevFlagTime = sortedArray[j][1];
-            console.log(sortedArray[i][0] === sortedArray[j][0]);
-            console.log(flagTime < prevFlagTime + 250);
-            if (flagTime < prevFlagTime + 250.0 && sortedArray[i][0] === sortedArray[j][0])
-                removeFlags.push(sortedArray[i]);
+        var prevFlagTime = sortedArray[i-1][1];
+        //console.log('aggregate', flagTime, prevFlagTime, sortedArray[i][0], sortedArray[i-1][0]);
+        if (flagTime > prevFlagTime + 180 || sortedArray[i][0] !== sortedArray[i-1][0]){
+            aggregatedFlags.push(sortedArray[i]);
         }
-
+        
     }
-    console.log(removeFlags);
-    aggregatedFlags = sortedArray.filter( el => !removeFlags.includes(el) )
+    //console.log(aggregatedFlags)
     if(sortedArray.length)
         aggregatedFlags.push(sortedArray[0]);
-
     return aggregatedFlags;
 }
 
@@ -179,7 +173,7 @@ export default class Timeline extends React.Component {
     render() {
         const { flags, videoTime, flagClickHandler, showLoading } = this.props;
         const { currentFlags, hoverPreview } = this.state;
-        const { showPreview } = this;
+        const { showPreview} = this;
         var allFlags = flags.concat(currentFlags);
         var aggregatedFlags = aggregate(allFlags);
         console.log(aggregatedFlags);

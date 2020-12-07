@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player'
-import { Header, Input, Form, Button, Progress, Dimmer, Loader, Image, Message } from 'semantic-ui-react';
+import { Button, Image, Message } from 'semantic-ui-react';
 import '../App.css';
 import katchup from'../images/KatchUp.png';
 import Chat from './Chat';
@@ -10,9 +10,8 @@ import Timeline from './Timeline';
 import Leaderboard from './Leaderboard';
 import Container from 'react-bootstrap/Container'
 import Fab from '@material-ui/core/Fab';
-import Popover from '@material-ui/core/Popover';
-
-import Popup from "reactjs-popup";
+//import Popover from '@material-ui/core/Popover';
+//import Popup from "reactjs-popup";
 import Row from 'react-bootstrap/Row'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
@@ -114,7 +113,6 @@ class Home extends Component {
       }
 
     sendData = () => {
-        const sampleString = "Sent at " + new Date() + "- last dummy data from firebase."
         const sampleDict = {text: "Sent at " + new Date() + "- last dummy data from firebase."}
         return fetch( `${databaseURL+'/dummyData'}/.json`, {
             method: 'PATCH',
@@ -136,7 +134,6 @@ class Home extends Component {
             }
             return res.json();
         }).then(res => {
-            const keys = Object.keys(res)
             console.log(res)
             this.setState({
                 dummyData: res["text"],
@@ -209,7 +206,7 @@ class Home extends Component {
     selectRole(role){
         this.setState({role: role});
         this.closeModal();
-        if(role==1){
+        if(role === 1){
             this.player.seekTo(900); // skip 15 minutes
         }
         this.setState({playing: true});
@@ -232,15 +229,15 @@ class Home extends Component {
                 }
                 return res.json();
             }).then(res => {
-                console.log(res.name);
-                console.log("Session created: ", newSession);
+                //console.log(res.name);
+                //console.log("Session created: ", newSession);
                 sessionStorage.setItem('sessionID', res.name);
                 sessionStorage.setItem('sessionCreated', true);
                 sessionStorage.setItem('sessionName', newSessionName);
             })
         }
         else{
-            console.log("Session exists: ", sessionStorage.getItem('sessionID'));
+            //console.log("Session exists: ", sessionStorage.getItem('sessionID'));
         }
     }
 
@@ -252,15 +249,17 @@ class Home extends Component {
         }
         return res.json();
         }).then(res => {
-            const nameList = Object.keys(res).map(k => res[k]['sessionName']).filter((k) => k !== undefined)
-            this.setState({nameList: nameList})
+            if (res) {
+                const nameList = Object.keys(res).map(k => res[k]['sessionName']).filter((k) => k !== undefined)
+                this.setState({nameList: nameList})
+            }
+            
         })
     }
 
     flagClickHandler(info){
         //here
-        
-        console.log("Flag info is", info);
+        //console.log("Flag info is", info);
         this.handleTab('2')
         this.setState({
             tempFlagId: info[2],
@@ -308,12 +307,15 @@ class Home extends Component {
         }
         return res.json();
         }).then(res => {
-            const topThree = Object.keys(res)
-            .map(k => [res[k]['sessionName'], res[k]['participationPoint']])
-            .filter((k) => k[1] !== undefined)
-            .sort((a, b) => b[1] - a[1]).slice(0, 3)
+            if (res) {
+                const topThree = Object.keys(res)
+                .map(k => [res[k]['sessionName'], res[k]['participationPoint']])
+                .filter((k) => k[1] !== undefined)
+                .sort((a, b) => b[1] - a[1]).slice(0, 3)
 
-            this.setState({ leaderboard: topThree })
+                this.setState({ leaderboard: topThree })
+            }
+            
         })
     }
 
@@ -344,8 +346,7 @@ class Home extends Component {
     }
     
     render() {
-        const { } = this.props;
-        const { playing, playbackRate, modalOpen, tabValue, hover, tempFlagId, tempFlagLabel, tempSessionId, tempTime, answeredQuestion, message, leaderboardState, leaderboard } = this.state;
+        const { playing, playbackRate, modalOpen, tabValue, hover, tempFlagId, tempFlagLabel, tempSessionId, tempTime, answeredQuestion, leaderboardState, leaderboard } = this.state;
         const { addFlag, handleTab, flagClickHandler, showFlags, addParticipationPoint } = this;
 
         return (
@@ -359,7 +360,7 @@ class Home extends Component {
                     </Message>
                     <div style={{position: "absolute", top: "20px", right: "15px"}}>
                         <Button
-                            disabled={this.state.playedSeconds < 10}
+                            disabled={this.state.playedSeconds < 1200}
                             onClick={() => this.setState({leaderboardState: true})}
                         >
                             End session
@@ -370,7 +371,7 @@ class Home extends Component {
                 <Row className="split-left"  tabIndex="1">
                     <Row className="main-video">
                         <ReactPlayer ref={this.ref} playing={playing}
-                            playbackRate={playbackRate} id="video"  width="100%" height="100%" controls url = {'https://youtu.be/ECrxWv619p0'} onPause={this._onPause}
+                            playbackRate={playbackRate} id="video"  width="100%" height="100%" url = {'https://youtu.be/ECrxWv619p0'} onPause={this._onPause}
                             onPlay={this._onPlay}
                             onReady={this._onReady}
                             onProgress={this.handleProgress}

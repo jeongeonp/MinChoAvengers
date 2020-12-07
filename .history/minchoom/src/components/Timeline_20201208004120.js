@@ -68,29 +68,23 @@ function formatTime(time) {
 `;
 
 function aggregate(flags){
-    var aggregatedFlags ;
-    var removeFlags = [];
+    var aggregatedFlags = [];
     var sortedArray = flags.sort(function(a, b) {
         return b[1] - a[1];
       }).reverse();
     //console.log(sortedArray);
     for (var i=1; i<sortedArray.length; i++){
-
         var flagTime = sortedArray[i][1];
-        for (var j=1; j<i; j++){
-            var prevFlagTime = sortedArray[j][1];
-            console.log(sortedArray[i][0] === sortedArray[j][0]);
-            console.log(flagTime < prevFlagTime + 250);
-            if (flagTime < prevFlagTime + 250.0 && sortedArray[i][0] === sortedArray[j][0])
-                removeFlags.push(sortedArray[i]);
+        var prevFlagTime = sortedArray[i-1][1];
+        console.log('aggregate', flagTime, prevFlagTime , sortedArray[i][0], sortedArray[i-1][0]);
+        if (flagTime > prevFlagTime + 240 || !(sortedArray[i][0] === sortedArray[i-1][0])){
+            aggregatedFlags.push(sortedArray[i]);
         }
-
+        
     }
-    console.log(removeFlags);
-    aggregatedFlags = sortedArray.filter( el => !removeFlags.includes(el) )
+    //console.log(aggregatedFlags)
     if(sortedArray.length)
         aggregatedFlags.push(sortedArray[0]);
-
     return aggregatedFlags;
 }
 
@@ -179,7 +173,7 @@ export default class Timeline extends React.Component {
     render() {
         const { flags, videoTime, flagClickHandler, showLoading } = this.props;
         const { currentFlags, hoverPreview } = this.state;
-        const { showPreview } = this;
+        const { showPreview} = this;
         var allFlags = flags.concat(currentFlags);
         var aggregatedFlags = aggregate(allFlags);
         console.log(aggregatedFlags);

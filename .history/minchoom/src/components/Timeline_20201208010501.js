@@ -79,8 +79,7 @@ function aggregate(flags){
         var flagTime = sortedArray[i][1];
         for (var j=1; j<i; j++){
             var prevFlagTime = sortedArray[j][1];
-            console.log(sortedArray[i][0] === sortedArray[j][0]);
-            console.log(flagTime < prevFlagTime + 250);
+            console.log(sortedArray[i][0] === sortedArray[j][0])
             if (flagTime < prevFlagTime + 250.0 && sortedArray[i][0] === sortedArray[j][0])
                 removeFlags.push(sortedArray[i]);
         }
@@ -179,7 +178,7 @@ export default class Timeline extends React.Component {
     render() {
         const { flags, videoTime, flagClickHandler, showLoading } = this.props;
         const { currentFlags, hoverPreview } = this.state;
-        const { showPreview } = this;
+        const { showPreview} = this;
         var allFlags = flags.concat(currentFlags);
         var aggregatedFlags = aggregate(allFlags);
         console.log(aggregatedFlags);

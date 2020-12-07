@@ -14,8 +14,6 @@ import slide10 from "../images/astronomy_lecture/IMG_00010.jpeg"
 import firebase from 'firebase/app';
 import 'firebase/database';
 import { requirePropFactory } from '@material-ui/core';
-import { Button } from 'semantic-ui-react';
-
 
 const databaseURL = "https://minchoom-cs473.firebaseio.com"
 const db = ['/questions', '/answers']
@@ -228,7 +226,7 @@ export default class Catchup extends React.Component {
           .sort(function(first, second) {
             return first[6] - second[6];
           })
-          //console.log(questions)
+          //console.log(answers)
           this.setState({
             questions: questions,
             answers: answers
@@ -366,38 +364,31 @@ export default class Catchup extends React.Component {
                 {/* This is where the screenshot image goes */}
                 <img className='questionImg' src={imgSrc}  />
                 <div style={{color: 'grey'}}>Flagged at {formatTime(time)}</div>
-                {questions.length > 0
-                ?
-                questions.map(q => { return (
+                {questions.map(q => { return (
                   <div>
-                    
                     <div className="q">Q. {q[4]}</div>
                     {answers
                       ?
                       answers.filter(e => e[4] === q[7]).map(a => { return (
                       <div className="a">
-                        <div className="answerText">A. {a[0]} <button className="upvote" onClick={() => upvotePressed(a)}>▲ {a[7]}</button></div>
-                        
+                        <div className="answerText">A. {a[0]}</div>
+                        <button className="upvote" onClick={() => upvotePressed(a)}>▲ {a[7]}</button>
                       </div>
                       )})
                       :
                       null
                     }
                     <textarea type="text" className="textarea2" value={answerValue} onChange={(e) => this.setState({answerValue: e.target.value})} onKeyDown={(e) => keyPress2(e, q[7])} placeholder="Answer the question here."/>
-                    <Button type="submit" color='google plus' disabled={!answerValue} onClick={() => sendAnswer(q[7])}>Answer</Button>
+                    <button type="submit" disabled={!answerValue} onClick={() => sendAnswer(q[7])}>Answer</button>
 
                   </div>
-                
-                )})
-                :
-                <div style={{color: 'black', marginTop: '10px', fontSize: '1.1em'}}>There is no question for this flag yet.</div>
-                }
+                )})}
               </main>
               <form >
-                  <textarea className="textarea3" value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder={getHintText(flagLabel)} />
+                  <textarea value={formValue} onChange={(e) => this.setState({formValue: e.target.value})} onKeyDown={keyPress} placeholder={getHintText(flagLabel)} />
                   <button type="submit" disabled={!formValue} onClick={sendQuestion}>🕊️</button>
               </form>
               
           </chat>)
-    }
+          }
 };
