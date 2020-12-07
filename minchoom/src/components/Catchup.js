@@ -78,6 +78,7 @@ export default class Catchup extends React.Component {
     this.sendAnswer = this.sendAnswer.bind(this);
     this.keyPress = this.keyPress.bind(this);
     this.upvotePressed = this.upvotePressed.bind(this);
+    this.inputChange = this.inputChange.bind(this);
   }
 
   componentDidMount() {
@@ -355,10 +356,17 @@ export default class Catchup extends React.Component {
     }
   }
 
+  inputChange = (q) => {
+    if(document.activeElement === document.getElementById(q)) {
+      return this.state.answerValue;
+    }
+    return '';
+  }
+
   render() {
     const { flagId, flagLabel, time, videoTime } = this.props;
     const { questions, answers, formValue, answerValue, sessionId, asking } = this.state;
-    const { formatTime, sendQuestion, handleQuestion, sendAnswer, keyPress, keyPress2, getHintText, changeAnswerForm, upvotePressed } = this;
+    const { formatTime, sendQuestion, handleQuestion, sendAnswer, keyPress, keyPress2, getHintText, changeAnswerForm, upvotePressed, inputChange } = this;
     const imgSrc = flagToImg(time);
     return (
             <chat>
@@ -384,7 +392,7 @@ export default class Catchup extends React.Component {
                       :
                       null
                     }
-                    <textarea type="text" className="textarea2" value={answerValue} onChange={(e) => this.setState({answerValue: e.target.value})} onKeyDown={(e) => keyPress2(e, q[7])} placeholder="Answer the question here."/>
+                    <textarea type="text" className="textarea2" id={q[7]} value={inputChange(q[7])} onChange={(e) => this.setState({answerValue: e.target.value})} onKeyDown={(e) => keyPress2(e, q[7])} placeholder="Answer the question here."/>
                     <Button type="submit" disabled={!answerValue} onClick={() => sendAnswer(q[7])}>Answer</Button>
 
                   </div>
