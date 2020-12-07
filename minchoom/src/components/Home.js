@@ -249,8 +249,11 @@ class Home extends Component {
         }
         return res.json();
         }).then(res => {
-            const nameList = Object.keys(res).map(k => res[k]['sessionName']).filter((k) => k !== undefined)
-            this.setState({nameList: nameList})
+            if (res) {
+                const nameList = Object.keys(res).map(k => res[k]['sessionName']).filter((k) => k !== undefined)
+                this.setState({nameList: nameList})
+            }
+            
         })
     }
 
@@ -304,12 +307,15 @@ class Home extends Component {
         }
         return res.json();
         }).then(res => {
-            const topThree = Object.keys(res)
-            .map(k => [res[k]['sessionName'], res[k]['participationPoint']])
-            .filter((k) => k[1] !== undefined)
-            .sort((a, b) => b[1] - a[1]).slice(0, 3)
+            if (res) {
+                const topThree = Object.keys(res)
+                .map(k => [res[k]['sessionName'], res[k]['participationPoint']])
+                .filter((k) => k[1] !== undefined)
+                .sort((a, b) => b[1] - a[1]).slice(0, 3)
 
-            this.setState({ leaderboard: topThree })
+                this.setState({ leaderboard: topThree })
+            }
+            
         })
     }
 
