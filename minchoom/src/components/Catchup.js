@@ -371,8 +371,8 @@ export default class Catchup extends React.Component {
                       ?
                       answers.filter(e => e[4] === q[7]).map(a => { return (
                       <div className="a">
-                        <div className="answerText">A. {a[0]}</div>
-                        <button className="upvote" onClick={() => upvotePressed(a)}>▲ {a[7]}</button>
+                        <div className="answerText">A. {a[0]} <button className="upvote" onClick={() => upvotePressed(a)}>▲ {a[7]}</button></div>
+                        
                       </div>
                       )})
                       :
