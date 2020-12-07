@@ -376,7 +376,7 @@ export default class Catchup extends React.Component {
                       ?
                       answers.filter(e => e[4] === q[7]).map(a => { return (
                       <div className="a">
-                        <div className="answerText">A. {a[0]} <button className="upvote" onClick={() => upvotePressed(a)}>▲ {a[7]}</button></div>
+                        <div className="answerText">A. {a[0]} <Button className="upvote" color="blue" basic onClick={() => upvotePressed(a)}>▲ {a[7]}</Button></div>
                         
                       </div>
                       )})
@@ -384,7 +384,7 @@ export default class Catchup extends React.Component {
                       null
                     }
                     <textarea type="text" className="textarea2" value={answerValue} onChange={(e) => this.setState({answerValue: e.target.value})} onKeyDown={(e) => keyPress2(e, q[7])} placeholder="Answer the question here."/>
-                    <Button type="submit" color='google plus' disabled={!answerValue} onClick={() => sendAnswer(q[7])}>Answer</Button>
+                    <Button type="submit" disabled={!answerValue} onClick={() => sendAnswer(q[7])}>Answer</Button>
 
                   </div>
                 

@@ -34,7 +34,7 @@
   overflow-y: hidden;
   right: 0;
   border-style: solid;
-  border-color: #ff6666;
+  border-color: #ff5e69;
   border-width: 7px;
   margin: 15px 20px 20px 20px;
 }
@@ -170,7 +170,7 @@ main {
 }
 
 form {
-  height: 11vh;
+  height: 12vh;
   position: absolute;
   background-color: rgb(24, 23, 23);
   width: 100%;
@@ -180,7 +180,7 @@ form {
 
 form button {
   width: 30%;
-  background-color: #ffc857;
+  background-color: #ff5e69;
   align-content: center;
 }
 
@@ -190,7 +190,7 @@ textarea {
   width: 100%;
   font-family: -apple-system, Arial, Helvetica, sans-serif;
   font-size: 0.7rem;
-  background: #fceed2;
+  border-color: grey;
   opacity: 0.9;
   color: black;
   outline: none;
@@ -203,16 +203,15 @@ textarea {
 .textarea2 {
   line-height: 1.5;
   width: 91%;
+  margin-left: 7%;
   font-family: -apple-system, Arial, Helvetica, sans-serif;
   font-size: 1.1rem;
-  background: #fceed2;
+  border: 5px solid #eeeeee;
   opacity: 0.9;
   color: black;
   outline: none;
-  border: none;
   overflow-wrap: break-word;
   
-  margin-left: 25px;
   margin-bottom: 0px;
   margin-right: 7px;
 }
@@ -222,7 +221,7 @@ textarea {
   width: 100%;
   font-family: -apple-system, Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
-  background: #fceed2;
+  border-color: grey;
   opacity: 0.9;
   color: black;
   outline: none;
@@ -260,7 +259,7 @@ p {
   line-height: 24px;
   padding: 10px 20px;
   position: relative;
-  color: white;
+  color: black;
   text-align: center;
 }
 
@@ -277,15 +276,15 @@ p {
 }
 
 .sent p {
-  color: black;
-  background: #ff6666;
+  color: white;
+  background: #ff5e69;
   align-self: flex-end;
   text-align: justify;
   border-radius: 25px;
   
 }
 .received p {
-  background: #ffc857;
+  background: lightgrey;
   align-self: flex-end;
   color: black;
   text-align: justify;
@@ -325,7 +324,7 @@ img {
   color: white;
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #ff6666;
+  background-color: #ff5e69;
   border-radius: 20px;
 }
 
@@ -344,13 +343,14 @@ img {
 }
 
 .q {
-  background-color: #ff6666;
+  background-color: #ff5e69;
   padding: 10px 10px 10px 10px;
   margin: 10px 2% 0;
   text-align: justify;
   font-size: 1.2em;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
+  color: white;
 }
 
 Row {
@@ -401,18 +401,15 @@ Button {
   margin: 10px;
 }
 
-.a {
-  max-width: 383px;
-}
 
 .answerText {
   /* width: 265px; */
-  width: 333px;
-  margin-left: 25px;
-  margin-bottom: 0px;
+  width: 91%;
+  margin-left: 7%;
+  margin-bottom: 7px;
   line-height: 24px;
   padding: 10px 15px 15px 15px;
-  background: #ffc857;
+  background-color: #eeeeee;
   color: black;
   text-align: justify;
   font-size: 1.1em;
@@ -422,10 +419,11 @@ Button {
 
 .upvote {
   float: right;
-  width: 120px;
+  width: 32%;
   margin-left: 20px;
   text-align: center;
   align-items: center;
-  background-color: lightgreen;
-  color: grey;
+  background-color: #734322;
+  color: #fff;
 }
+
