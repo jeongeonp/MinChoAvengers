@@ -165,7 +165,7 @@ class Home extends Component {
             }
             return res.json();
         }).then((res) => {
-            console.log("Flag succesfully sent!")
+            //console.log("Flag succesfully sent!")
             this.setState({ showPopup: true});
             setTimeout(() => {
                 this.setState({showPopup: false}); 
@@ -176,7 +176,7 @@ class Home extends Component {
                 });}, 
             3000);
             
-            console.log(flags);
+            //console.log(flags);
 
             this.addFlagTwice(flagInfo, res.name)
         })

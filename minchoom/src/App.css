@@ -34,7 +34,7 @@
   overflow-y: hidden;
   right: 0;
   border-style: solid;
-  border-color: #edcc24;
+  border-color: #ff6666;
   border-width: 7px;
   margin: 15px 20px 20px 20px;
 }
@@ -407,7 +407,7 @@ Button {
 
 .answerText {
   /* width: 265px; */
-  width: 357px;
+  width: 333px;
   margin-left: 25px;
   margin-bottom: 0px;
   line-height: 24px;
