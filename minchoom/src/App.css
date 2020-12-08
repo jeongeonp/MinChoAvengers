@@ -306,12 +306,17 @@ p {
 }
 
 
-img {
+.chatimg {
   width: 40px;
   height: 40px;
   border-radius: 25px;
   margin: 2px 5px;
 }
+
+.mainimg {
+  width: 600px;
+}
+
 
 .type {
   width: 170px;

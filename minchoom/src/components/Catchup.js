@@ -229,7 +229,7 @@ export default class Catchup extends React.Component {
           .sort(function(first, second) {
             return first[6] - second[6];
           })
-          //console.log(questions)
+          console.log(answers)
           this.setState({
             questions: questions,
             answers: answers
@@ -383,7 +383,7 @@ export default class Catchup extends React.Component {
                     <div className="q">Q. {q[4]}</div>
                     {answers
                       ?
-                      answers.filter(e => e[4] === q[7]).map(a => { return (
+                      answers.filter(e => e[4] === q[7]).sort(function(a, b) { return b[7] - a[7] }).map(a => { return (
                       <div className="a">
                         <div className="answerText">A. {a[0]} <Button className="upvote" color="blue" basic onClick={() => upvotePressed(a)}>▲ {a[7]}</Button></div>
                         
@@ -399,7 +399,7 @@ export default class Catchup extends React.Component {
                 
                 )})
                 :
-                <div style={{color: 'black', marginTop: '10px', fontSize: '1.1em'}}>There is no question for this flag yet.</div>
+                <div style={{color: 'black', marginTop: '13px', fontSize: '1.1em'}}>There is no question for this flag yet.</div>
                 }
               </main>
               <form >

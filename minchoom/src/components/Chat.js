@@ -142,7 +142,7 @@ export default class Chat extends React.Component {
                     <>
                     {this.state.sessionId !== msg[1] && <div style={{color: '#444444', margin: '3px 14px 0px', textAlign: 'left'}}>{msg[3]}</div>}
                     <div className={`message ${this.state.sessionId === msg[1] ? 'sent' : 'received'}`}>
-                      <img src={profile} />
+                      <img className="chatimg" src={profile} />
                       <p>{msg[2]}</p>
                       <span style={{color: 'grey', padding: '4px 7px 0 7px'}}>{this.formatTime(msg[0])}</span>
                     </div>
