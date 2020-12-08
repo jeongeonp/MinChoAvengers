@@ -364,6 +364,7 @@ class Home extends Component {
                     </Message>
  
                     <div style={{position: "absolute", top: "20px", right: "15px"}}>
+
                     <label>
                         Volume:
                         <input type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />

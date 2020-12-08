@@ -362,12 +362,7 @@ class Home extends Component {
                     <Message positive hidden={true} onTimeout={this.closeAlert} timeout={5000} >
                         <Message.Header>Your question: "{answeredQuestion}" has been answered!</Message.Header>
                     </Message>
- 
                     <div style={{position: "absolute", top: "20px", right: "15px"}}>
-                    <label>
-                        Volume:
-                        <input type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />
-                    </label> 
                         <Button
                             disabled={this.state.playedSeconds < 1200}
                             onClick={() => this.setState({leaderboardState: true})}
@@ -413,6 +408,10 @@ class Home extends Component {
                     <br/>
                     <Timeline className="timeline" flagClickHandler={flagClickHandler} flags={this.state.flags} videoTime={this.state.playedSeconds} showLoading={this.state.showPopup}></Timeline>
                 </div>
+                <label>
+                        Volume:
+                        <input type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />
+                    </label>  
                 <Row>
                     <div className="split-right" >                
                         <Tabs variant="fullWidth" tab={tabValue} value={tabValue} onChange={(e, v) => { handleTab(v); }}>

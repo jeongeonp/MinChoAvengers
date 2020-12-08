@@ -362,12 +362,7 @@ class Home extends Component {
                     <Message positive hidden={true} onTimeout={this.closeAlert} timeout={5000} >
                         <Message.Header>Your question: "{answeredQuestion}" has been answered!</Message.Header>
                     </Message>
- 
                     <div style={{position: "absolute", top: "20px", right: "15px"}}>
-                    <label>
-                        Volume:
-                        <input type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />
-                    </label> 
                         <Button
                             disabled={this.state.playedSeconds < 1200}
                             onClick={() => this.setState({leaderboardState: true})}
@@ -377,7 +372,7 @@ class Home extends Component {
                     </div>
                 </div>
                 <Container className="main-page">
-                <div className="split-left"  tabIndex="1" pointerEvents="none">
+                <Row className="split-left"  tabIndex="1">
                     <Row className="main-video">
                         <ReactPlayer ref={this.ref} playing={playing}
                             playbackRate={playbackRate} id="video"  width="100%" height="100%" url = {'https://youtu.be/ECrxWv619p0'} onPause={this._onPause}
@@ -412,9 +407,10 @@ class Home extends Component {
                     </Row>
                     <br/>
                     <Timeline className="timeline" flagClickHandler={flagClickHandler} flags={this.state.flags} videoTime={this.state.playedSeconds} showLoading={this.state.showPopup}></Timeline>
-                </div>
+                </Row>
                 <Row>
-                    <div className="split-right" >                
+                    <div className="split-right" >
+                        <input type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />
                         <Tabs variant="fullWidth" tab={tabValue} value={tabValue} onChange={(e, v) => { handleTab(v); }}>
                             <Tab value='1' label="Chatroom">
                             </Tab>
