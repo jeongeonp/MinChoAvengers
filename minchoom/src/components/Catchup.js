@@ -353,6 +353,8 @@ export default class Catchup extends React.Component {
         upvotes: a[7]
       }, a[8]);
       sessionStorage['upvotedAnswers'] += a[8];
+      this.props.addParticipationPoint(a[5], 10)
+      this.props.addParticipationPoint(this.state.sessionId, 1)
     }
   }
 
