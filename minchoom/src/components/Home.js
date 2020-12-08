@@ -284,7 +284,10 @@ class Home extends Component {
     }
 
     patchParticipationPoint(sessionId, sessionInfo, newPoint) {
-        sessionInfo['participationPoint'] += newPoint
+        if (sessionInfo['participationPoint']) {
+            sessionInfo['participationPoint'] += newPoint
+        }
+        
 
         fetch(`${databaseURL+'/sessions/'+sessionId}/.json`, {
             method: 'PATCH',
