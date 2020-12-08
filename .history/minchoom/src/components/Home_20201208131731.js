@@ -288,10 +288,7 @@ class Home extends Component {
     }
 
     patchParticipationPoint(sessionId, sessionInfo, newPoint) {
-        if (sessionInfo['participationPoint']) {
-            sessionInfo['participationPoint'] += newPoint
-        }
-        
+        sessionInfo['participationPoint'] += newPoint
 
         fetch(`${databaseURL+'/sessions/'+sessionId}/.json`, {
             method: 'PATCH',
@@ -367,6 +364,7 @@ class Home extends Component {
                     </Message>
  
                     <div style={{position: "absolute", top: "20px", right: "15px"}}>
+
                     <label>
                         Volume:
                         <input type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />

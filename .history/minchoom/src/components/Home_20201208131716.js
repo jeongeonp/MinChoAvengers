@@ -288,10 +288,7 @@ class Home extends Component {
     }
 
     patchParticipationPoint(sessionId, sessionInfo, newPoint) {
-        if (sessionInfo['participationPoint']) {
-            sessionInfo['participationPoint'] += newPoint
-        }
-        
+        sessionInfo['participationPoint'] += newPoint
 
         fetch(`${databaseURL+'/sessions/'+sessionId}/.json`, {
             method: 'PATCH',
@@ -365,12 +362,12 @@ class Home extends Component {
                     <Message positive hidden={true} onTimeout={this.closeAlert} timeout={5000} >
                         <Message.Header>Your question: "{answeredQuestion}" has been answered!</Message.Header>
                     </Message>
- 
-                    <div style={{position: "absolute", top: "20px", right: "15px"}}>
+
                     <label>
                         Volume:
                         <input type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />
-                    </label> 
+                    </label>  
+                    <div style={{position: "absolute", top: "20px", right: "15px"}}>
                         <Button
                             disabled={this.state.playedSeconds < 1200}
                             onClick={() => this.setState({leaderboardState: true})}
