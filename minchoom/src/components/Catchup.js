@@ -102,7 +102,7 @@ export default class Catchup extends React.Component {
   }
 
   sendData = (dataDict, index) => {
-    console.log(dataDict)
+    //console.log(dataDict)
     return fetch( `${databaseURL+'/catchup'+ db[index]}/.json`, {
       method: 'POST',
       body: JSON.stringify(dataDict)
@@ -112,7 +112,7 @@ export default class Catchup extends React.Component {
       }
       return res.json();
     }).then((res) => {
-      console.log("CatchUp " + index + " succesfully sent!")
+      //console.log("CatchUp " + index + " succesfully sent!")
       // question
       if (index === 0) {
         this.addQuestionTwice(dataDict, res.name)
@@ -140,7 +140,7 @@ export default class Catchup extends React.Component {
   }
 
   addAnswerTwice(answerInfo, answerId) {
-    console.log(answerInfo, answerId)
+    //console.log(answerInfo, answerId)
     const sessionid = sessionStorage.getItem('sessionID')
     fetch(`${databaseURL+'/sessions/'+sessionid+'/answers/'+answerId}/.json`, {
         method: 'PATCH',
@@ -176,7 +176,7 @@ export default class Catchup extends React.Component {
     
     const sessionid = question['sessionId']
     const questionid = answer['questionId']
-    console.log(databaseURL+'/sessions/'+sessionid+'/questions/'+questionid)
+    //console.log(databaseURL+'/sessions/'+sessionid+'/questions/'+questionid)
     fetch(`${databaseURL+'/sessions/'+sessionid+'/questions/'+questionid}/.json`, {
       method: 'PATCH',
       body: JSON.stringify(newQuestion)
@@ -187,7 +187,7 @@ export default class Catchup extends React.Component {
       return res.json();
     }).then(() => {
       this.sendQuestionAlertTwice(newQuestion, questionid)
-      console.log(sessionStorage.getItem('sessionID') , question)
+      //console.log(sessionStorage.getItem('sessionID') , question)
       if (sessionStorage.getItem('sessionID') === question['sessionId']) {
         alert('Your question: ' + question['questionText'] + ", has been answered!")
         //this.props.showAlert(question['questionText'])
@@ -229,7 +229,7 @@ export default class Catchup extends React.Component {
           .sort(function(first, second) {
             return first[6] - second[6];
           })
-          console.log(answers)
+          //console.log(answers)
           this.setState({
             questions: questions,
             answers: answers
@@ -258,7 +258,7 @@ export default class Catchup extends React.Component {
   }
 
   sendAnswer = (qId) => {
-    console.log(qId)
+    //console.log(qId)
     this.sendData(
         {
           answerText: this.state.answerValue,
@@ -332,7 +332,7 @@ export default class Catchup extends React.Component {
 
   changeAnswerForm = (e) => {
     this.state.answerValue[e.target.name] = e.target.value
-    console.log(this.state.answerValue)
+    //console.log(this.state.answerValue)
     this.setState({answerValue: this.state.answerValue})
   }
 

@@ -123,7 +123,7 @@ class Home extends Component {
             }
             return res.json();
         }).then(() => {
-            console.log("Dummy data succesfully sent!")
+            //console.log("Dummy data succesfully sent!")
         })
     }
 
@@ -134,7 +134,7 @@ class Home extends Component {
             }
             return res.json();
         }).then(res => {
-            console.log(res)
+            //console.log(res)
             this.setState({
                 dummyData: res["text"],
             })

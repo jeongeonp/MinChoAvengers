@@ -60,7 +60,7 @@ export default class Chat extends React.Component {
       }
       return res.json();
     }).then(() => {
-      console.log("Chatroom succesfully sent!")
+      //console.log("Chatroom succesfully sent!")
     })
   }
 

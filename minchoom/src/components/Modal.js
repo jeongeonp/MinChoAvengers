@@ -236,30 +236,6 @@ export default class InstModal extends React.Component {
               />
             </Modal.Actions>
           </Modal>
-          
-          {/*
-            <Popup open={open} position="top center" >
-                  <div className="header"> Choose your role: </div>
-                  <div className="content">
-                  {" "}
-                  </div>
-                  <div className="actions">
-                  <Button className="button" variant="contained" style={{margin: '10px'}} onClick={() => { console.log("modal closed "); selectRole(0); closeModal();
-                      //send to server
-                    }}>
-                      Helper
-                  </Button>
-                  <Button className="button" variant="contained" style={{margin: '10px'}} onClick={() => { console.log("modal closed "); selectRole(1); closeModal();
-                      //send to server
-                    }}>
-                      Helpee
-                  </Button>
-                  </div>
-                </div>
-              )}
-              
-            </Popup>
-                  */}
                   </>
         )
     }};
