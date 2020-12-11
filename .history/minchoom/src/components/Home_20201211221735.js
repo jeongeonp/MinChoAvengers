@@ -208,7 +208,7 @@ class Home extends Component {
         this.setState({role: role});
         this.closeModal();
         if(role === 1){
-            this.player.seekTo(600); // skip 10 minutes
+            this.player.seekTo(1200); // skip 10 minutes
         }
         this.setState({playing: true});
 

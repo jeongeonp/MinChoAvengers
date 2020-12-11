@@ -47,7 +47,7 @@ function flagToImg(flagTime) {
         return slide10;
   
     }
-    return slide10;
+    return i;
   }
 
 function formatTime(time) {
@@ -68,6 +68,7 @@ function formatTime(time) {
 `;
 
 function aggregate_by_type(flags){
+    console.log(aggregated);
     if(flags.length < 2)
         return [];
     var aggregated = [];
@@ -86,6 +87,7 @@ function aggregate_by_type(flags){
             count =  1;
          }
     }
+    console.log(aggregated);
     return aggregated;
 }
 
@@ -95,7 +97,7 @@ function aggregate(flags){
     var exclusive_flags = [];
     var notice_flags = [];
     var qna_flags = [];
-    console.log(flags);
+
     var sortedArray = flags.sort(function(a, b) {
         return b[1] - a[1];
     }).reverse();
@@ -119,7 +121,7 @@ function aggregate(flags){
                 break;
         }
     }
-    console.log(notice_flags);
+
     var aggregatedFlags = aggregate_by_type(activity_flags).concat(aggregate_by_type(emphasis_flags)).concat(aggregate_by_type(exclusive_flags)).concat(aggregate_by_type(notice_flags)).concat(aggregate_by_type(qna_flags));
     // var removeFlags = [];
     // //console.log(sortedArray);
@@ -226,10 +228,10 @@ export default class Timeline extends React.Component {
 
 
     render() {
-        const { videoTime, flagClickHandler, showLoading } = this.props;
+        const { flags, videoTime, flagClickHandler, showLoading } = this.props;
         const { currentFlags, hoverPreview } = this.state;
         const { showPreview } = this;
-        var allFlags = currentFlags;
+        var allFlags = flags.concat(currentFlags);
         var aggregatedFlags = aggregate(allFlags);
         // console.log(aggregatedFlags);
         return (

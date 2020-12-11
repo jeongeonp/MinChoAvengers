@@ -47,7 +47,7 @@ function flagToImg(flagTime) {
         return slide10;
   
     }
-    return slide10;
+    return i;
   }
 
 function formatTime(time) {
@@ -226,10 +226,10 @@ export default class Timeline extends React.Component {
 
 
     render() {
-        const { videoTime, flagClickHandler, showLoading } = this.props;
+        const { flags, videoTime, flagClickHandler, showLoading } = this.props;
         const { currentFlags, hoverPreview } = this.state;
         const { showPreview } = this;
-        var allFlags = currentFlags;
+        var allFlags = flags.concat(currentFlags);
         var aggregatedFlags = aggregate(allFlags);
         // console.log(aggregatedFlags);
         return (

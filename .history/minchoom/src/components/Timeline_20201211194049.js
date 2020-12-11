@@ -47,7 +47,7 @@ function flagToImg(flagTime) {
         return slide10;
   
     }
-    return slide10;
+    return i;
   }
 
 function formatTime(time) {

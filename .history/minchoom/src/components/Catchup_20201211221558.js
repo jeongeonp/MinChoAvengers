@@ -52,7 +52,7 @@ function flagToImg(flagTime) {
       return slide10;
 
   }
-  return slide10;
+  return i;
 }
 
 export default class Catchup extends React.Component {
