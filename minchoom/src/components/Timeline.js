@@ -68,14 +68,14 @@ function formatTime(time) {
 `;
 
 function aggregate_by_type(flags){
-    console.log(flags);
     if(flags.length < 2)
         return [];
     var aggregated = [];
     var time = flags[0][1];
     var count = 1;
+    var sessionId = flags[0][3];
     for (var i=1; i< flags.length; i++){
-         if (flags[i][1] < time + 120 ){
+         if (flags[i][1] < time + 60 ){
             if(count == 1){
                 aggregated.push(flags[i-1]);
             }
@@ -86,7 +86,6 @@ function aggregate_by_type(flags){
             count =  1;
          }
     }
-
     return aggregated;
 }
 
@@ -96,7 +95,7 @@ function aggregate(flags){
     var exclusive_flags = [];
     var notice_flags = [];
     var qna_flags = [];
-
+    console.log(flags);
     var sortedArray = flags.sort(function(a, b) {
         return b[1] - a[1];
     }).reverse();
@@ -120,7 +119,7 @@ function aggregate(flags){
                 break;
         }
     }
-
+    console.log(notice_flags);
     var aggregatedFlags = aggregate_by_type(activity_flags).concat(aggregate_by_type(emphasis_flags)).concat(aggregate_by_type(exclusive_flags)).concat(aggregate_by_type(notice_flags)).concat(aggregate_by_type(qna_flags));
     // var removeFlags = [];
     // //console.log(sortedArray);
@@ -227,11 +226,12 @@ export default class Timeline extends React.Component {
 
 
     render() {
-        const { flags, videoTime, flagClickHandler, showLoading } = this.props;
+        const { videoTime, flagClickHandler, showLoading } = this.props;
         const { currentFlags, hoverPreview } = this.state;
         const { showPreview } = this;
-        var allFlags = flags.concat(currentFlags);
+        var allFlags = currentFlags;
         var aggregatedFlags = aggregate(allFlags);
+        // console.log(aggregatedFlags);
         return (
             <div className="progressBar-container">
                 <div className="progressBar">
