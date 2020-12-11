@@ -208,7 +208,7 @@ class Home extends Component {
         this.setState({role: role});
         this.closeModal();
         if(role === 1){
-            this.player.seekTo(900); // skip 15 minutes
+            this.player.seekTo(600); // skip 15 minutes
         }
         this.setState({playing: true});
 
@@ -372,7 +372,7 @@ class Home extends Component {
                         <input type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />
                     </label> 
                         <Button
-                            disabled={this.state.playedSeconds < 1200}
+                            disabled={this.state.playedSeconds < 1230}
                             onClick={() => this.setState({leaderboardState: true})}
                         >
                             End session
