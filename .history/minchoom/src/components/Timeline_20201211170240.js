@@ -68,7 +68,6 @@ function formatTime(time) {
 `;
 
 function aggregate_by_type(flags){
-    console.log(flags);
     if(flags.length < 2)
         return [];
     var aggregated = [];
@@ -86,7 +85,6 @@ function aggregate_by_type(flags){
             count =  1;
          }
     }
-
     return aggregated;
 }
 
@@ -97,32 +95,32 @@ function aggregate(flags){
     var notice_flags = [];
     var qna_flags = [];
 
-    var sortedArray = flags.sort(function(a, b) {
-        return b[1] - a[1];
-    }).reverse();
-
-    for (var i=0; i< sortedArray.length; i++){
-        switch (sortedArray[i][0]) {
+    for (var i=0; i< flags.length; i++){
+        switch (flags[i][0]) {
             case 'Activity':
-                activity_flags.push(sortedArray[i]);
+                activity_flags.push(flags[i]);
                 break;
             case 'Emphasis':
-                emphasis_flags.push(sortedArray[i]);
+                emphasis_flags.push(flags[i]);
                 break;
             case 'Exclusive Material':
-                exclusive_flags.push(sortedArray[i]);
+                exclusive_flags.push(flags[i]);
                 break;
             case 'Notice':
-                notice_flags.push(sortedArray[i]);
+                notice_flags.push(flags[i]);
                 break;
             case 'Q&A':
-                qna_flags.push(sortedArray[i]);
+                qna_flags.push(flags[i]);
                 break;
         }
     }
+    print("here", activity_flags, emphasis_flags, exclusive_flags, notice_flags, qna_flags)
 
     var aggregatedFlags = aggregate_by_type(activity_flags).concat(aggregate_by_type(emphasis_flags)).concat(aggregate_by_type(exclusive_flags)).concat(aggregate_by_type(notice_flags)).concat(aggregate_by_type(qna_flags));
     // var removeFlags = [];
+    // var sortedArray = flags.sort(function(a, b) {
+    //     return b[1] - a[1];
+    //   }).reverse();
     // //console.log(sortedArray);
     // for (var i=1; i<sortedArray.length; i++){
 
@@ -232,6 +230,7 @@ export default class Timeline extends React.Component {
         const { showPreview } = this;
         var allFlags = flags.concat(currentFlags);
         var aggregatedFlags = aggregate(allFlags);
+        console.log(aggregatedFlags);
         return (
             <div className="progressBar-container">
                 <div className="progressBar">

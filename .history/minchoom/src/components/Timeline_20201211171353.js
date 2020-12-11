@@ -68,7 +68,6 @@ function formatTime(time) {
 `;
 
 function aggregate_by_type(flags){
-    console.log(flags);
     if(flags.length < 2)
         return [];
     var aggregated = [];
@@ -120,6 +119,7 @@ function aggregate(flags){
                 break;
         }
     }
+    console.log("here", activity_flags, emphasis_flags, exclusive_flags, notice_flags, qna_flags);
 
     var aggregatedFlags = aggregate_by_type(activity_flags).concat(aggregate_by_type(emphasis_flags)).concat(aggregate_by_type(exclusive_flags)).concat(aggregate_by_type(notice_flags)).concat(aggregate_by_type(qna_flags));
     // var removeFlags = [];

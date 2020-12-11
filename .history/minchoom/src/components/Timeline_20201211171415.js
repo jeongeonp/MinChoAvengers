@@ -68,7 +68,6 @@ function formatTime(time) {
 `;
 
 function aggregate_by_type(flags){
-    console.log(flags);
     if(flags.length < 2)
         return [];
     var aggregated = [];
