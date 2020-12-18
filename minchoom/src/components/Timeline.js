@@ -95,7 +95,7 @@ function aggregate(flags){
     var exclusive_flags = [];
     var notice_flags = [];
     var qna_flags = [];
-    console.log(flags);
+    //console.log(flags);
     var sortedArray = flags.sort(function(a, b) {
         return b[1] - a[1];
     }).reverse();
@@ -119,7 +119,7 @@ function aggregate(flags){
                 break;
         }
     }
-    console.log(notice_flags);
+    //console.log(notice_flags);
     var aggregatedFlags = aggregate_by_type(activity_flags).concat(aggregate_by_type(emphasis_flags)).concat(aggregate_by_type(exclusive_flags)).concat(aggregate_by_type(notice_flags)).concat(aggregate_by_type(qna_flags));
     // var removeFlags = [];
     // //console.log(sortedArray);

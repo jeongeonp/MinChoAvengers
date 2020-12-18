@@ -7,7 +7,7 @@ import flagButton from '../images/FlagButton.png'
 import mainpage from '../images/katchup-mainpage.jpeg'
 //import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton'
-import { Button, Header, Image, Modal, ModalActions } from 'semantic-ui-react'
+import { Button, Header, Image, Modal, ModalActions, Input } from 'semantic-ui-react'
 
 export default class InstModal extends React.Component {
     constructor(props) {
@@ -18,6 +18,9 @@ export default class InstModal extends React.Component {
           feature: false,
           helperEnd: false,
           helpeeEnd: false,
+
+          helperName: '',
+          helpeeName: '',
 
         };
         this.setOpen = this.setOpen.bind(this)
@@ -72,11 +75,12 @@ export default class InstModal extends React.Component {
         // Close last page
         if (inp === 8) {
           this.setState({helperEnd: false})
-          this.props.selectRole(0)
+          this.props.selectRole(0, this.state.helperName)
         }
         if (inp === 9) {
           this.setState({helpeeEnd: false})
-          this.props.selectRole(1)
+          this.props.selectRole(1, this.state.helpeeName)
+          
         }
           
       }
@@ -85,7 +89,7 @@ export default class InstModal extends React.Component {
 
     render() {
         const { propsOpen, selectRole, closeModal } = this.props;
-        const { open, first, feature, helperEnd, helpeeEnd } = this.state;
+        const { open, first, feature, helperEnd, helpeeEnd, helperName, helpeeName } = this.state;
         const { setOpen, changeMode } = this;
         return (
           <>
@@ -172,6 +176,9 @@ export default class InstModal extends React.Component {
                   <b>(2) Answer the questions asked by the helpees.</b> <br/>
                   Each flag will show the number of questions unanswered via a notification. <br/>
                   Please visit the Catchup board to answer your peers' questions. <br/>
+
+                  <br/>
+                  Please <b><u>enter your name below</u></b> to begin session.
                 </div>
               </Modal.Description>
             </Modal.Content>
@@ -183,7 +190,9 @@ export default class InstModal extends React.Component {
                 icon='arrow left'
                 content='Back to Feature'
               />
+              <Input type="text" placeholder="Enter your name here" value={helperName} onChange={(e) => this.setState({helperName: e.target.value})}/>
               <Button
+                disabled={helperName.length === 0}
                 onClick={() => changeMode(8)}
                 positive
                 labelPosition='right'
@@ -216,6 +225,9 @@ export default class InstModal extends React.Component {
                   <b>(2) Ask questions for extra details. </b> <br/>
                   Ask questions through the Catch Up board if you need extra details on the contexts of each flag. <br/>
                   You will be notified when your question is answered. <br/>
+
+                  <br/>
+                  Please <b><u>enter your name below</u></b> to begin session.
                 </span>
               </Modal.Description>
             </Modal.Content>
@@ -227,7 +239,9 @@ export default class InstModal extends React.Component {
                 icon='arrow left'
                 content='Back to Feature'
               />
+              <Input type="text" placeholder="Enter your name here" value={helpeeName} onChange={(e) => this.setState({helpeeName: e.target.value})}/>
               <Button
+                disabled={helpeeName.length === 0}
                 onClick={() => changeMode(9)}
                 positive
                 labelPosition='right'

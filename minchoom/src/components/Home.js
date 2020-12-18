@@ -204,7 +204,8 @@ class Home extends Component {
         this.setState({modalOpen: false})
     }
 
-    selectRole(role){
+    selectRole(role, name){
+        console.log("new role", role, "with name", name)
         this.setState({role: role});
         this.closeModal();
         if(role === 1){
@@ -220,7 +221,7 @@ class Home extends Component {
 
         if (sessionStorage.getItem('sessionCreated') === null) {
             const startTime = new Date();
-            const newSession = {startTime: startTime, role: role, participationPoint: 0, sessionName: newSessionName};
+            const newSession = {startTime: startTime, role: role, participationPoint: 0, sessionName: newSessionName, participantName: name};
             return fetch( `${databaseURL+'/sessions/'}/.json`, {
                 method: 'POST',
                 body: JSON.stringify(newSession)
@@ -288,10 +289,13 @@ class Home extends Component {
     }
 
     patchParticipationPoint(sessionId, sessionInfo, newPoint) {
-        if (sessionInfo['participationPoint']) {
+        console.log(sessionId, sessionInfo, newPoint)
+        if (sessionInfo['participationPoint'] !== null) {
             sessionInfo['participationPoint'] += newPoint
+        } 
+        else {
+            sessionInfo['participationPoint'] = newPoint
         }
-        
 
         fetch(`${databaseURL+'/sessions/'+sessionId}/.json`, {
             method: 'PATCH',
@@ -372,7 +376,7 @@ class Home extends Component {
                         <input type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />
                     </label> 
                         <Button
-                            disabled={this.state.playedSeconds < 1230}
+                            disabled={this.state.playedSeconds < 30}
                             onClick={() => this.setState({leaderboardState: true})}
                         >
                             End session

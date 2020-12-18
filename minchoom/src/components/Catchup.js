@@ -278,9 +278,9 @@ export default class Catchup extends React.Component {
   }
 
   updateAnswer = (answer, answerId) => {
-    console.log(answer)
+    //console.log(answer)
     return fetch( `${databaseURL+'/catchup/answers/'+answerId}/.json`, {
-      method: 'PATCH',
+      method: 'POST',
       body: JSON.stringify(answer)
     }).then(res => {
       if (res.status !== 200) {
@@ -288,7 +288,8 @@ export default class Catchup extends React.Component {
       }
       return res.json();
     }).then((res) => {
-      console.log("Upvote succesfully sent!")
+      console.log(res)
+      //console.log("Upvote succesfully sent!")
       this.updateAnswerTwice(answer, res.name)
     })
   }
@@ -347,7 +348,10 @@ export default class Catchup extends React.Component {
 
   upvotePressed = (a) => {
     if (sessionStorage.getItem('upvotedAnswers') === null) {
-      sessionStorage.setItem('upvotedAnswers', [a[8]]); }
+      sessionStorage.setItem('upvotedAnswers', [a[8]]); 
+      this.props.addParticipationPoint(a[5], 10)
+      this.props.addParticipationPoint(sessionStorage.getItem('sessionID'), 1)
+    }
     else if (!sessionStorage.getItem('upvotedAnswers').includes(a[8])) {
       a[7] = a[7] + 1;
       this.updateAnswer({
@@ -355,7 +359,7 @@ export default class Catchup extends React.Component {
       }, a[8]);
       sessionStorage['upvotedAnswers'] += a[8];
       this.props.addParticipationPoint(a[5], 10)
-      this.props.addParticipationPoint(this.state.sessionId, 1)
+      this.props.addParticipationPoint(sessionStorage.getItem('sessionID'), 1)
     }
   }
 
