@@ -205,7 +205,7 @@ class Home extends Component {
     }
 
     selectRole(role, name){
-        console.log("new role", role, "with name", name)
+        //console.log("new role", role, "with name", name)
         this.setState({role: role});
         this.closeModal();
         if(role === 1){
@@ -376,7 +376,7 @@ class Home extends Component {
                         <input type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />
                     </label> 
                         <Button
-                            disabled={this.state.playedSeconds < 30}
+                            disabled={this.state.playedSeconds < 1230}
                             onClick={() => this.setState({leaderboardState: true})}
                         >
                             End session
