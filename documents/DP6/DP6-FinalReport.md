@@ -4,8 +4,8 @@
 Team Name: Mincho Avengers <br/>
 Team Members: Mina Huh, Juhoon Lee, Jeongeon Park <br/>
 
-**Link to Video**: https://youtu.be/6Rjd_sDGK3U
-**Link to Prototype**: http://minchoom-cs473.web.app
+**Link to Video**: https://youtu.be/6Rjd_sDGK3U<br/>
+**Link to Prototype**: http://minchoom-cs473.web.app<br/>
 **Link to Github**: https://github.com/jeongeonp/MinChoAvengers
 
 -----
