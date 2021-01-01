@@ -23,7 +23,7 @@ You can try our system [here](https://minchoom-cs473.web.app/).
 * DP3: Low-fi Prototype [[Report](./documents/DP3/DP3-Low-fi.md)] [[Prototype](https://www.figma.com/proto/JHYZayKschscpM5sQty0GX/CS473-DP3-Low-fi?node-id=133%3A643&scaling=min-zoom)]
 * DP4: High-fi Prototype [[Report](./documents/DP4/DP4-high-fi-prototype.md)] [[Prototype](https://minchoom-cs473.web.app)]
 * DP5: Final Presentation
-* DP6: Final Paper & Video
+* DP6: Final Paper & Video [[Report](./documents/DP6/DP6-FinalReport.md)] [[Video](https://www.youtube.com/watch?v=6Rjd_sDGK3U&feature=youtu.be)]
 
 ## About the Repository
 ### Structure
