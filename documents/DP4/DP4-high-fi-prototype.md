@@ -41,11 +41,6 @@ Select your role as Helper or Helpee. The former will watch the lecture from the
 * You can post the default question (e.g. Notice: What was the notice about?) or type the question you want.
 
 
-> Instruction: Give a quick tour of the interface, and also show off some of the highlights of the interface. Note that this should not cover all features you have; focus on the most exciting and important parts. Use screenshots and callouts.
-> Screenshots are added?
-Is the instruction clear and easy-to-follow?
-Screenshots capture representative features of the prototype?
-
 ### Prototype
 #### Prototype URL: https://minchoom-cs473.web.app/
 > Using chrome is recommended.
